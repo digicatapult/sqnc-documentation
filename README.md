@@ -28,7 +28,7 @@ These repositories contain code being actively maintained as part of the DSCP pr
 | [dscp-flux-infra](https://github.com/digicatapult/dscp-flux-infra)                 | Flux repo to bring up DSCP with Kubernetes                            |
 | [dscp-node](https://github.com/digicatapult/dscp-node)                             | The blockchain node for DSCP, built with Substrate                    |
 | [dscp-ipfs](https://github.com/digicatapult/dscp-ipfs)                             | IPFS node for DSCP                                                    |
-| [dscp-api](https://github.com/digicatapult/dscp-api                                | API to create/retrieve tokens on `dscp-node` and files on `dscp-ipfs` |
+| [dscp-api](https://github.com/digicatapult/dscp-api)                               | API to create/retrieve tokens on `dscp-node` and files on `dscp-ipfs` |
 | [dscp-identity-service](https://github.com/digicatapult/dscp-identity-service)     | API for managing chain member identities in DSCP                      |
 | [dscp-process-management](https://github.com/digicatapult/dscp-process-management) | Library for managing restricted process flows on `dscp-node`          |
 
