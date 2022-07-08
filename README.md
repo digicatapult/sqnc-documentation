@@ -6,7 +6,7 @@ Documentation for DSCP
 
 - Immutability of vital metadata for ensuring trust between interacting actors.
 - Distributed file system for secure sharing of large files and data-blobs.
-- OpenAPI specification for cross-IT system data interactions with the platform and respective endpoints.
+- [OpenAPI specification](https://swagger.io/docs/specification/about/) for cross-IT system data interactions with the platform and respective endpoints.
 - Identity and permission management approach for managing organisational credentials and inherent access to respective systems and data.
 - Governance framework and protocol (and accompanying derivation methodology) for management of decision-making within the decentralised ecosystem.
 
