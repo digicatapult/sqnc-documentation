@@ -14,7 +14,7 @@ Documentation for DSCP
 
 This repo includes READMEs that explain concepts within DSCP:
 
-//TODO
+- [Architecture](./docs/architecture.md)
 
 ## Repositories
 
@@ -36,11 +36,18 @@ These repositories contain code being actively maintained as part of the DSCP pr
 
 These repositories contain code written for specific projects that use DSCP.
 
-| Repository                                                                 | Description                                                                           |
-| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| [inteli-api](https://github.com/digicatapult/inteli-api)                   | API for interacting with `dscp-api` and `dscp-identity-service` as an Inteli end-user |
-| [inteli-demo](https://github.com/digicatapult/inteli-demo)                 | React demonstrator for the Inteli project                                             |
-| [vitalam-demo-client](https://github.com/digicatapult/vitalam-demo-client) | React demonstrators for the VITALam project                                           |
+| Repository                                               | Description                                                                           |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| [inteli-api](https://github.com/digicatapult/inteli-api) | API for interacting with `dscp-api` and `dscp-identity-service` as an Inteli end-user |
+
+### Deprecated DSCP repositories
+
+These repositories use DSCP but are now deprecated.
+
+| Repository                                                                 | Description                                 |
+| -------------------------------------------------------------------------- | ------------------------------------------- |
+| [inteli-demo](https://github.com/digicatapult/inteli-demo)                 | React demonstrator for the Inteli project   |
+| [vitalam-demo-client](https://github.com/digicatapult/vitalam-demo-client) | React demonstrators for the VITALam project |
 
 ## Lingo
 
