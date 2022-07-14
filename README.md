@@ -54,10 +54,30 @@ These repositories use DSCP but are now deprecated.
 
 The world of `Blockchain` and `Substrate` is full of lingo. Here's our glossary of what we mean by some of these terms:
 
-//TODO
+| Term        | Means                                                                                                                                 |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Token       | The Internet of things is a system of interrelated computing devices, mechanical and digital machines provided with unique identifier |
+| Process     | A device that communicates readings of the environment over LoRaWAN. Elsewhere this may be referred to as a device or node            |
+| Restriction | A device that communicates readings of the environment over LoRaWAN. Elsewhere this may be referred to as a device or node            |
+| Role        | The term used in WASP v1 for `things`                                                                                                 |
+| Metadata    | The contents of a token.                                                                                                              |
+| Entity      | A real world thing that's being tracked across multiple tokens on chain. This could be a building, a cow, a pizza or anything else.   |
 
-| Term | Means |
-| ---- | ----- |
+The following terms are related to `Substrate`:
+
+| Term         | Means                                                                                                                                                                        |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Node         | A running instance of a blockchain client. Each node is part of the peer-to-peer network that allows blockchain participants to interact with one another.                   |
+| FRAME        | Framework for Runtime Aggregation of Modularized Entities that enables developers to create blockchain runtime environments from a modular set of components called pallets. |
+| Pallet       | A module that can be used to extend the capabilities of a FRAME-based runtime. Pallets bundle domain-specific logic with runtime primitives like events, and storage items   |
+| Account      | An account represents an identity — usually of a person or an organization — that is capable of making transactions or holding funds                                         |
+| Node address | A public key address to identify a specific account on a specific chain. [Substrate SS58](https://docs.substrate.io/reference/glossary/#ss58-address-format) format          |
+| Transaction  | Transactions provide a mechanism for making changes to state that can be included in a block.                                                                                |
+| Block        | A block is a single element of a blockchain that contains an ordered set of instructions — often in the form of transactions — that might result in a state change.          |
+| Weight       | A convention to measure and manage the time it takes to validate a block. One unit of weight is one picosecond of execution time on reference hardware.                      |
+| Origin       | A `FRAME` primitive that identifies the source of a dispatched function call into the runtime.                                                                               |
+
+For more `Substrate` terms see [their glossary](https://docs.substrate.io/reference/glossary/).
 
 ## Contributing
 
