@@ -16,6 +16,7 @@ This repo includes READMEs that explain concepts within DSCP:
 
 - [Architecture](./docs/architecture.md)
 - [Governance](./docs/governance.md)
+- [Data Visibility](./docs/dataVisibility.md)
 
 ## Repositories
 
