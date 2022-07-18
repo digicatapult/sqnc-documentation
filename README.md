@@ -15,6 +15,8 @@ Documentation for DSCP
 This repo includes READMEs that explain concepts within DSCP:
 
 - [Architecture](./docs/architecture.md)
+- [Governance](./docs/governance.md)
+- [Data Visibility](./docs/dataVisibility.md)
 
 ## Repositories
 
@@ -51,12 +53,33 @@ These repositories use DSCP but are now deprecated.
 
 ## Lingo
 
-The world of `Blockchain` and `Substrate` is full of lingo. Here's our glossary of what we mean by some of these terms:
+The world of `Blockchain` and `Substrate` is full of lingo. Here's our glossary of what we mean by some of these terms in the context of `DSCP`:
 
-//TODO
+| Term                 | Means                                                                                                                                                                                 |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Entity               | A real world thing that's tracked across multiple tokens on chain. e.g. an engine, a building, a cow, a pizza or anything else.                                                       |
+| Token                | Data about entities are added to the chain as tokens. Each token is a record of the state of a single entity at a specific moment in time.                                            |
+| Process/Process flow | A single transaction that burns/creates one to many tokens. A process can (and often does) involve tokens for many different entities.                                                |
+| Restrictions         | Rules on a process to enforce who can run the transaction and what they can do in the transaction.                                                                                    |
+| Roles                | Part of a token. A set of `RoleKey: AccountID` pairs used to define who interacts with a token.                                                                                       |
+| Metadata             | Part of a token. A set of `MetadataKey: value` pairs which describe attributes of an entity on chain e.g. its entity `type`, useful files (as an `IPFS` hash), IDs of related tokens. |
+| Parent/Child         | Within a single transaction, all tokens that are burned become `parents` of all tokens that are created. The new tokens are `children` of the burned tokens.                          |
 
-| Term | Means |
-| ---- | ----- |
+The following terms are related to `Substrate`:
+
+| Term         | Means                                                                                                                                                                        |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Node         | A running instance of a blockchain client. Each node is part of the peer-to-peer network that allows blockchain participants to interact with one another.                   |
+| FRAME        | Framework for Runtime Aggregation of Modularized Entities that enables developers to create blockchain runtime environments from a modular set of components called pallets. |
+| Pallet       | A module that can be used to extend the capabilities of a FRAME-based runtime. Pallets bundle domain-specific logic with runtime primitives like events, and storage items   |
+| Account      | An account represents an identity — usually of a person or an organization — that is capable of making transactions or holding funds                                         |
+| Node address | A public key address to identify a specific account on a specific chain. [Substrate SS58](https://docs.substrate.io/reference/glossary/#ss58-address-format) format          |
+| Transaction  | Transactions provide a mechanism for making changes to state that can be included in a block.                                                                                |
+| Block        | A block is a single element of a blockchain that contains an ordered set of instructions — often in the form of transactions — that might result in a state change.          |
+| Weight       | A convention to measure and manage the time it takes to validate a block. One unit of weight is one picosecond of execution time on reference hardware.                      |
+| Origin       | A `FRAME` primitive that identifies the source of a dispatched function call into the runtime.                                                                               |
+
+For more `Substrate` terms see [their glossary](https://docs.substrate.io/reference/glossary/).
 
 ## Contributing
 
