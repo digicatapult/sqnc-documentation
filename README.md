@@ -55,15 +55,15 @@ These repositories use DSCP but are now deprecated.
 
 The world of `Blockchain` and `Substrate` is full of lingo. Here's our glossary of what we mean by some of these terms in the context of `DSCP`:
 
-| Term         | Means                                                                                                                                                                                 |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Entity       | A real world thing that's tracked across multiple tokens on chain. e.g. an engine, a building, a cow, a pizza or anything else.                                                       |
-| Token        | Data about entities are added to the chain as tokens. Each token is a record of the state of a single entity at a specific moment in time.                                            |
-| Process      | A single transaction that burns/creates one to many tokens. A process can (and often does) involve tokens for many different entities.                                                |
-| Restrictions | Rules on a process to enforce who can run the transaction and what they can do in the transaction.                                                                                    |
-| Roles        | Part of a token. A set of `RoleKey: AccountID` pairs used to define who interacts with a token.                                                                                       |
-| Metadata     | Part of a token. A set of `MetadataKey: value` pairs which describe attributes of an entity on chain e.g. its entity `type`, useful files (as an `IPFS` hash), IDs of related tokens. |
-| Parent/Child | Within a single transaction, all tokens that are burned become `parents` of all tokens that are created. The new tokens are `children` of the burned tokens.                          |
+| Term                 | Means                                                                                                                                                                                 |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Entity               | A real world thing that's tracked across multiple tokens on chain. e.g. an engine, a building, a cow, a pizza or anything else.                                                       |
+| Token                | Data about entities are added to the chain as tokens. Each token is a record of the state of a single entity at a specific moment in time.                                            |
+| Process/Process flow | A single transaction that burns/creates one to many tokens. A process can (and often does) involve tokens for many different entities.                                                |
+| Restrictions         | Rules on a process to enforce who can run the transaction and what they can do in the transaction.                                                                                    |
+| Roles                | Part of a token. A set of `RoleKey: AccountID` pairs used to define who interacts with a token.                                                                                       |
+| Metadata             | Part of a token. A set of `MetadataKey: value` pairs which describe attributes of an entity on chain e.g. its entity `type`, useful files (as an `IPFS` hash), IDs of related tokens. |
+| Parent/Child         | Within a single transaction, all tokens that are burned become `parents` of all tokens that are created. The new tokens are `children` of the burned tokens.                          |
 
 The following terms are related to `Substrate`:
 
