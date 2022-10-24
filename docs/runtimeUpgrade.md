@@ -31,17 +31,15 @@ The compiled `wasm` artifact containing the runtime logic can be submitted to th
 If a chain has an agreed administrator account, that account can be used to upgrade the runtime with `sudo`. This example uses the default `Alice` account that's part of the membership of `dscp-node` when run in `dev` mode.
 
 1. Open [Polkadot Substrate Portal](https://polkadot.js.org/apps/) in a browser and connect to the local node.
-2. Go to `Developer` -> `Extrinsics`.
-3. Set the selected account to `Alice`.
-4. Select the `sudo` pallet and the `sudoUncheckedWeight(call, weight)` function. This is necessary to bypass weight checking that would normally cause a transaction block as large as this to fail.
-5. Set the call to `system` and `setCode(code)`.
-6. Click `file upload` and upload `dscp_node_runtime.compact.compressed.wasm`.
-7. `Weight` can remain as `0`.
+2. Go to `Developer` -> `Sudo`.
+3. Set the call to `system` and `setCode(code)`.
+4. Click `file upload` and upload `dscp_node_runtime.compact.compressed.wasm`.
+5. Click `with weight override` and set unchecked weight to `1`.
 
 ![sudo transaction](../assets/runtimeUpgrade/sudo.png)
 
-8. Click `Submit Transaction` then `Sign and Submit`.
-9. If the transaction is successful the spec version in the top-left will have changed to match the new runtime version. The runtime is upgraded!
+6. Click `Submit Sudo Unchecked` then `Sign and Submit`.
+7. If the transaction is successful the spec version in the top-left will have changed to match the new runtime version. The runtime is upgraded!
 
 ### Collective + Doas
 
