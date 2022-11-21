@@ -8,21 +8,23 @@ When defining token models, there are a number of best practices to follow:
 2. Prefer FILE metadata over LITERAL metadata
    Tokens should contain as minimal metadata as possible. The `LITERAL` metadata type is for storing data that is (or possibly will be) referred to in a process guardrails e.g. token `TYPE`. All entity-specific data, even something as small as the ID of an order, should be stored as a `FILE`. The only other time `LITERAL` should be used is if there is a clear requirement that a value be available at all times.
 
-3. Avoid the `owner` role
-   The `owner` role defines who can next interact with a token and is set automatically based on token flows. It shouldn't be set by the user when creating a token model.
+3. All tokens have `type`, `state` and `version` literals.
+   These are the predominant way in which workflows are guarded. If the problem set requires a hierarchical state machine across a large number of tokens, it is acceptable to group them using an additional 'sub-state' literal e.g. `subState: 'acceptableOrder'`, otherwise `or` can be used in guard rails to define multiple acceptable states.
 
-4. All tokens should have `type` and `state` literals.
-   These are the predominant way in which we guard workflows. If the problem set requires a very clearly hierarchical state machine across a large number of tokens, it is acceptable to have additional "sub-state" literals, otherwise `or` can be used in guard rails to define multiple acceptable states.
-
-5. Assigned roles should consistently describe the persona of an actor with respect to that token `type`.
+4. Assigned roles should consistently describe the persona of an actor with respect to that token `type`.
    This means an account may be a `supplier` for one purchase order but a `buyer` for another. Also this largely means guardrails should always be in place to require that roles are copied over from one token to the next equivalent state.
 
-6. The splitting up of data across multiple metadata `FILE` should be based on how visibility should be assigned.
+5. The splitting up of data across multiple metadata `FILE` should be based on how visibility should be assigned.
    Only split metadata into multiple files if there is a use case where only some of the information in that file should be released. This is important when encrypting file contents and verifiably sharing data.
 
-7. When a token array (for example an item/row in a purchase order) is associated with a container token (in this case a purchase order) a mechanism for requiring these match up should be implemented.
+6. When a token array (for example an item/row in a purchase order) is associated with a container token (in this case a purchase order) a mechanism for requiring these match up should be implemented.
    This will likely be in the form of a `TOKEN_ID` metadata item on the item/row token associated with the initial PO token.
 
 ## Versioning
 
-??
+All tokens have a `version` metadata key with an integer value e.g. `version: '5'`. `version` makes it possible to change the structure of an in-use token type without invalidating that type's historical tokens on the chain. For example, to add an additional `role_key` to a token that's existed for some time at `version: '0'`:
+
+- Create a `version: '1'` model with the new `role_key`.
+- Create a migration transaction for updating a token from `version: 0` -> `version: 1`.
+- Create migration transactions for any other token types that are affected by the version bump.
+- Run migrations.

@@ -37,97 +37,99 @@ Example
 
 One of the simplest transactions is the creation of the initial state of an entity. For example, a transaction for a gallery to add a new work of art, a sculpture, to a chain being used to track art in galleries around the world.
 
-- There are no `inputs` in the transaction, and the only `output` is a single `SCULPTURE` token.
-- Within a token type, `roles` are consistent. For a `SCULPTURE` token we might expect the roles: `Artist`, `Owner` and `Gallery`.
-- Every token has `literal` metadata for its `type` and `state`. For sculpture tokens, the `type` is always `SCULPTURE`. The `state` value depends on the transaction, for this transaction it will something to show it's newly added e.g. `new`.
+- The transaction isn't related to any existing tokens on chain so there are no `inputs`, and the only `output` is a single `SCULPTURE` token.
+- Within a token type, `roles` are consistent. For a `SCULPTURE` token we might expect the roles: `Artist`, `Owner` and `Gallery`. Role keys should be chosen by someone with domain knowledge and be based upon which parties will be members of the chain.
+- Every token has `literal` metadata for its `type`, `state` and `version` thus every process has guard rails for the value of those keys. As this is for tokens about sculptures, `type: 'SCULPTURE'`. The `state` value depends on the transaction, for this transaction it will be something to show it's newly added e.g. `new`. `version: 0` as this is the first iteration of the sculpture token model. If the structure of a sculpture token needed to change at a later date, after it's 'live' and some sculpture tokens have been stored on chain, `version` can be used to handle the change (see [versioning](./bestPractice.md#versioning)).
 - Other metadata is customisable and domain-specific. For a sculpture there might be `file` metadata containing an image and the artwork's dimensions.
 
-`roles` and `metadata` you might expect as part of a `SCULPTURE` token - the keys would be defined in a token model by someone with domain knowledge:
+`metadata` you might expect as part of a `SCULPTURE` token - the keys would be defined in a token model by someone with domain knowledge:
 
 | Metadata                        |
 | :------------------------------ |
 | `<Literal>` type: `SCULPTURE`   |
 | `<Literal>` state: `new`        |
+| `<Literal>` version: `0`        |
 | `<File>` image: `image.png`     |
 | `<File>` dimensions: `spec.pdf` |
 
 Based on the information above it's possible to define a set of restrictions. First as this is adding something new, there are 0 inputs and 1 output:
 
-```
-  "FixedNumberOfInputs": [
-    {
-      "num_inputs": 0
-    }
-  ],
-  "FixedNumberOfOutputs": [
-    {
-      "num_outputs": 1
-    }
-  ]
+```json
+{
+  "FixedNumberOfInputs": {
+    "num_inputs": 0
+  },
+  "FixedNumberOfOutputs": {
+    "num_outputs": 1
+  }
+}
 ```
 
 The transaction is intended to be run by galleries:
 
-```
-  "SenderHasOutputRole": [
-    {
-      "index": 0,
-      "role_key": "Gallery"
-    }
-  ]
+```json
+{
+  "SenderHasOutputRole": {
+    "index": 0,
+    "role_key": "Gallery"
+  }
+}
 ```
 
 If more than one party could run the transaction, multiple instances of the above restriction with different `role_key`s could be set combined with the `or` boolean.
 
 Presence of the other roles is enforced with:
 
-```
-  "OutputHasRole": [
-    {
-      "index": 0,
-      "role_key": "Owner"
-    }
-  ],
-  "OutputHasRole": [
-    {
-      "index": 0,
-      "role_key": "Artist"
-    }
-  ]
+```json
+{
+  "OutputHasRole": {
+    "index": 0,
+    "role_key": "Owner"
+  },
+  "OutputHasRole": {
+    "index": 0,
+    "role_key": "Artist"
+  }
+}
 ```
 
-This is a transaction to specifically make a `new` `SCULPTURE` token:
+This is a transaction to specifically make a `new` `SCULPTURE` token with `version: 0`:
 
-```
-  "FixedOutputMetadataValue": [
-    {
-      "index": 0,
-      "metadata_key": "state",
-      "metadata_value": "new"
-    }
-  ],
-  "FixedOutputMetadataValue": [
-    {
-      "index": 0,
-      "metadata_key": "type",
-      "metadata_value": "SCULPTURE"
-    }
-  ]
+```json
+{
+  "FixedOutputMetadataValue": {
+    "index": 0,
+    "metadata_key": "state",
+    "metadata_value": "new"
+  },
+  "FixedOutputMetadataValue": {
+    "index": 0,
+    "metadata_key": "type",
+    "metadata_value": "SCULPTURE"
+  },
+  "FixedOutputMetadataValue": {
+    "index": 0,
+    "metadata_key": "version",
+    "metadata_value": "0"
+  }
+}
 ```
 
 The token is expected to include image and dimensions files:
 
-```
-    {
-      "index": 0,
-      "metadata_key": "image",
-      "metadata_value_type": "File"
-    },
-    {
-      "index": 0,
-      "metadata_key": "dimensions",
-      "metadata_value_type": "File"
-    }
+```json
+{
+  "FixedOutputMetadataValueType": {
+    "index": 0,
+    "metadata_key": "image",
+    "metadata_value_type": "File"
+  },
+  "FixedOutputMetadataValueType": {
+    "index": 0,
+    "metadata_key": "dimensions",
+    "metadata_value_type": "File"
+  }
+}
 ```
 
 The restrictions could be chained with `and` booleans to enforce they all must pass to validate the token.
