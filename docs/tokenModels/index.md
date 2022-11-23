@@ -19,6 +19,7 @@ Some of the steps we could take to make token modelling easier:
 
 Related concepts for token models:
 
-- [Token Model Visual Framework](./components.md)
+- [Token Model Components](./components.md)
+- [Token Model Example](./example.md)
 - [Best Practice](./bestPractice.md)
 - [Guard Rails](./guardRails.md)

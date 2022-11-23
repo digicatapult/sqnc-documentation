@@ -3,7 +3,7 @@
 When defining token models, there are a number of best practices to follow:
 
 1. Avoid arrays and lists
-   It can be difficult to generate guard rails for variable size transactions e.g. adding X a list of items (each with their own token) to an order. If a transaction can involve a variable number of inputs and outputs, the guard rails need to cover every variation. It's simpler to define a single transaction that can be run X number of times. For example if there were a transaction for adding an item to an order, you only need to define `AddItemToOrder` once and it can be run several times over a list of items. The alternative would be defining `Add1ItemToOrder`, `Add2ItemsToOrder`... It isn't possible to define `AddListOfItemsToOrder`.
+   It can be difficult to generate guard rails for variable size transactions e.g. adding X of a list of items (each with their own token) to an order. If a transaction can involve a variable number of inputs and outputs, the guard rails need to cover every variation. It's simpler to define a single transaction that can be run X number of times. For example if there were a transaction for adding an item to an order, you only need to define `AddItemToOrder` once and it can be run several times over a list of items. The alternative would be defining `Add1ItemToOrder`, `Add2ItemsToOrder`... It isn't possible to define `AddListOfItemsToOrder`. For lists containing large numbers of items, transactions of larger orders of magnitude can be made and combined e.g. add 32 items to an order with 3 x `Add10ItemsToOrder` and 2 x `AddItemToOrder`.
 
 2. Prefer FILE metadata over LITERAL metadata
    Tokens should contain as minimal metadata as possible. The `LITERAL` metadata type is for storing data that is (or possibly will be) referred to in a process guardrails e.g. token `TYPE`. All entity-specific data, even something as small as the ID of an order, should be stored as a `FILE`. The only other time `LITERAL` should be used is if there is a clear requirement that a value be available at all times.
@@ -22,9 +22,11 @@ When defining token models, there are a number of best practices to follow:
 
 ## Versioning
 
-All tokens have a `version` metadata key with an integer value e.g. `version: '5'`. `version` makes it possible to change the structure of an in-use token type without invalidating that type's historical tokens on the chain. For example, to add an additional `role_key` to a token that's existed for some time at `version: '0'`:
+All tokens have a `version` metadata key with an integer value e.g. `version: '5'`. `version` makes it possible to change the structure of an in-use token type without invalidating that type's historical tokens on the chain. For example, to add an additional `role_key` to a token of type `X` that's existed for some time at `version: '0'`:
 
 - Create a `version: '1'` model with the new `role_key`.
-- Create a migration transaction for updating a token from `version: 0` -> `version: 1`.
-- Create migration transactions for any other token types that are affected by the version bump.
-- Run migrations.
+- Create a migration transaction for updating a `X` tokens from `version: 0` -> `version: 1`.
+- Create migration transactions for any other token types that are affected by a structural change to `X` tokens.
+- Run migrations in a single batch of transactions to bump all versions of affected tokens at once.
+
+This method of versioning keeps the chain as clean as possible while keeping token churn minimal. `sudo` can always be used to rollback or clean up mistakes.
