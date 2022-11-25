@@ -2,7 +2,7 @@
 
 To ensure integrity of data within transactions (and therefore on chain), it's possible to define custom processes that validate transactions. When a user attempts to run a transaction to create or burn tokens, they also supply a validating process (a process ID and version number). If the validation fails, the transaction will not run. Processes are stored on chain and managed using [`dscp-process-management`](https://github.com/digicatapult/dscp-process-management/).
 
-This method is called Guard Railing - it is difficult, and perhaps counter productive, to over restrict what can be in a transaction, however a few simple rules for each transaction type can greatly improve the quality of data on chain, and reduce typos or tokens with absent data from permanently ending up on chain.
+This method is called Guard Railing - it is difficult, and perhaps counter productive, to over restrict what can be in a transaction, however a few simple rules for each transaction type can greatly improve the quality of data on chain, and reduce typos or tokens with missing data from permanently ending up on chain.
 
 ## Writing processes
 
@@ -13,7 +13,7 @@ Example
 ```JSON
 [
    {
-      "Restriction":{
+      "restriction":{
          "SenderHasInputRole":{
             "index":"0",
             "roleKey":"Supplier"
@@ -21,14 +21,14 @@ Example
       }
    },
    {
-      "Restriction":{
+      "restriction":{
          "FixedNumberOfInputs":{
             "numInputs":"1"
          }
       }
    },
    {
-      "Op":"And"
+      "op":"And"
    }
 ]
 ```
@@ -52,28 +52,40 @@ One of the simplest transactions is the creation of the initial state of an enti
 | `<File>` image: `image.png`     |
 | `<File>` dimensions: `spec.pdf` |
 
-Based on the information above it's possible to define a set of restrictions. First as this is adding something new, there are 0 inputs and 1 output:
+Based on the information above it's possible to define a set of restrictions. First, as this is adding something new, there are 0 inputs and 1 output:
 
 ```json
-{
-  "FixedNumberOfInputs": {
-    "num_inputs": 0
+[
+  {
+    "restriction": {
+      "FixedNumberOfInputs": {
+        "num_inputs": 0
+      }
+    }
   },
-  "FixedNumberOfOutputs": {
-    "num_outputs": 1
+  {
+    "restriction": {
+      "FixedNumberOfOutputs": {
+        "num_outputs": 1
+      }
+    }
   }
-}
+]
 ```
 
 The transaction is intended to be run by galleries:
 
 ```json
-{
-  "SenderHasOutputRole": {
-    "index": 0,
-    "role_key": "Gallery"
+[
+  {
+    "restriction": {
+      "SenderHasOutputRole": {
+        "index": 0,
+        "role_key": "Gallery"
+      }
+    }
   }
-}
+]
 ```
 
 If more than one party could run the transaction, multiple instances of the above restriction with different `role_key`s could be set combined with the `or` boolean.
@@ -81,59 +93,74 @@ If more than one party could run the transaction, multiple instances of the abov
 Presence of the other roles is enforced with:
 
 ```json
-{
-  "OutputHasRole": {
-    "index": 0,
-    "role_key": "Owner"
+[
+  {
+    "restriction": {
+      "OutputHasRole": {
+        "index": 0,
+        "role_key": "Owner"
+      }
+    }
   },
-  "OutputHasRole": {
-    "index": 0,
-    "role_key": "Artist"
-  }
-}
+  {
+    "restriction": {
+      "OutputHasRole": {
+        "index": 0,
+        "role_key": "Artist"
+      }
+    }
+  },
+  { "op": "or" }
+]
 ```
 
 This is a transaction to specifically make a `new` `SCULPTURE` token with `version: 0`:
 
 ```json
-{
-  "FixedOutputMetadataValue": {
-    "index": 0,
-    "metadata_key": "state",
-    "metadata_value": "new"
+[
+  {
+    "FixedOutputMetadataValue": {
+      "index": 0,
+      "metadata_key": "state",
+      "metadata_value": "new"
+    }
   },
-  "FixedOutputMetadataValue": {
-    "index": 0,
-    "metadata_key": "type",
-    "metadata_value": "SCULPTURE"
+  {
+    "FixedOutputMetadataValue": {
+      "index": 0,
+      "metadata_key": "type",
+      "metadata_value": "SCULPTURE"
+    }
   },
-  "FixedOutputMetadataValue": {
-    "index": 0,
-    "metadata_key": "version",
-    "metadata_value": "0"
+  {
+    "FixedOutputMetadataValue": {
+      "index": 0,
+      "metadata_key": "version",
+      "metadata_value": "0"
+    }
   }
-}
+]
 ```
 
 The token is expected to include image and dimensions files:
 
 ```json
-{
-  "FixedOutputMetadataValueType": {
-    "index": 0,
-    "metadata_key": "image",
-    "metadata_value_type": "File"
+[
+  {
+    "FixedOutputMetadataValueType": {
+      "index": 0,
+      "metadata_key": "image",
+      "metadata_value_type": "File"
+    }
   },
-  "FixedOutputMetadataValueType": {
-    "index": 0,
-    "metadata_key": "dimensions",
-    "metadata_value_type": "File"
+  {
+    "FixedOutputMetadataValueType": {
+      "index": 0,
+      "metadata_key": "dimensions",
+      "metadata_value_type": "File"
+    }
   }
-}
+]
 ```
 
-The restrictions could be chained with `and` booleans to enforce they all must pass to validate the token.
-
-### Handling arrays
-
-Many restrictions refer to a specific index of an input or output to validate.
+The restrictions could be chained with `and` booleans to enforce they all must pass to validate the token e.g. `[restriction0, restriction1, op: and, restriction2, op: and, restriction3, op:and ...]`.

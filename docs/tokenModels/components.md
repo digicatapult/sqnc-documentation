@@ -1,4 +1,4 @@
-# Token Model Components
+# Token Model Diagram Components
 
 A token model is made of various components:
 
@@ -23,6 +23,8 @@ The start and end point for a token type, effectively the `null` state.
 ## Transactions
 
 The colour of a transaction arrow indicates which role will run the transaction.
+
+//TODO How to display transactions that can be run by more than one role
 
 ### Status transaction
 

@@ -4,25 +4,25 @@
 
 ## Real world story
 
-This example will look at the simplified process of a customers orders of pizzas from restaurants. A token model is only as good as the real world narrative it's based on. An example of the level of detail required about a process before a token model can be made:
+This example will look at the simplified process of customers ordering pizzas from restaurants. A token model is only useful if its based on an accurate abstraction of a real world flow of events. An example of the level of detail required about a process before a token model can be made:
 
 - There are two parties involved: customer and restaurant.
 - There is a menu of pizzas, defined by the restaurant.
-- An order can contain any number of pizzas.
+- An order can contain one or more pizzas.
 - Orders can be rejected by the restaurant, after which the customer can edit the order.
-- Orders can be cancelled, but only the restaurant can cancel once the order is submitted.
+- Orders can only be cancelled by the customer before submitting.
 
 ## Building a token model
 
 ### Roles
 
-Roles are consistent across all token types so must be defined first. Part of guard railing transactions is defining which roles can run which transactions. Here there are two types of role, `Customer` and `Restaurant`. `Restaurant` transactions are keyed as `black` and `Customer` as `red`.
+Roles are consistent across all token types so must be defined first. Part of guard railing transactions is defining which roles can run which transactions. Here there are two types of role, `Customer` and `Restaurant`. `Restaurant` transactions are keyed as `black` and `Customer` as `red`. These are only role keys, not a specific customer or restaurant, any number of accounts on the chain can take the role of a customer or restaurant within a process.
 
 ![example roles](../../assets/tokenModels/example-roles.png)
 
 ### First token type
 
-A restaurant sets a menu of pizzas - a token type of `PIZZA` with an initial `PIZZA - create` transaction run by a `Restaurant` (note black arrow). This mints a `PIZZA` token in the `created` state. For now, other metadata (e.g. `name`, `toppings`) about the pizza isn't important.
+A restaurant sets a menu of pizzas - a token type of `PIZZA_RECIPE` with an initial `PIZZA_RECIPE - create` transaction run by a `Restaurant` (note black arrow). This mints a `PIZZA_RECIPE` token in the `created` state. For now, other metadata (e.g. `name`, `toppings`) about the pizza isn't important.
 
 ![example pizza create](../../assets/tokenModels/example-pizza-create.png)
 
@@ -42,7 +42,11 @@ Next add transactions to append and remove pizzas from an order - one at a time.
 
 ![example append remove](../../assets/tokenModels/example-append-remove.png)
 
-If orders of > 10 pizzas were regularly expected, additional transactions could be added such as `ORDER - Append (10) PIZZA`.
+Each append creates a new `Order-Pizza` token, which is retired if the `Order-Pizza` is later removed from the order.
+
+![example order pizza](../../assets/tokenModels/example-order-pizza.png)
+
+If orders of > 10 pizzas are regularly expected, additional transactions could be added such as `ORDER - Append (10) PIZZA`.
 
 ### Shared (hierarchical) states
 
@@ -58,14 +62,32 @@ Alternatively, it could be argued that having separate `created` and `rejected` 
 
 ![example simple reject](../../assets/tokenModels/example-simple-reject.png)
 
-The best approach depends on the use case and domain knowledge. Perhaps it is important to track the number of `rejected` orders.
+The best approach depends on the use case and domain knowledge. Perhaps `rejected` orders have extra metadata that shouldn't be on a `created` order.
 
 ### End state
 
-Finally, tokens need an end state so they can be 'retired'. A pizza can only be retired by the restaurant that designed it.
+Finally, tokens need an end state so they can be 'retired'. A `PIZZA_RECIPE` can only be retired by the restaurant that designed it.
 
 ![example pizza retire](../../assets/tokenModels/example-pizza-retire.png)
 
-An order can be retired by either a customer or a restaurant, depending on its state.
+An order can be cancelled by a customer before submission, or a order can be completed by a restaurant (there would likely be more steps for completion but this is a simple example).
 
-![example order cancel](../../assets/tokenModels/example-order-cancel.png)
+![example order end](../../assets/tokenModels/example-order-end.png)
+
+Logically the end of life for orders would also be the end of life for `ORDER-PIZZA` tokens.
+
+![example order pizza end](../../assets/tokenModels/example-order-pizza-end.png)
+
+## Transactions
+
+//TODO Deriving transaction inputs/outputs/metadata from token models diagrams
+
+- PIZZA_RECIPE - Create
+- PIZZA_RECIPE - Retire
+- ORDER - Create
+- ORDER - Append (1) PIZZA
+- ORDER - Remove (1) PIZZA
+- ORDER - Cancel
+- ORDER - Submit
+- ORDER - Reject
+- ORDER - Complete
