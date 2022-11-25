@@ -1,14 +1,14 @@
 # Guard Rails
 
-To ensure integrity of data within transactions (and therefore on chain), it's possible to define custom processes that validate transactions. When a user attempts to run a transaction to create or burn tokens, they also supply a validating process (a process ID and version number). If the validation fails, the transaction will not run. Processes are stored on chain and managed using [`dscp-process-management`](https://github.com/digicatapult/dscp-process-management/).
+To ensure integrity of data within transactions (and therefore on chain), it's possible to define custom processes that validate transactions. When a user attempts to run a transaction to create or burn tokens, they also supply a validating process (a process ID and version number). If the validation fails, the transaction will not run. Processes are stored on chain and managed using [`veritable-process-management`](https://github.com/digicatapult/dscp-process-management/).
 
 This method is called Guard Railing - it is difficult, and perhaps counter productive, to over restrict what can be in a transaction, however a few simple rules for each transaction type can greatly improve the quality of data on chain, and reduce typos or tokens with missing data from permanently ending up on chain.
 
 ## Writing processes
 
-`dscp-node` has a set of [restrictions](https://github.com/digicatapult/dscp-node/#restrictions) that can be combined with [binary operators](https://github.com/digicatapult/dscp-node/#binary-operations) using postfix notation.
+`veritable-node` has a set of [restrictions](https://github.com/digicatapult/dscp-node/#restrictions) that can be combined with [binary operators](https://github.com/digicatapult/dscp-node/#binary-operations) using postfix notation.
 
-Example
+Example process
 
 ```JSON
 [
