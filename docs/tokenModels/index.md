@@ -19,7 +19,7 @@ In our roadmap, we plan on implementing:
 
 Related concepts for token models:
 
-- [Token Model Components](./components.md)
+- [Token Model Diagram Components](./components.md)
 - [Token Model Example](./example.md)
 - [Best Practice](./bestPractice.md)
 - [Guard Rails](./guardRails.md)

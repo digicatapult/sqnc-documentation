@@ -4,7 +4,7 @@
 
 ## Real world story
 
-This example will look at the simplified process of customers ordering pizzas from restaurants. A token model is only useful if its based on an accurate abstraction of a real world flow of events. An example of the level of detail required about a process before a token model can be made:
+This example will look at the simplified process of customers ordering pizzas from restaurants. A token model is only useful if it's based on an accurate abstraction of a real world flow of events. An example of the level of detail required about a process before a token model can be made:
 
 - There are two parties involved: customer and restaurant.
 - There is a menu of pizzas, defined by the restaurant.
@@ -16,7 +16,7 @@ This example will look at the simplified process of customers ordering pizzas fr
 
 ### Roles
 
-Roles are consistent across all token types so must be defined first. Part of guard railing transactions is defining which roles can run which transactions. Here there are two types of role, `Customer` and `Restaurant`. `Restaurant` transactions are keyed as `black` and `Customer` as `red`. These are only role keys, not a specific customer or restaurant, any number of accounts on the chain can take the role of a customer or restaurant within a process.
+Roles are consistent across all token types so must be defined first. Part of guard railing transactions is defining which roles can run which transactions. Here there are two types of role, `Customer` and `Restaurant`. `Restaurant` transactions are keyed as `black` and `Customer` as `red`. These are role keys, not a specific customer or restaurant, any number of accounts on the chain can take the role of a customer or restaurant within a process.
 
 ![example roles](../../assets/tokenModels/example-roles.png)
 
@@ -40,9 +40,13 @@ The blank `created` order is a staging state for a customer to build up an order
 
 Next add transactions to append and remove pizzas from an order - one at a time. These transactions don't change the state of any tokens and can be run as many times as required.
 
-![example append remove](../../assets/tokenModels/example-append-remove.png)
+![example order append remove](../../assets/tokenModels/example-order-append-remove.png)
 
-Each append creates a new `Order-Pizza` token, which is retired if the `Order-Pizza` is later removed from the order.
+Because a `PIZZA_RECIPE` token is referenced in the transaction, its token is burned and minted, with no state change.
+
+![example pizza recipe append remove](../../assets/tokenModels/example-pizza-recipe-append-remove.png)
+
+Each append creates a new `ORDER-PIZZA` token, which is retired if the `Order-Pizza` is later removed from the order.
 
 ![example order pizza](../../assets/tokenModels/example-order-pizza.png)
 
@@ -74,7 +78,7 @@ An order can be cancelled by a customer before submission, or a order can be com
 
 ![example order end](../../assets/tokenModels/example-order-end.png)
 
-Logically the end of life for orders would also be the end of life for `ORDER-PIZZA` tokens.
+Logically the end of life for an `ORDER` would also be the end of life for its related `ORDER-PIZZA` tokens.
 
 ![example order pizza end](../../assets/tokenModels/example-order-pizza-end.png)
 
