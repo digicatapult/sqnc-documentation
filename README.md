@@ -20,21 +20,28 @@ This repo includes READMEs that explain concepts within Veritable:
 - [Runtime Upgrade](./docs/runtimeUpgrade.md)
 - [Token Models](./docs/tokenModels/index.md)
 
+## Projects
+
+READMEs that explain specific DSCP projects:
+
+- [Logistics Living Lab](./docs/l3/index.md)
+
 ## Repositories
 
 ### Active Veritable repositories
 
 These repositories contain code being actively maintained as part of the Veritable project.
 
-| Repository                                                                              | Description                                                                     |
-| --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| [veritable-documentation](https://github.com/digicatapult/dscp-documentation)           | Documentation for Veritable                                                     |
-| [veritable-flux-infra](https://github.com/digicatapult/dscp-flux-infra)                 | Flux repo to bring up Veritable with Kubernetes                                 |
-| [veritable-node](https://github.com/digicatapult/dscp-node)                             | The blockchain node for Veritable, built with Substrate                         |
-| [veritable-ipfs](https://github.com/digicatapult/dscp-ipfs)                             | IPFS node for Veritable                                                         |
-| [veritable-api](https://github.com/digicatapult/dscp-api)                               | API to create/retrieve tokens on `veritable-node` and files on `veritable-ipfs` |
-| [veritable-identity-service](https://github.com/digicatapult/dscp-identity-service)     | API for managing chain member identities in Veritable                           |
-| [veritable-process-management](https://github.com/digicatapult/dscp-process-management) | Library for managing restricted process flows on `veritable-node`               |
+| Repository                                                                              | Description                                                                                                    |
+| --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| [veritable-documentation](https://github.com/digicatapult/dscp-documentation)           | Documentation for Veritable                                                                                    |
+| [veritable-flux-infra](https://github.com/digicatapult/dscp-flux-infra)                 | Flux repo to bring up Veritable with Kubernetes                                                                |
+| [veritable-node](https://github.com/digicatapult/dscp-node)                             | The blockchain node for Veritable, built with Substrate                                                        |
+| [veritable-ipfs](https://github.com/digicatapult/dscp-ipfs)                             | IPFS node for Veritable                                                                                        |
+| [veritable-api](https://github.com/digicatapult/dscp-api)                               | API to create/retrieve tokens on `veritable-node` and files on `veritable-ipfs`                                |
+| [veritable-identity-service](https://github.com/digicatapult/dscp-identity-service)     | API for managing chain member identities in Veritable                                                          |
+| [veritable-process-management](https://github.com/digicatapult/dscp-process-management) | Library for managing restricted process flows on `veritable-node`                                              |
+| [dscp-matchmaker-api](https://github.com/digicatapult/dscp-matchmaker-api)              | API for interacting with `dscp-api` and `dscp-identity-service` to match tokens produced by different accounts |
 
 ### Project-specific Veritable repositories
 
