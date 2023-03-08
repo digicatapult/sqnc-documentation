@@ -2,15 +2,15 @@
 
 One of Substrate's main features is its support for runtime chain upgrades without forking the code base. Compared to other blockchain frameworks, Substrate makes it easy to add new features to the logic that defines how a chain runs. This is possible because the runtime definition is part of the chain state, meaning it can be validated and set through a chain's usual consensus mechanisms.
 
-This page describes how to upgrade the runtime when using `veritable-node`.
+This page describes how to upgrade the runtime when using `dscp-node`.
 
 ## Prerequisites
 
-A local checkout of [veritable-node](https://github.com/digicatapult/dscp-node) that is successfully running and creating blocks.
+A local checkout of [dscp-node](https://github.com/digicatapult/dscp-node) that is successfully running and creating blocks.
 
 ## Compile upgrade
 
-In a terminal window separate from the currently running `veritable-node`, checkout a branch of a newer runtime that includes any desired changes. For the upgrade to work, `spec_version` in [`runtime/src/lib.rs`](https://github.com/digicatapult/dscp-node/blob/main/runtime/src/lib.rs-node) must be set to a higher number than the current runtime. The current runtime version is also visible in the top-left of [Polkadot Substrate Portal](https://polkadot.js.org/apps/).
+In a terminal window separate from the currently running `dscp-node`, checkout a branch of a newer runtime that includes any desired changes. For the upgrade to work, `spec_version` in [`runtime/src/lib.rs`](https://github.com/digicatapult/dscp-node/blob/main/runtime/src/lib.rs-node) must be set to a higher number than the current runtime. The current runtime version is also visible in the top-left of [Polkadot Substrate Portal](https://polkadot.js.org/apps/).
 
 ![Spec version](../assets/runtimeUpgrade/spec-version.png)
 
@@ -24,11 +24,11 @@ dscp_node_runtime.wasm
 
 ## Submit upgrade
 
-The compiled `wasm` artifact containing the runtime logic can be submitted to the running chain either as an admin user, using Substrate's [`sudo`](https://docs.rs/pallet-sudo/latest/pallet_sudo) pallet, or through a vote, using a custom `veritable` pallet called `doas` alongside Substrate's [`collective`](https://docs.rs/pallet-sudo/latest/pallet_collective) pallet.
+The compiled `wasm` artifact containing the runtime logic can be submitted to the running chain either as an admin user, using Substrate's [`sudo`](https://docs.rs/pallet-sudo/latest/pallet_sudo) pallet, or through a vote, using a custom `dscp` pallet called `doas` alongside Substrate's [`collective`](https://docs.rs/pallet-sudo/latest/pallet_collective) pallet.
 
 ### Sudo
 
-If a chain has an agreed administrator account, that account can be used to upgrade the runtime with `sudo`. This example uses the default `Alice` account that's part of the membership of `veritable-node` when run in `dev` mode.
+If a chain has an agreed administrator account, that account can be used to upgrade the runtime with `sudo`. This example uses the default `Alice` account that's part of the membership of `dscp-node` when run in `dev` mode.
 
 1. Open [Polkadot Substrate Portal](https://polkadot.js.org/apps/) in a browser and connect to the local node.
 2. Go to `Developer` -> `Sudo`.
