@@ -1,4 +1,4 @@
-# Data visibility in Veritable
+# Data visibility in DSCP
 
 As of writing this piece all metadata information is publicly available. We store information in metadata in the following ways:
 
