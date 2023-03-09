@@ -4,11 +4,11 @@
 
 ## Roles
 
-<span style="font-weight:bold; color:#38761d">MEMBER_A</span>
+![#38761d](https://placehold.co/15x15/38761d/38761d.png) <b>MEMBER_A</b>
 
-<span style="font-weight:bold; color:#0000ff">MEMBER_B</span>
+![#0000ff](https://placehold.co/15x15/0000ff/0000ff.png) <b>MEMBER_B</b>
 
-<span style="font-weight:bold; color:#ff0000">OPTIMISER</span>
+![#ff0000](https://placehold.co/15x15/ff0000/ff0000.png) <b>OPTIMISER</b>
 
 ## Token types
 
@@ -28,13 +28,17 @@ Created by a member.
 ### Match2
 
 An optimiser proposes the matching of a single order from some `MEMBER_A` to a single capacity of a different `MEMBER_B`.
+
 ![match2 create](../../assets/l3/match2-create.png)
 
 Accept flow if `MEMBER_A` accepts first, then `MEMBER_B`.
+
 ![match2 ab](../../assets/l3/match-ab.png)
 
 Accept flow if `MEMBER_B` accepts first, then `MEMBER_A`.
+
 ![match2 ba](../../assets/l3/match-ba.png)
 
 A match can be rejected by any party before it is fully accepted.
+
 ![match2 reject](../../assets/l3/match-reject.png)
