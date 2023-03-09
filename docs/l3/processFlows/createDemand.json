@@ -1,0 +1,63 @@
+[
+  {
+    "name": "Create Demand",
+    "version": 1,
+    "program": [
+      {
+        "restriction": {
+          "FixedNumberOfInputs": {
+            "numInputs": 0
+          }
+        }
+      },
+      {
+        "restriction": {
+          "FixedNumberOfOutputs": {
+            "numOutputs": 1
+          }
+        }
+      },
+      {
+        "op": "and"
+      },
+      {
+        "restriction": {
+          "FixedOutputMetadataValue": {
+            "index": 0,
+            "metadataKey": "state",
+            "metadataValue": {
+              "Literal": "created"
+            }
+          }
+        }
+      },
+      {
+        "op": "and"
+      },
+      {
+        "restriction": {
+          "FixedOutputMetadataValue": {
+            "index": 0,
+            "metadataKey": "subtype",
+            "metadataValue": {
+              "Literal": "order"
+            }
+          }
+        }
+      },
+      {
+        "restriction": {
+          "FixedOutputMetadataValue": {
+            "index": 0,
+            "metadataKey": "subtype",
+            "metadataValue": {
+              "Literal": "capacity"
+            }
+          }
+        }
+      },
+      { "op": "or" },
+      { "op": "and" }
+    ]
+  }
+]
