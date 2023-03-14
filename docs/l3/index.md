@@ -12,8 +12,4 @@ Part of the shared infrastructure is built using `DSCP`.
 
 ## Process flows
 
-Process flows for transactions in the L3 token model can be found in `/processFlows`. Each process flow is a `.json` that can be supplied to the [`dscp-process-management`](https://github.com/digicatapult/dscp-process-management) cli tool for creating that process on chain:
-
-```
-process-management create -h localhost -p 9944 -u //Alice "$(cat demandCreate.json)"
-```
+Process flows for transactions in the L3 token model can be found in [`dscp-matchmaker-api`](https://github.com/digicatapult/dscp-matchmaker-api#process-flows).
