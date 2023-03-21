@@ -8,11 +8,11 @@
 
 ## Roles
 
-![#38761d](https://placehold.co/15x15/38761d/38761d.png) <b>MEMBER_A</b>
+![#38761d](https://placehold.co/15x15/38761d/38761d.png) <b>MemberA</b>
 
-![#0000ff](https://placehold.co/15x15/0000ff/0000ff.png) <b>MEMBER_B</b>
+![#0000ff](https://placehold.co/15x15/0000ff/0000ff.png) <b>MemberB</b>
 
-![#ff0000](https://placehold.co/15x15/ff0000/ff0000.png) <b>OPTIMISER</b>
+![#ff0000](https://placehold.co/15x15/ff0000/ff0000.png) <b>Optimiser</b>
 
 ## Token types
 
@@ -24,14 +24,14 @@ Represents the proposal and allocation of one member's order to a different memb
 
 ## States
 
-| Token    | State            | Represents                                                                                                                                                                                                                                                                                                                                                                                         |
-| -------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `DEMAND` | `created`        | An order/capacity that a member has made available to be matched. If the demand is no longer required, the token can be burned.                                                                                                                                                                                                                                                                    |
-|          | `allocated`      | An order/capacity that's allocated to a corresponding capacity/order in a `MATCH`. Allocation can't be cancelled, the token can no longer be burned.                                                                                                                                                                                                                                               |
-| `MATCH2` | `proposed`       | A proposed pairing of an order (`DemandA`) and a capacity (`DemandB`). `DemandA` could be an order `DEMAND` and `DemandB` a capacity, as long as there's one of each, not two orders or two capacities. The first accept of a `proposed` `MATCH2` can be made by either member. `DemandA` and `DemandB` must come from different members. Only references the demands, doesn't change their state. |
-|          | `accepted_a`     | A proposed `MATCH2` that has been accepted by the owner of `DemandA`. Still only references the demands, doesn't change their state.                                                                                                                                                                                                                                                               |
-|          | `accepted_b`     | A proposed `MATCH2` that has been accepted by the owner of `DemandB`. Still only references the demands, doesn't change their state.                                                                                                                                                                                                                                                               |
-|          | `accepted_final` | A proposed `MATCH2` that has been accepted by both members. At this point the demands change state to `allocated`.                                                                                                                                                                                                                                                                                 |
+| Token    | State           | Represents                                                                                                                                                                                                                                                                                                                                                                                         |
+| -------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DEMAND` | `created`       | An order/capacity that a member has made available to be matched. If the demand is no longer required, the token can be burned.                                                                                                                                                                                                                                                                    |
+|          | `allocated`     | An order/capacity that's allocated to a corresponding capacity/order in a `MATCH`. Allocation can't be cancelled, the token can no longer be burned.                                                                                                                                                                                                                                               |
+| `MATCH2` | `proposed`      | A proposed pairing of an order (`DemandA`) and a capacity (`DemandB`). `DemandA` could be an order `DEMAND` and `DemandB` a capacity, as long as there's one of each, not two orders or two capacities. The first accept of a `proposed` `MATCH2` can be made by either member. `DemandA` and `DemandB` must come from different members. Only references the demands, doesn't change their state. |
+|          | `acceptedA`     | A proposed `MATCH2` that has been accepted by the owner of `DemandA`. Still only references the demands, doesn't change their state.                                                                                                                                                                                                                                                               |
+|          | `acceptedB`     | A proposed `MATCH2` that has been accepted by the owner of `DemandB`. Still only references the demands, doesn't change their state.                                                                                                                                                                                                                                                               |
+|          | `acceptedFinal` | A proposed `MATCH2` that has been accepted by both members. At this point the demands change state to `allocated`.                                                                                                                                                                                                                                                                                 |
 
 ## Transactions
 
@@ -42,18 +42,18 @@ Created by a member.
 
 ### Match2
 
-An optimiser proposes the matching of a single order from some `MEMBER_A` to a single capacity of a different `MEMBER_B`.
+An `Optimiser` proposes the matching of a single order from some `MemberA` to a single capacity of a different `MemberB`.
 
 ![match2 create](../../assets/l3/match2-create.png)
 
-Accept flow if `MEMBER_A` accepts first, then `MEMBER_B`.
+Accept flow if `MemberA` accepts first, then `MemberB`.
 
-![match2 ab](../../assets/l3/match-ab.png)
+![match2 ab](../../assets/l3/match2-ab.png)
 
-Accept flow if `MEMBER_B` accepts first, then `MEMBER_A`.
+Accept flow if `MemberB` accepts first, then `MemberA`.
 
-![match2 ba](../../assets/l3/match-ba.png)
+![match2 ba](../../assets/l3/match2-ba.png)
 
 A match can be rejected by any party before it is fully accepted.
 
-![match2 reject](../../assets/l3/match-reject.png)
+![match2 reject](../../assets/l3/match2-reject.png)
