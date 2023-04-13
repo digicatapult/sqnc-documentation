@@ -1,9 +1,9 @@
 # DSCP Architecture
 
-DSCP architecture has two variations.
+DSCP architecture has two variations depending on the use case:
 
-- `v1` interacts with `dscp-node` and `dscp-ipfs` using `dscp-api`.
-- `v2` interacts with `dscp-node` and `dscp-ipfs` within the external API service e.g. `dscp-matchmaker-api`.
+- When it's necessary to monitor on-chain state directly within an external API service (e.g. `dscp-matchmaker-api`), the service subscribes to `dscp-node` via WebSocket. This means it must also communicate with `dscp-ipfs` via HTTP to upload/download files in tokens.
+- Otherwise, the external API creates, reads and burns tokens via HTTP using `dscp-api`, which then handles communication with `dscp-node` and `dscp-ipfs`.
 
 See the diagram for more details
 ![Architecture Diagram](../assets/architecture-v1.svg)
