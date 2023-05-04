@@ -16,19 +16,19 @@
 
 ## Token types
 
-Represents either a member's order or a member's capacity.
+An abstract representation of a demand which must be matched with another demand of a different type. For example in L3 this represents either a member's order or a member's capacity.
 ![demand](../../assets/l3/demand.png)
 
-Represents the proposal and allocation of one member's order to a different member's capacity.
+An abstract representation of a match between two different kinds of demand. In L3 this represents the proposal and allocation of one member's order to a different member's capacity.
 ![match2](../../assets/l3/match2.png)
 
 ## States
 
 | Token    | State           | Represents                                                                                                                                                                                                                                                                                                                                                                                         |
 | -------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `DEMAND` | `created`       | An order/capacity that a member has made available to be matched. If the demand is no longer required, the token can be burned.                                                                                                                                                                                                                                                                    |
-|          | `allocated`     | An order/capacity that's allocated to a corresponding capacity/order in a `MATCH`. Allocation can't be cancelled, the token can no longer be burned.                                                                                                                                                                                                                                               |
-| `MATCH2` | `proposed`      | A proposed pairing of an order (`DemandA`) and a capacity (`DemandB`). `DemandA` could be an order `DEMAND` and `DemandB` a capacity, as long as there's one of each, not two orders or two capacities. The first accept of a `proposed` `MATCH2` can be made by either member. `DemandA` and `DemandB` must come from different members. Only references the demands, doesn't change their state. |
+| `DEMAND` | `created`       | A `DemandA`/`DemandB` (e.g. order/capacity in L3) that a member has made available to be matched. If the demand is no longer required, the token can be burned.                                                                                                                                                                                                                                                                    |
+|          | `allocated`     | A `DemandA`/`DemandB` (e.g. order/capacity in L3) that's allocated to a corresponding `DemandB`/`DemandA` in a `MATCH`. Allocation can't be cancelled, the token can no longer be burned.                                                                                                                                                                                                                                               |
+| `MATCH2` | `proposed`      | A proposed pairing of a `DemandA` (e.g. an order in L3) and a `DemandB` (e.g. a capacity in L3). The first accept of a `proposed` `MATCH2` can be made by either member. `DemandA` and `DemandB` must come from different members. Only references the demands, doesn't change their state. |
 |          | `acceptedA`     | A proposed `MATCH2` that has been accepted by the owner of `DemandA`. Still only references the demands, doesn't change their state.                                                                                                                                                                                                                                                               |
 |          | `acceptedB`     | A proposed `MATCH2` that has been accepted by the owner of `DemandB`. Still only references the demands, doesn't change their state.                                                                                                                                                                                                                                                               |
 |          | `acceptedFinal` | A proposed `MATCH2` that has been accepted by both members. At this point the demands change state to `allocated`.                                                                                                                                                                                                                                                                                 |
@@ -42,7 +42,7 @@ Created by a member.
 
 ### Match2
 
-An `Optimiser` proposes the matching of a single order from some `MemberA` to a single capacity of a different `MemberB`.
+An `Optimiser` proposes the matching of a single `DemandA` from some `MemberA` to a single `DemandB` of a different `MemberB`.
 
 ![match2 create](../../assets/l3/match2-create.png)
 
