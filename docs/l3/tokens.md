@@ -38,7 +38,10 @@ An abstract representation of a match between two different kinds of demand. In 
 ### Demand
 
 Created by a member.
-![demand transactions](../../assets/l3/demand-transactions.png)
+![demand create](../../assets/l3/demand-transactions.png)
+
+Commented on by any member
+![demand comment](../../assets//l3//demand-comment.png)
 
 ### Match2
 
