@@ -22,9 +22,9 @@ Here we have went with:
 
 - “Optimiser” to represent an optimiser
 
-1. For each node, set node address `5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY` to “Member A” i.e. Order, using `PUT /members/{address}`
+1. For each node, set node address `5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY` to “Member A” i.e. the persona placing an Order, using `PUT /members/{address}`
 
-2. For each node, set node address `5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty` to “Member B” i.e. Capacity, using `PUT /members/{address}`
+2. For each node, set node address `5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty` to “Member B” i.e. the persona offering Capacity, using `PUT /members/{address}`
 
 3. For each node, set node address `5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y` to “Optimiser” using `PUT /members/{address}`
 
