@@ -248,7 +248,7 @@ Response:
 ]
 ```
 
-Enhancement: The local id changes to `pending` at this point. For example, with Member A:
+When demands are first created locally their state is `pending`, once they are put on chain and the block is finalised the state becomes `created`:
 ```
 {
   "id": "18f832d2-162f-486c-bbc6-d4c436df0d63",
