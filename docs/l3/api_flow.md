@@ -352,7 +352,9 @@ Response:
 ```
 {
   "id": "3be18c6e-367f-479e-a5c2-a52aafc6a376",
-  "state": "proposed",
+  {
+    "id": "3be18c6e-367f-479e-a5c2-a52aafc6a376",
+    "state": "pending",
   "optimiser": "Optimiser",
   "memberA": "Member A",
   "memberB": "Member B",
