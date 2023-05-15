@@ -233,6 +233,8 @@ Inputting the apiType as: `demand_a`
 
 Inputting the status as: `finalised`
 
+URL parameters: `/v1/transaction?apiType=demand_a&status=finalised`
+
 Response:
 ```
 [
