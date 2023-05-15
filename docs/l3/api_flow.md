@@ -318,7 +318,10 @@ Response:
 {
   "id": "566f6819-eb37-4102-9cfb-1c79c03cdb9b",
   "owner": "Member B",
-  "state": "created",
+{
+  "id": "566f6819-eb37-4102-9cfb-1c79c03cdb9b",
+  "owner": "Member B",
+  "state": "pending",
   "parametersAttachmentId": "18d3b77a-ded6-4fb5-ae16-edd8c1ba1a92",
   "createdAt": "2023-05-09T15:43:45.427Z",
   "updatedAt": "2023-05-09T15:43:45.427Z"
