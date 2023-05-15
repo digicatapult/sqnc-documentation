@@ -107,9 +107,60 @@ Parameter files uploaded in `POST /v1/attachment` as Member A & Member B, respec
   }
 ```
 #### Member B
-```
-
-```
+{
+    "palletised_dimensions": true,
+    "pallet_size": {
+      "max_length": 120,
+      "max_height": 180,
+      "max_width": 100
+    },
+    "max_weight": 500,
+    "wheel_position": "front",
+    "pickup_locations": [
+      {
+        "geo_location": {
+          "latitude": 51.5074,
+          "longitude": -0.1278
+        },
+        "estimated_time": "2023-05-10T10:00:00Z"
+      },
+      {
+        "geo_location": {
+          "latitude": 52.5200,
+          "longitude": 13.4050
+        },
+        "estimated_time": "2023-05-11T15:30:00Z"
+      }
+    ],
+    "required_buffer_time": 30,
+    "driver_breaks": {
+      "interval": 240,
+      "duration": 30
+    },
+    "latest_end_time": "2023-05-12T18:00:00Z",
+    "latest_end_time_buffer": 60,
+    "worked_time_so_far": 300,
+    "breaks_so_far": 2,
+    "vehicle_type": "van",
+    "vehicle_specialism": "refrigerated",
+    "existing_item_exception_criteria": [
+      {
+        "name": "fragile",
+        "weight_threshold": 10
+      },
+      {
+        "name": "flammable",
+        "weight_threshold": 5
+      }
+    ],
+    "distance_travelled_so_far": 150,
+    "current_vehicle_location": {
+      "latitude": 51.5074,
+      "longitude": -0.1278
+    },
+    "priority_value": 5,
+    "timeout_cutoff": 120
+  }
 
 Member A uploads the parameters file for `demand_a` to their local database using `POST /v1/attachment`.
 
