@@ -181,7 +181,10 @@ Response:
 {
   "id": "18f832d2-162f-486c-bbc6-d4c436df0d63",
   "owner": "Member A",
-  "state": "created",
+{
+  "id": "18f832d2-162f-486c-bbc6-d4c436df0d63",
+  "owner": "Member A",
+  "state": "pending",
   "parametersAttachmentId": "78b6a81c-5ef3-4549-82a9-e9459ca0cc93",
   "createdAt": "2023-05-09T14:58:17.408Z",
   "updatedAt": "2023-05-09T14:58:17.408Z"
