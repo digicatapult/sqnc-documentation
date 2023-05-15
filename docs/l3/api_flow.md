@@ -310,7 +310,7 @@ Response:
 
 #### POST request to /v1/demandB
 
-Response`:
+Response:
 ```
 {
   "id": "566f6819-eb37-4102-9cfb-1c79c03cdb9b",
