@@ -1,4 +1,14 @@
-# Prerequisites (dscp-api-identity-service)
+# Prerequisites
+
+## Services
+
+Full set of services required for running:
+
+- dscp-matchmaker-api (+ PostgreSQL)
+- dscp-identity-service (+ PostgreSQL)
+- dscp-node
+
+Refer [docker-compose-3-persona.yml](https://github.com/digicatapult/dscp-matchmaker-api/blob/main/docker-compose-3-persona.yml) in [dscp-matchmaker-api](https://github.com/digicatapult/dscp-matchmaker-api/tree/main)
 
 ## Setting node aliases 
 
