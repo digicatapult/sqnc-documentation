@@ -10,7 +10,7 @@ Full set of services required for running:
 
 Refer [docker-compose-3-persona.yml](https://github.com/digicatapult/dscp-matchmaker-api/blob/main/docker-compose-3-persona.yml) in [dscp-matchmaker-api](https://github.com/digicatapult/dscp-matchmaker-api/tree/main)
 
-## Setting node aliases 
+## Setting node aliases (dscp-identity-service)
 
 The values set for each persona are your choice, they should provide a recognisable value in response bodies.
 
@@ -107,6 +107,7 @@ Parameter files uploaded in `POST /v1/attachment` as Member A & Member B, respec
   }
 ```
 #### Member B
+```
 {
     "palletised_dimensions": true,
     "pallet_size": {
@@ -161,6 +162,7 @@ Parameter files uploaded in `POST /v1/attachment` as Member A & Member B, respec
     "priority_value": 5,
     "timeout_cutoff": 120
   }
+  ```
 
 Member A uploads the parameters file for `demand_a` to their local database using `POST /v1/attachment`.
 
@@ -174,13 +176,10 @@ Response:
 }
 ```
 
-Member A creates `demand_a` by sending a `POST request to /v1/demandA`, including the `id` for the parameters file in the request body. 
+Member A creates `demand_a` by sending a `POST /v1/demandA`, including the `id` for the parameters file in the request body. 
 
 Response:
 ```
-{
-  "id": "18f832d2-162f-486c-bbc6-d4c436df0d63",
-  "owner": "Member A",
 {
   "id": "18f832d2-162f-486c-bbc6-d4c436df0d63",
   "owner": "Member A",
@@ -191,7 +190,7 @@ Response:
 }
 ```
 
-When Member A is ready for `demand_a` to exist on the blockchain, they send a `POST request to /v1/demandA/{demandAId}/creation`. 
+When Member A is ready for `demand_a` to exist on the blockchain, they send a `POST /v1/demandA/{demandAId}/creation`. 
 
 Response:
 ```
@@ -320,9 +319,6 @@ Response:
 {
   "id": "566f6819-eb37-4102-9cfb-1c79c03cdb9b",
   "owner": "Member B",
-{
-  "id": "566f6819-eb37-4102-9cfb-1c79c03cdb9b",
-  "owner": "Member B",
   "state": "pending",
   "parametersAttachmentId": "18d3b77a-ded6-4fb5-ae16-edd8c1ba1a92",
   "createdAt": "2023-05-09T15:43:45.427Z",
@@ -330,7 +326,7 @@ Response:
 }
 ```
 
-When Member B is ready for `demand_b` to exist on the blockchain, they send a `POST request to /v1/demandB/{demandBId}/creation`.
+When Member B is ready for `demand_b` to exist on the blockchain, they send a `POST /v1/demandB/{demandBId}/creation`.
 
 Response:
 ```
@@ -357,9 +353,7 @@ Response:
 ```
 {
   "id": "3be18c6e-367f-479e-a5c2-a52aafc6a376",
-  {
-    "id": "3be18c6e-367f-479e-a5c2-a52aafc6a376",
-    "state": "pending",
+  "state": "proposed",
   "optimiser": "Optimiser",
   "memberA": "Member A",
   "memberB": "Member B",
@@ -370,7 +364,7 @@ Response:
 }
 ```
 
-When Optimiser is ready for the `match2` to exist on the blockchain, they send a `POST request to /v1/{match2Id}/proposal`.
+When Optimiser is ready for the `match2` to exist on the blockchain, they send a `POST /v1/{match2Id}/proposal`.
 
 Response:
 ```
@@ -385,14 +379,14 @@ Response:
 }
 ```
 
-Either Member A or Member B can accept the `match2` by sending a `POST request to /v1/{match2Id}/accept`. It doesn't matter which member accepts first. 
+Either Member A or Member B can accept the `match2` by sending a `POST /v1/{match2Id}/accept`. It doesn't matter which member accepts first. 
 
 From Member A node, send `GET /v1/match2` to retrieve the `match2` id:
 ```
 [
   {
     "id": "3be18c6e-367f-479e-a5c2-a52aafc6a376",
-    "state": "proposed",
+    "state": "pending",
     "optimiser": "Optimiser",
     "memberA": "Member A",
     "memberB": "Member B",
@@ -404,7 +398,7 @@ From Member A node, send `GET /v1/match2` to retrieve the `match2` id:
 ]
 ```
 
-Accept the match by sending a `POST request to /v1/{match2Id}/accept`:
+Accept the match by sending a `POST /v1/{match2Id}/accept`:
 ```
 {
   "id": "f21d36fe-c2ba-4a60-b38d-ec3615d670ca",
@@ -436,7 +430,7 @@ From Member B node, send `GET /v1/match2` to retrieve the `match2` id:
 ]
 ```
 
-Accept the match by sending a `POST request to /v1/{match2Id}/accept`:
+Accept the match by sending a `POST /v1/{match2Id}/accept`:
 ```
 {
   "id": "564964a7-2bae-4555-bf85-8127933ce262",
