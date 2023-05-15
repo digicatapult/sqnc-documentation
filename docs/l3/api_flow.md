@@ -340,7 +340,7 @@ Response:
 }
 ```
 
-Optimiser creates a `match2` by sending a `POST request to /v1/match2/{match2Id}/proposal`, including the ids for `demand_a` and `demand_b`. From the optimiser node, send a `GET /v1/demandA` & `GET /v1/demandB` to retrieve the id’s:
+Optimiser creates a `match2` by sending a `POST /v1/match2`, including the ids for `demand_a` and `demand_b`. From the optimiser node, send a `GET /v1/demandA` & `GET /v1/demandB` to retrieve the id’s:
 ```
 {
   "demandA": "7c1134ba-f735-4f8f-9935-b8aca7d38e6b",
