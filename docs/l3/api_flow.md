@@ -16,9 +16,9 @@ The values set for each persona are your choice, they should provide a recognisa
 
 Here we have went with:
 
-- “Member A” to represent an order
+- “Member A” to represent a persona placing an order
 
-- “Member B” to represent a capacity
+- “Member B” to represent a persona offering capacity
 
 - “Optimiser” to represent an optimiser
 
