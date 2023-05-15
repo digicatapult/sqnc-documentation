@@ -57,7 +57,7 @@ In the case of a logistics matching service where one provider has an order to b
 
 Parameter files uploaded in `POST /v1/attachment` as Member A & Member B, respectively.
 
-#### Member A
+### Member A
 ```
 {
     "on_pallet": true,
@@ -106,7 +106,7 @@ Parameter files uploaded in `POST /v1/attachment` as Member A & Member B, respec
     ]
   }
 ```
-#### Member B
+### Member B
 ```
 {
     "palletised_dimensions": true,
@@ -164,7 +164,9 @@ Parameter files uploaded in `POST /v1/attachment` as Member A & Member B, respec
   }
   ```
 
-Member A uploads the parameters file for `demand_a` to their local database using `POST /v1/attachment`.
+### Persona - Member A (order)
+
+1. Member A uploads the parameters file for `demand_a` to their local database using `POST /v1/attachment`.
 
 Response:
 ```
@@ -176,7 +178,7 @@ Response:
 }
 ```
 
-Member A creates `demand_a` by sending a `POST /v1/demandA`, including the `id` for the parameters file in the request body. 
+2. Member A creates `demand_a` by sending a `POST /v1/demandA`, including the `id` for the parameters file in the request body. 
 
 Response:
 ```
@@ -190,7 +192,7 @@ Response:
 }
 ```
 
-When Member A is ready for `demand_a` to exist on the blockchain, they send a `POST /v1/demandA/{demandAId}/creation`. 
+3. When Member A is ready for `demand_a` to exist on the blockchain, they send a `POST /v1/demandA/{demandAId}/creation`. 
 
 Response:
 ```
@@ -205,9 +207,9 @@ Response:
 }
 ```
 
-Member A receives a transaction id for the `demand_a` creation transaction, which they can use to get the details of the transaction using `GET /v1/demandA/{demandAId}/creation/{creationId}`. They can also use `GET /v1/transaction` to get all transactions of any type. 
+4. Member A receives a transaction id for the `demand_a` creation transaction, which they can use to get the details of the transaction using `GET /v1/demandA/{demandAId}/creation/{creationId}`. They can also use `GET /v1/transaction` to get all transactions of any type. 
 
-#### GET /v1/demandA/{demandAId}/creation/{creationId}
+#### Request - GET /v1/demandA/{demandAId}/creation/{creationId}
 
 Inputting the `demand_a`'s identifier as: `18f832d2-162f-486c-bbc6-d4c436df0d63`
 
@@ -226,7 +228,7 @@ Response:
 }
 ```
 
-#### GET /v1/transaction
+#### Request - GET /v1/transaction
 
 Inputting the apiType as: `demand_a`
 
@@ -249,7 +251,7 @@ Response:
 ]
 ```
 
-When demands are first created locally their state is `pending`, once they are put on chain and the block is finalised the state becomes `created`:
+5. When demands are first created locally their state is `pending`, once they are put on chain and the block is finalised the state becomes `created`:
 ```
 {
   "id": "18f832d2-162f-486c-bbc6-d4c436df0d63",
@@ -261,9 +263,11 @@ When demands are first created locally their state is `pending`, once they are p
 }
 ```
 
+### Viewing demands as another persona
+
 The indexers on Member B and Optimiser's dscp-matchmaker-api will process the new `demand_a` when the block containing it is finalised, and the new `demand_a` will be visible to them using `GET /v1/demandA`.
 
-#### Member B
+#### Member B (capacity)
 Inputting the `updatedSince` as: `2023-05-09T14:04:37.227Z`
 
 Response:
@@ -298,9 +302,11 @@ Response:
 ]
 ```
 
-Member B creates `demand_b` in a similar manner to creating `demand_a`, including the parameters file for `demand_b`.
+### Persona - Member B (capacity)
 
-#### POST /v1/attachment
+1. Member B creates `demand_b` in a similar manner to creating `demand_a`, including the parameters file for `demand_b`.
+
+#### Request - POST /v1/attachment
 
 Response:
 ```
@@ -312,7 +318,7 @@ Response:
 }
 ```
 
-#### POST request to /v1/demandB
+#### Request - POST /v1/demandB
 
 Response:
 ```
@@ -326,7 +332,7 @@ Response:
 }
 ```
 
-When Member B is ready for `demand_b` to exist on the blockchain, they send a `POST /v1/demandB/{demandBId}/creation`.
+2. When Member B is ready for `demand_b` to exist on the blockchain, they send a `POST /v1/demandB/{demandBId}/creation`.
 
 Response:
 ```
@@ -341,7 +347,9 @@ Response:
 }
 ```
 
-Optimiser creates a `match2` by sending a `POST /v1/match2`, including the ids for `demand_a` and `demand_b`. From the optimiser node, send a `GET /v1/demandA` & `GET /v1/demandB` to retrieve the id’s:
+### Persona - Optimiser (optimiser)
+
+1. Optimiser creates a `match2` by sending a `POST /v1/match2`, including the ids for `demand_a` and `demand_b`. From the optimiser node, send a `GET /v1/demandA` & `GET /v1/demandB` to retrieve the id’s:
 ```
 {
   "demandA": "7c1134ba-f735-4f8f-9935-b8aca7d38e6b",
@@ -364,7 +372,7 @@ Response:
 }
 ```
 
-When Optimiser is ready for the `match2` to exist on the blockchain, they send a `POST /v1/{match2Id}/proposal`.
+2. When Optimiser is ready for the `match2` to exist on the blockchain, they send a `POST /v1/{match2Id}/proposal`.
 
 Response:
 ```
@@ -379,9 +387,13 @@ Response:
 }
 ```
 
+## Accepting the match
+
 Either Member A or Member B can accept the `match2` by sending a `POST /v1/{match2Id}/accept`. It doesn't matter which member accepts first. 
 
-From Member A node, send `GET /v1/match2` to retrieve the `match2` id:
+### Member A (order)
+
+1. From Member A node, send `GET /v1/match2` to retrieve the `match2` id:
 ```
 [
   {
@@ -398,7 +410,7 @@ From Member A node, send `GET /v1/match2` to retrieve the `match2` id:
 ]
 ```
 
-Accept the match by sending a `POST /v1/{match2Id}/accept`:
+2. Accept the match by sending a `POST /v1/{match2Id}/accept`:
 ```
 {
   "id": "f21d36fe-c2ba-4a60-b38d-ec3615d670ca",
@@ -411,9 +423,11 @@ Accept the match by sending a `POST /v1/{match2Id}/accept`:
 }
 ```
 
-Once the second member accepts, the `match2` state changes to `acceptedFinal`, and the states of `demand_a` and `demand_b` change to `allocated`. These demands can no longer be used in a new `match2`. 
+Note: Once the second member accepts, the `match2` state changes to `acceptedFinal`, and the states of `demand_a` and `demand_b` change to `allocated`. These demands can no longer be used in a new `match2`. 
 
-From Member B node, send `GET /v1/match2` to retrieve the `match2` id:
+### Member B (capacity)
+
+1. From Member B node, send `GET /v1/match2` to retrieve the `match2` id:
 ```
 [
   {
@@ -430,7 +444,7 @@ From Member B node, send `GET /v1/match2` to retrieve the `match2` id:
 ]
 ```
 
-Accept the match by sending a `POST /v1/{match2Id}/accept`:
+2. Accept the match by sending a `POST /v1/{match2Id}/accept`:
 ```
 {
   "id": "564964a7-2bae-4555-bf85-8127933ce262",
@@ -442,6 +456,8 @@ Accept the match by sending a `POST /v1/{match2Id}/accept`:
   "updatedAt": "2023-05-09T16:33:19.848Z"
 }
 ```
+
+### Matching state
 
 Finally, the `match2` state changes to `acceptedFinal`:
 ```
@@ -459,6 +475,8 @@ Finally, the `match2` state changes to `acceptedFinal`:
   }
 ]
 ```
+
+### Demand state
 
 Both demands states change to allocated at this point. 
 
