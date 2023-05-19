@@ -55,6 +55,13 @@ Using `GET /members` on each node returns a list of all aliases as set above:
 
 In the case of a logistics matching service where one provider has an order to be moved and another has some capacity to move orders, one might represent an order as a `demand_a` and a capacity as a `demand_b`.
 
+### Matchmaker nodes
+The matchmaking nodes for the prescribed persona’s:
+
+- [Member A](http://localhost:8000/swagger/)
+- [Member B](http://localhost:8010/swagger/)
+- [Optimiser](http://localhost:8020/swagger/)
+
 ## End-to-End Flow
 
 Parameter files uploaded in `POST /v1/attachment` as Member A & Member B, respectively.
@@ -306,7 +313,7 @@ Response:
 }
 ```
 
-The Optimiser can view the new `match2` on-chain when the block containing it is finalised using `GET /v1/match2/{match2Id}/proposal`.
+The Optimiser can view the new `match2` on-chain when the block containing it is finalised. The status of the transaction can be returned with `GET /v1/match2/{match2Id}/proposal/{proposalId}`:
 
 ```
   {
