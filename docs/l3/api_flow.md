@@ -55,8 +55,8 @@ Using `GET /members` on each node returns a list of all aliases as set above:
 
 In the case of a logistics matching service where one provider has an order to be moved and another has some capacity to move orders, one might represent an order as a `demand_a` and a capacity as a `demand_b`.
 
-### Matchmaker nodes
-The matchmaking APIs for the prescribed persona’s:
+### Matchmaker APIs
+The matchmaker APIs for the prescribed persona’s:
 
 - [Member A](http://localhost:8000/swagger/)
 - [Member B](http://localhost:8010/swagger/)
