@@ -16,24 +16,27 @@ The values set for each persona are your choice, they should provide a recognisa
 
 Here we have went with:
 
-- “Member A” to represent a persona placing an order
+- “Member A” to represent a persona placing an order ([Member A](http://localhost:8001/v1/swagger/))
 
-- “Member B” to represent a persona offering capacity
+- “Member B” to represent a persona offering capacity ([Member B](http://localhost:8011/v1/swagger/))
 
-- “Optimiser” to represent an optimiser
+- “Optimiser” to represent an optimiser ([Optimiser](http://localhost:8021/v1/swagger/))
 
-1. For each node, set node address `5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY` to “Member A” i.e. the persona placing an Order, using `PUT /members/{address}`
+1. On each node, set `alias` for all node addresses using `PUT /members/{address}`:
 
-2. For each node, set node address `5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty` to “Member B” i.e. the persona offering Capacity, using `PUT /members/{address}`
+`5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY` to “Member A” 
+i.e. the persona placing an Order
 
-3. For each node, set node address `5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y` to “Optimiser” using `PUT /members/{address}`
+`5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty` to “Member B” 
+i.e. the persona offering Capacity
+
+`5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y` to “Optimiser”
 
 ## Retrieving node aliases
 
-Using `GET /members` on each node returns a list of all node aliases as set above:
+Using `GET /members` on each node returns a list of all aliases as set above:
 ```
-[
-  {
+{
     "address": "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty",
     "alias": "Member B"
   },
@@ -44,14 +47,20 @@ Using `GET /members` on each node returns a list of all node aliases as set abov
   {
     "address": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
     "alias": "Member A"
-  }
-]
+}
 ```
 # Match Creation API Flow (dscp-matchmaker-api)
 
 ## Context
 
 In the case of a logistics matching service where one provider has an order to be moved and another has some capacity to move orders, one might represent an order as a `demand_a` and a capacity as a `demand_b`.
+
+### Matchmaker APIs
+The matchmaker APIs for the prescribed persona’s:
+
+- [Member A](http://localhost:8000/swagger/)
+- [Member B](http://localhost:8010/swagger/)
+- [Optimiser](http://localhost:8020/swagger/)
 
 ## End-to-End Flow
 
@@ -66,45 +75,8 @@ Parameter files uploaded in `POST /v1/attachment` as Member A & Member B, respec
       "max_height": 180,
       "max_width": 100
     },
-    "item_dimensions": {
-      "length": 80,
-      "height": 50,
-      "width": 40
-    },
-    "item_weight": 25,
-    "pickup_location": {
-      "geo_location": {
-        "latitude": 51.5074,
-        "longitude": -0.1278
-      },
-      "timed_window": {
-        "start_time": "2023-05-10T10:00:00Z",
-        "end_time": "2023-05-10T12:00:00Z"
-      },
-      "expected_time_for_loading": 30
-    },
-    "dropoff_location": {
-      "geo_location": {
-        "latitude": 52.5200,
-        "longitude": 13.4050
-      },
-      "estimated_time": "2023-05-11T15:30:00Z"
-    },
-    "mixing_exclusion_criteria": {
-      "critical": [
-        "toxic",
-        "flammable"
-      ],
-      "user_defined": [
-        "organic",
-        "inorganic"
-      ]
-    },
-    "specialist_requirements": [
-      "refrigerated",
-      "hazardous"
-    ]
-  }
+...
+}
 ```
 ### Member B
 ```
@@ -115,54 +87,9 @@ Parameter files uploaded in `POST /v1/attachment` as Member A & Member B, respec
       "max_height": 180,
       "max_width": 100
     },
-    "max_weight": 500,
-    "wheel_position": "front",
-    "pickup_locations": [
-      {
-        "geo_location": {
-          "latitude": 51.5074,
-          "longitude": -0.1278
-        },
-        "estimated_time": "2023-05-10T10:00:00Z"
-      },
-      {
-        "geo_location": {
-          "latitude": 52.5200,
-          "longitude": 13.4050
-        },
-        "estimated_time": "2023-05-11T15:30:00Z"
-      }
-    ],
-    "required_buffer_time": 30,
-    "driver_breaks": {
-      "interval": 240,
-      "duration": 30
-    },
-    "latest_end_time": "2023-05-12T18:00:00Z",
-    "latest_end_time_buffer": 60,
-    "worked_time_so_far": 300,
-    "breaks_so_far": 2,
-    "vehicle_type": "van",
-    "vehicle_specialism": "refrigerated",
-    "existing_item_exception_criteria": [
-      {
-        "name": "fragile",
-        "weight_threshold": 10
-      },
-      {
-        "name": "flammable",
-        "weight_threshold": 5
-      }
-    ],
-    "distance_travelled_so_far": 150,
-    "current_vehicle_location": {
-      "latitude": 51.5074,
-      "longitude": -0.1278
-    },
-    "priority_value": 5,
-    "timeout_cutoff": 120
-  }
-  ```
+...
+}
+```
 
 ### Persona - Member A (order)
 
@@ -171,10 +98,10 @@ Parameter files uploaded in `POST /v1/attachment` as Member A & Member B, respec
 Response:
 ```
 {
-  "id": "78b6a81c-5ef3-4549-82a9-e9459ca0cc93",
+  "id": "eab0a41e-bcd2-4500-964a-0e885502d2cc",
   "filename": "attachment_order.json",
   "size": 999,
-  "createdAt": "2023-05-09T14:54:14.708Z"
+  "createdAt": "2023-05-19T10:52:54.442Z"
 }
 ```
 
@@ -183,12 +110,12 @@ Response:
 Response:
 ```
 {
-  "id": "18f832d2-162f-486c-bbc6-d4c436df0d63",
+  "id": "eaf24d48-0b96-4f9d-a5d1-ead3885205b2",
   "owner": "Member A",
   "state": "pending",
-  "parametersAttachmentId": "78b6a81c-5ef3-4549-82a9-e9459ca0cc93",
-  "createdAt": "2023-05-09T14:58:17.408Z",
-  "updatedAt": "2023-05-09T14:58:17.408Z"
+  "parametersAttachmentId": "eab0a41e-bcd2-4500-964a-0e885502d2cc",
+  "createdAt": "2023-05-19T10:53:29.223Z",
+  "updatedAt": "2023-05-19T10:53:29.223Z"
 }
 ```
 
@@ -197,13 +124,13 @@ Response:
 Response:
 ```
 {
-  "id": "8c783421-eb61-4bdb-b719-aee945d02121",
+  "id": "2b7a7930-5d47-4af8-8262-f159974f8830",
   "state": "submitted",
-  "localId": "18f832d2-162f-486c-bbc6-d4c436df0d63",
+  "localId": "eaf24d48-0b96-4f9d-a5d1-ead3885205b2",
   "apiType": "demand_a",
   "transactionType": "creation",
-  "submittedAt": "2023-05-09T15:04:19.422Z",
-  "updatedAt": "2023-05-09T15:04:19.422Z"
+  "submittedAt": "2023-05-19T10:54:12.085Z",
+  "updatedAt": "2023-05-19T10:54:12.085Z"
 }
 ```
 
@@ -211,20 +138,20 @@ Response:
 
 #### Request - GET /v1/demandA/{demandAId}/creation/{creationId}
 
-Inputting the `demand_a`'s identifier as: `18f832d2-162f-486c-bbc6-d4c436df0d63`
+Inputting the `demand_a`'s identifier as: `eaf24d48-0b96-4f9d-a5d1-ead3885205b2`
 
-Inputting the `demand_a`'s creation ID as: `8c783421-eb61-4bdb-b719-aee945d02121`
+Inputting the `demand_a`'s creation ID as: `2b7a7930-5d47-4af8-8262-f159974f8830`
 
 Response:
 ```
 {
-  "id": "8c783421-eb61-4bdb-b719-aee945d02121",
+  "id": "2b7a7930-5d47-4af8-8262-f159974f8830",
   "state": "finalised",
-  "localId": "18f832d2-162f-486c-bbc6-d4c436df0d63",
+  "localId": "eaf24d48-0b96-4f9d-a5d1-ead3885205b2",
   "apiType": "demand_a",
   "transactionType": "creation",
-  "submittedAt": "2023-05-09T15:04:19.422Z",
-  "updatedAt": "2023-05-09T15:04:37.227Z"
+  "submittedAt": "2023-05-19T10:54:12.085Z",
+  "updatedAt": "2023-05-19T10:54:31.468Z"
 }
 ```
 
@@ -238,29 +165,39 @@ URL parameters: `/v1/transaction?apiType=demand_a&status=finalised`
 
 Response:
 ```
-[
   {
-    "id": "8c783421-eb61-4bdb-b719-aee945d02121",
+    "id": "2b7a7930-5d47-4af8-8262-f159974f8830",
     "state": "finalised",
-    "localId": "18f832d2-162f-486c-bbc6-d4c436df0d63",
+    "localId": "eaf24d48-0b96-4f9d-a5d1-ead3885205b2",
     "apiType": "demand_a",
     "transactionType": "creation",
-    "submittedAt": "2023-05-09T15:04:19.422Z",
-    "updatedAt": "2023-05-09T15:04:37.227Z"
+    "submittedAt": "2023-05-19T10:54:12.085Z",
+    "updatedAt": "2023-05-19T10:54:31.468Z"
   }
-]
 ```
 
 5. When demands are first created locally their state is `pending`, once they are put on chain and the block is finalised the state becomes `created`:
+
+#### When local
 ```
-{
-  "id": "18f832d2-162f-486c-bbc6-d4c436df0d63",
-  "owner": "Member A",
-  "state": "pending",
-  "parametersAttachmentId": "78b6a81c-5ef3-4549-82a9-e9459ca0cc93",
-  "createdAt": "2023-05-09T14:58:17.408Z",
-  "updatedAt": "2023-05-09T14:58:17.408Z"
-}
+  {
+    "id": "eaf24d48-0b96-4f9d-a5d1-ead3885205b2",
+    "owner": "Member A",
+    "state": "pending",
+...
+  }
+```
+
+#### When on-chain
+```
+  {
+    "id": "eaf24d48-0b96-4f9d-a5d1-ead3885205b2",
+    "owner": "Member A",
+    "state": "created",
+    "parametersAttachmentId": "eab0a41e-bcd2-4500-964a-0e885502d2cc",
+    "createdAt": "2023-05-19T10:53:29.223Z",
+    "updatedAt": "2023-05-19T10:54:31.514Z"
+  }
 ```
 
 ### Viewing demands as another persona
@@ -268,38 +205,27 @@ Response:
 The indexers on Member B and Optimiser's dscp-matchmaker-api will process the new `demand_a` when the block containing it is finalised, and the new `demand_a` will be visible to them using `GET /v1/demandA`.
 
 #### Member B (capacity)
-Inputting the `updatedSince` as: `2023-05-09T14:04:37.227Z`
 
 Response:
 ```
-[
   {
-    "id": "d51277a0-1e23-4d09-aceb-c10ecc147560",
+    "id": "a0f10fe6-6e03-408e-b0a8-1abe6416b2f1",
     "owner": "Member A",
     "state": "created",
-    "parametersAttachmentId": "da003d33-3f0f-4c18-9ccb-5d122a7176ff",
-    "createdAt": "2023-05-09T15:04:37.279Z",
-    "updatedAt": "2023-05-09T15:04:37.279Z"
+...
   }
-]
 ```
 
 #### Optimiser
 
-Inputting the `updatedSince` as: `2023-05-09T14:04:37.227Z`
-
 Response:
 ```
-[
   {
-    "id": "d51277a0-1e23-4d09-aceb-c10ecc147560",
+    "id": "908978fa-7773-44c6-b89a-8a14a3b3ebba",
     "owner": "Member A",
     "state": "created",
-    "parametersAttachmentId": "da003d33-3f0f-4c18-9ccb-5d122a7176ff",
-    "createdAt": "2023-05-09T15:04:37.279Z",
-    "updatedAt": "2023-05-09T15:04:37.279Z"
+...
   }
-]
 ```
 
 ### Persona - Member B (capacity)
@@ -311,10 +237,10 @@ Response:
 Response:
 ```
 {
-  "id": "18d3b77a-ded6-4fb5-ae16-edd8c1ba1a92",
+  "id": "1eb9e236-f10c-4e51-851e-6441149c845b",
   "filename": "attachment_capacity.json",
   "size": 1304,
-  "createdAt": "2023-05-09T15:32:43.664Z"
+  "createdAt": "2023-05-19T11:13:09.094Z"
 }
 ```
 
@@ -323,12 +249,12 @@ Response:
 Response:
 ```
 {
-  "id": "566f6819-eb37-4102-9cfb-1c79c03cdb9b",
+  "id": "0ab717f8-bfaf-4dc6-b52c-feaf6a0c5978",
   "owner": "Member B",
   "state": "pending",
-  "parametersAttachmentId": "18d3b77a-ded6-4fb5-ae16-edd8c1ba1a92",
-  "createdAt": "2023-05-09T15:43:45.427Z",
-  "updatedAt": "2023-05-09T15:43:45.427Z"
+  "parametersAttachmentId": "1eb9e236-f10c-4e51-851e-6441149c845b",
+  "createdAt": "2023-05-19T11:14:10.655Z",
+  "updatedAt": "2023-05-19T11:14:10.655Z"
 }
 ```
 
@@ -337,13 +263,13 @@ Response:
 Response:
 ```
 {
-  "id": "cce98ffb-9e88-4876-ab99-b4ae45f589a9",
+  "id": "5c0a90c1-ddd4-4d23-9732-4a0788978065",
   "state": "submitted",
-  "localId": "566f6819-eb37-4102-9cfb-1c79c03cdb9b",
+  "localId": "0ab717f8-bfaf-4dc6-b52c-feaf6a0c5978",
   "apiType": "demand_b",
   "transactionType": "creation",
-  "submittedAt": "2023-05-09T15:45:32.313Z",
-  "updatedAt": "2023-05-09T15:45:32.313Z"
+  "submittedAt": "2023-05-19T11:15:25.227Z",
+  "updatedAt": "2023-05-19T11:15:25.227Z"
 }
 ```
 
@@ -352,23 +278,23 @@ Response:
 1. Optimiser creates a `match2` by sending a `POST /v1/match2`, including the ids for `demand_a` and `demand_b`. From the optimiser node, send a `GET /v1/demandA` & `GET /v1/demandB` to retrieve the id’s:
 ```
 {
-  "demandA": "7c1134ba-f735-4f8f-9935-b8aca7d38e6b",
-  "demandB": "3fdf525c-20d5-43dd-b387-27c0eac0f73a"
+  "demandA": "908978fa-7773-44c6-b89a-8a14a3b3ebba",
+  "demandB": "f9a352a8-7481-44fa-b8a0-f535755686af"
 }
 ```
 
 Response:
 ```
 {
-  "id": "3be18c6e-367f-479e-a5c2-a52aafc6a376",
-  "state": "proposed",
+  "id": "6009e0b0-2fa8-48c1-8830-8e250502a9c3",
+  "state": "pending",
   "optimiser": "Optimiser",
   "memberA": "Member A",
   "memberB": "Member B",
-  "demandA": "7c1134ba-f735-4f8f-9935-b8aca7d38e6b",
-  "demandB": "3fdf525c-20d5-43dd-b387-27c0eac0f73a",
-  "createdAt": "2023-05-09T16:10:53.921Z",
-  "updatedAt": "2023-05-09T16:10:53.921Z"
+  "demandA": "908978fa-7773-44c6-b89a-8a14a3b3ebba",
+  "demandB": "f9a352a8-7481-44fa-b8a0-f535755686af",
+  "createdAt": "2023-05-19T11:18:07.939Z",
+  "updatedAt": "2023-05-19T11:18:07.939Z"
 }
 ```
 
@@ -377,14 +303,28 @@ Response:
 Response:
 ```
 {
-  "id": "606ea493-d761-4446-b456-3e92ecf28931",
+  "id": "d2648206-1e53-40c1-b5af-ec3702b13149",
   "state": "submitted",
-  "localId": "3be18c6e-367f-479e-a5c2-a52aafc6a376",
+  "localId": "6009e0b0-2fa8-48c1-8830-8e250502a9c3",
   "apiType": "match2",
   "transactionType": "proposal",
-  "submittedAt": "2023-05-09T16:22:57.259Z",
-  "updatedAt": "2023-05-09T16:22:57.259Z"
+  "submittedAt": "2023-05-19T11:19:05.361Z",
+  "updatedAt": "2023-05-19T11:19:05.361Z"
 }
+```
+
+The Optimiser can view the new `match2` on-chain when the block containing it is finalised. The status of the transaction can be returned with `GET /v1/match2/{match2Id}/proposal/{proposalId}`:
+
+```
+  {
+    "id": "d2648206-1e53-40c1-b5af-ec3702b13149",
+    "state": "finalised",
+    "localId": "6009e0b0-2fa8-48c1-8830-8e250502a9c3",
+    "apiType": "match2",
+    "transactionType": "proposal",
+    "submittedAt": "2023-05-19T11:19:05.361Z",
+    "updatedAt": "2023-05-19T11:19:19.853Z"
+  }
 ```
 
 ## Accepting the match
@@ -395,31 +335,29 @@ Either Member A or Member B can accept the `match2` by sending a `POST /v1/{matc
 
 1. From Member A node, send `GET /v1/match2` to retrieve the `match2` id:
 ```
-[
   {
-    "id": "3be18c6e-367f-479e-a5c2-a52aafc6a376",
-    "state": "pending",
+    "id": "61f8e3bd-b3cd-4827-854e-0d3f96966517",
+    "state": "proposed",
     "optimiser": "Optimiser",
     "memberA": "Member A",
     "memberB": "Member B",
-    "demandA": "7c1134ba-f735-4f8f-9935-b8aca7d38e6b",
-    "demandB": "3fdf525c-20d5-43dd-b387-27c0eac0f73a",
-    "createdAt": "2023-05-09T16:10:53.921Z",
-    "updatedAt": "2023-05-09T16:23:13.646Z"
+    "demandA": "eaf24d48-0b96-4f9d-a5d1-ead3885205b2",
+    "demandB": "51b1dafe-1abe-481b-9a1d-464bbdb04087",
+    "createdAt": "2023-05-19T11:19:19.923Z",
+    "updatedAt": "2023-05-19T11:19:19.923Z"
   }
-]
 ```
 
 2. Accept the match by sending a `POST /v1/{match2Id}/accept`:
 ```
 {
-  "id": "f21d36fe-c2ba-4a60-b38d-ec3615d670ca",
+  "id": "99af4d2a-24d2-4e0d-93d2-98092e707c57",
   "state": "submitted",
-  "localId": "2ece25be-1a66-4aff-b606-952e35c2ecab",
+  "localId": "61f8e3bd-b3cd-4827-854e-0d3f96966517",
   "apiType": "match2",
   "transactionType": "accept",
-  "submittedAt": "2023-05-09T16:29:03.904Z",
-  "updatedAt": "2023-05-09T16:29:03.904Z"
+  "submittedAt": "2023-05-19T11:29:37.320Z",
+  "updatedAt": "2023-05-19T11:29:37.320Z"
 }
 ```
 
@@ -429,51 +367,42 @@ Note: Once the second member accepts, the `match2` state changes to `acceptedFin
 
 1. From Member B node, send `GET /v1/match2` to retrieve the `match2` id:
 ```
-[
   {
-    "id": "89d26441-2ae8-4967-bbff-e7f642674b6e",
+    "id": "3e38c0e5-7442-416c-a166-2605ebfa3e3d",
     "state": "acceptedA",
     "optimiser": "Optimiser",
     "memberA": "Member A",
     "memberB": "Member B",
-    "demandA": "d51277a0-1e23-4d09-aceb-c10ecc147560",
-    "demandB": "566f6819-eb37-4102-9cfb-1c79c03cdb9b",
-    "createdAt": "2023-05-09T16:23:13.650Z",
-    "updatedAt": "2023-05-09T16:29:19.259Z"
+    "demandA": "a0f10fe6-6e03-408e-b0a8-1abe6416b2f1",
+    "demandB": "0ab717f8-bfaf-4dc6-b52c-feaf6a0c5978",
+    "createdAt": "2023-05-19T11:19:19.931Z",
+    "updatedAt": "2023-05-19T11:29:54.859Z"
   }
-]
 ```
 
 2. Accept the match by sending a `POST /v1/{match2Id}/accept`:
 ```
 {
-  "id": "564964a7-2bae-4555-bf85-8127933ce262",
+  "id": "cd1972c1-ad60-4526-a9dd-624ba9f3cecf",
   "state": "submitted",
-  "localId": "89d26441-2ae8-4967-bbff-e7f642674b6e",
+  "localId": "3e38c0e5-7442-416c-a166-2605ebfa3e3d",
   "apiType": "match2",
   "transactionType": "accept",
-  "submittedAt": "2023-05-09T16:33:19.848Z",
-  "updatedAt": "2023-05-09T16:33:19.848Z"
+  "submittedAt": "2023-05-19T11:33:29.952Z",
+  "updatedAt": "2023-05-19T11:33:29.952Z"
 }
 ```
 
 ### Matching state
 
-Finally, the `match2` state changes to `acceptedFinal`:
+As previously mentioned, then `match2` state changes to `acceptedFinal`:
 ```
-[
   {
-    "id": "3be18c6e-367f-479e-a5c2-a52aafc6a376",
+    "id": "3e38c0e5-7442-416c-a166-2605ebfa3e3d",
     "state": "acceptedFinal",
     "optimiser": "Optimiser",
-    "memberA": "Member A",
-    "memberB": "Member B",
-    "demandA": "7c1134ba-f735-4f8f-9935-b8aca7d38e6b",
-    "demandB": "3fdf525c-20d5-43dd-b387-27c0eac0f73a",
-    "createdAt": "2023-05-09T16:10:53.921Z",
-    "updatedAt": "2023-05-09T16:33:37.847Z"
+...
   }
-]
 ```
 
 ### Demand state
@@ -482,15 +411,118 @@ Both demands states change to allocated at this point.
 
 For example, with `demand_a`:
 ```
-[
-  {
-    "id": "8c783421-eb61-4bdb-b719-aee945d02121",
-    "state": "allocated",
-    "localId": "18f832d2-162f-486c-bbc6-d4c436df0d63",
-    "apiType": "demand_a",
-    "transactionType": "creation",
-    "submittedAt": "2023-05-09T15:04:19.422Z",
-    "updatedAt": "2023-05-09T16:33:37.847Z"
-  }
-]
+{
+  "id": "eaf24d48-0b96-4f9d-a5d1-ead3885205b2",
+  "owner": "Member A",
+  "state": "allocated",
+  "parametersAttachmentId": "eab0a41e-bcd2-4500-964a-0e885502d2cc",
+  "createdAt": "2023-05-19T10:53:29.223Z",
+  "updatedAt": "2023-05-19T11:33:44.050Z",
+  "comments": []
+}
 ```
+
+# Rejecting a match
+The previous flow covered a 'happy path' where both members accepted the match. In another scenario either member could reject the match proposed to them, after commenting their reasons on the other members demand.
+
+In this example, Member A comments on `demand_b` alerting them of an issue. Subsequently Member A rejects the `match2` on-chain.
+
+## Commenting on demands
+
+### Member A
+
+Comment file uploaded in `POST /v1/attachment` as Member A's comment:
+
+```
+That's not going to work!
+```
+
+#### Persona - Member A (order)
+
+1. Member A uploads the comment file for `demand_b` to their local database using `POST /v1/attachment`:
+
+```
+{
+  "id": "c6d8b94e-d07f-43d9-8cea-26b36f8b2fc1",
+  "filename": "comment_on_capacity.txt",
+  "size": 25,
+  "createdAt": "2023-05-19T14:21:48.690Z"
+}
+```
+
+2. Member A attaches a comment on`demand_b` by sending a `POST /v1/demandB/{demandBId}/comment`, including the `id` for the comment file in the request body:
+
+```
+{
+  "id": "9b6eb832-ad85-4d3b-aba8-2a8cb547bb10",
+  "state": "submitted",
+  "localId": "c21ba838-01b5-48fd-91be-1b8f9833e5ec",
+  "apiType": "demand_b",
+  "transactionType": "comment",
+  "submittedAt": "2023-05-19T14:27:24.648Z",
+  "updatedAt": "2023-05-19T14:27:24.648Z"
+}
+```
+
+#### Persona - Member B (capacity)
+
+Member B is then able to locate the `id` for the comment file using `GET /v1/demandB/{demandBId}`:
+
+```
+{
+  "id": "c0eb276a-4164-407f-9526-ccb5c45d081d",
+  "owner": "Member B",
+  "state": "created",
+...
+  "comments": [
+    {
+      "attachmentId": "3fdb1c5e-1f6d-45b2-90d6-8cf7a483c188",
+      "createdAt": "2023-05-19T14:27:42.823Z",
+      "owner": "Member A"
+    }
+  ]
+}
+```
+
+Note: A demand can be commented on multiple times and it does not change the demands state.
+
+
+## Rejecting match2
+
+1. Viewing `match2` as Member A using `GET /v1/match2`:
+
+```
+ {
+    "id": "a4c03d12-9e19-47a8-a897-c7c60b39ec6f",
+    "state": "acceptedB",
+    "optimiser": "Optimiser",
+...
+  }
+```
+
+2. Rejecting `match2` as Member A using `POST /v1/match2/{match2Id}/rejection`:
+
+```
+{
+  "id": "d1226e13-e638-4cb1-8b23-e2399aa7115e",
+  "state": "submitted",
+  "localId": "a4c03d12-9e19-47a8-a897-c7c60b39ec6f",
+  "apiType": "match2",
+  "transactionType": "rejection",
+  "submittedAt": "2023-05-19T14:33:39.235Z",
+  "updatedAt": "2023-05-19T14:33:39.235Z"
+}
+```
+
+3. Viewing the rejected `match2` as the Optimiser using `GET /v1/match2`:
+
+```
+  {
+    "id": "b874a067-2570-45d4-a97c-24d63cc44b42",
+    "state": "rejected",
+    "optimiser": "Optimiser",
+...
+  }
+```
+
+Note: At any time after a `match2` is proposed, and before it reaches `acceptedFinal` state, any of its members can reject the `match2` using `POST /v1/match2/{id}/rejection`. Once a `match2` is rejected, it is permanently closed.
