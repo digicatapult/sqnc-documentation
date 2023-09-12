@@ -33,7 +33,7 @@ An abstract representation of a match between two different kinds of demand. In 
 |          | `acceptedA`     | A proposed `MATCH2` that has been accepted by the owner of `DemandA`. Still only references the demands, doesn't change their state.                                                                                                                                                        |
 |          | `acceptedB`     | A proposed `MATCH2` that has been accepted by the owner of `DemandB`. Still only references the demands, doesn't change their state.                                                                                                                                                        |
 |          | `acceptedFinal` | A proposed `MATCH2` that has been accepted by both members. At this point the demands change state to `allocated`.                                                                                                                                                                          |
-|          | `cancelled`     | Upon cancel request from either `MemberA`/`MemberB both members (`DemandA`&`DemandB`) move to cancelled state as well as their corresponding accepted `MATCH2`.                                                                                                                             |
+|          | `cancelled`     | Upon cancel request from either `MemberA`/`MemberB` both members (`DemandA`&`DemandB`) move to cancelled state as well as their corresponding accepted `MATCH2`.                                                                                                                            |
 
 ## Transactions
 
