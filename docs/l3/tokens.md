@@ -40,16 +40,16 @@ An abstract representation of a match between two different kinds of demand. In 
 ### Demand
 
 Created by a member.
-![demand create](../../assets/l3/demand-transactions.png)
+![demand create](../../assets/l3/demand-create.png)
 
 Commented on by any member
-![demand comment](../../assets//l3//demand-comment.png)
+![demand comment](../../assets//l3/demand-comment.png)
 
 ### Match2
 
 An `Optimiser` proposes the matching of a single `DemandA` from some `MemberA` to a single `DemandB` of a different `MemberB`.
 
-![match2 create](../../assets/l3/match2-create.png)
+![match2 propose](../../assets/l3/match2-propose.png)
 
 Accept flow if `MemberA` accepts first, then `MemberB`.
 
@@ -66,3 +66,11 @@ A match can be rejected by any party before it is fully accepted.
 A match can be cancelled by either `MemberA` or `MemberB` after it has been fully accepted.
 
 ![match2 cancel](../../assets/l3/match2-cancel.png)
+
+A match can be rematched whereby a `demand` of subtype `demandA` is rematched to a different `demand` of subtype `demandB`. This will cancel the previous match. This begins with the proposal.
+
+![rematch2 propose](../../assets/l3/rematch2-propose.png)
+
+The first stage of a rematch accept flow is then the same as that shown above where either `MemberA` or `MemberB` of the new match accepts first. A different transaction then occurs for the second agreement.
+
+![rematch2 acceptFinal](../../assets/l3/rematch2-acceptFinal.png)
