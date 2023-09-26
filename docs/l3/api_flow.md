@@ -526,3 +526,96 @@ Note: A demand can be commented on multiple times and it does not change the dem
 ```
 
 Note: At any time after a `match2` is proposed, and before it reaches `acceptedFinal` state, any of its members can reject the `match2` using `POST /v1/match2/{id}/rejection`. Once a `match2` is rejected, it is permanently closed.
+
+## Cancelling match2
+
+1. Viewing all `match2` cancellation transactions can be performed by `memberA` or `memberB` by making **GET** request to `/v1/match2/{match2Id}/cancellation` endpoint. Takes a `match2id` as a parameter property. Match2 must be in `finalAcceptance` state.
+
+
+#### response example
+```js
+[
+  ...,
+  {
+    "id": "3ba8e8b9-1e7b-47de-bb91-fdcb81c41ed7",
+    "state": "inBlock",
+    "localId": "56261a42-e046-488a-875d-7ed9e93dde09",
+    "apiType": "match2",
+    "transactionType": "cancellation",
+    "submittedAt": "2023-09-26T10:34:17.030Z",
+    "updatedAt": "2023-09-26T10:34:18.043Z"
+  }
+]
+
+/* Response headers
+ access-control-allow-origin: * 
+ connection: keep-alive 
+ content-length: 246 
+ content-type: application/json; charset=utf-8 
+ date: Tue,26 Sep 2023 10:37:13 GMT 
+ etag: W/"f6-jordvLkfdT0QftNEAa6voZtlS6o" 
+ keep-alive: timeout=5 
+ x-powered-by: Express 
+ */
+```
+
+2. In order to retrieve a specific transaction for a specific `match2`. Make a call to the `/v1/match2/{match2Id}/cancellation/{cancellationId}` endpoint containing both params e.g. `cancellationId` and `match2Id`
+
+#### response example
+```js
+{
+  "id": "3ba8e8b9-1e7b-47de-bb91-fdcb81c41ed7",
+  "state": "inBlock",
+  "localId": "56261a42-e046-488a-875d-7ed9e93dde09",
+  "apiType": "match2",
+  "transactionType": "cancellation",
+  "submittedAt": "2023-09-26T10:34:17.030Z",
+  "updatedAt": "2023-09-26T10:34:18.043Z"
+}
+/* Response headers
+ access-control-allow-origin: * 
+ connection: keep-alive 
+ content-length: 244 
+ content-type: application/json; charset=utf-8 
+ date: Tue,26 Sep 2023 10:38:10 GMT 
+ etag: W/"f4-i3WHp+uSae6+YYElA/k0xWqaguI" 
+ keep-alive: timeout=5 
+ x-powered-by: Express 
+ */
+```
+3. Cancels an existing `match2` that is currently in `finalAccepte` state. It must require to have an attachmentId in the request body
+
+#### request body example
+```sh
+curl -X 'POST' \
+  '/v1/match2/{match2id}/cancellation' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "attachmentId": "a789ad47-91c3-446e-90f9-a7c9b233eaf8"
+  }'
+```
+
+#### response example
+```js
+{
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "state": "submitted",
+  "apiType": "match2",
+  "transactionType": "creation",
+  "submittedAt": "2023-09-26T12:06:55.035Z",
+  "updatedAt": "2023-09-26T12:06:55.035Z"
+}
+```
+
+# Generic
+> Not Found - 404 
+```js
+{
+  "name": "string",
+  "message": "string",
+  "stack": "string",
+  "code": 0,
+  "item": "string"
+}
+```
