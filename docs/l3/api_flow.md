@@ -537,6 +537,15 @@ Note: At any time after a `match2` is proposed, and before it reaches `acceptedF
 [
   ...,
   {
+    "id": "a3acc8b9-1e7b-47de-bb91-fdcb81c41ed7",
+    "state": "inBlock",
+    "localId": "56261a42-e046-488a-875d-7ed9e93d0000",
+    "apiType": "match2",
+    "transactionType": "cancellation",
+    "submittedAt": "2023-09-27T10:34:17.030Z",
+    "updatedAt": "2023-09-27T10:34:18.043Z"
+  },
+  {
     "id": "3ba8e8b9-1e7b-47de-bb91-fdcb81c41ed7",
     "state": "inBlock",
     "localId": "56261a42-e046-488a-875d-7ed9e93dde09",
