@@ -583,7 +583,7 @@ Note: At any time after a `match2` is proposed, and before it reaches `acceptedF
  x-powered-by: Express 
  */
 ```
-3. Cancels an existing `match2` that is currently in `finalAccepte` state. It must require to have an attachmentId in the request body
+3. Cancels an existing `match2` that is currently in `finalAccepted` state. It must require to have an attachmentId in the request body
 
 #### request body example
 ```sh
