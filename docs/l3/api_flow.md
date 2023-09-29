@@ -533,7 +533,7 @@ When a `match2` is in a state of `acceptedFinal` it can be cancelled by either M
 1. Comment file uploaded in `POST /v1/attachment` as Member A's comment:
 
 ```
-The strawberry's have gone bad!
+The strawberries have gone bad!
 ```
 
 2. For example, cancelling `match2` as Member A using `POST /v1/match2/{match2Id}]/cancellation`:
