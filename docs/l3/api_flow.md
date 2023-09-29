@@ -532,13 +532,13 @@ When a `match2` is in a state of `acceptedFinal` it can be cancelled by either M
 
 1. Comment file uploaded in `POST /v1/attachment` as Member A's comment:
 
-*remove*```
+```
 The strawberry's have gone bad!
-*remove*```
+```
 
 2. For example, cancelling `match2` as Member A using `POST /v1/match2/{match2Id}]/cancellation`:
 
-*remove*```js
+```js
 {
     "id": "8fb8aef6-0944-4367-bce0-fbbcde48ac54",
     "state": "submitted",
@@ -548,11 +548,11 @@ The strawberry's have gone bad!
     "submittedAt": "2023-09-29T12:49:38.458Z",
     "updatedAt": "2023-09-29T12:49:38.458Z"
 }
-*remove*```
+```
 
 3. Viewing a `match2` cancellation transaction can be performed by Member A or Member B by using `GET /v1/match2/{match2Id}/cancellation`:
 
-*remove*```js
+```js
     {
         "id": "8fb8aef6-0944-4367-bce0-fbbcde48ac54",
         "state": "finalised",
@@ -562,11 +562,11 @@ The strawberry's have gone bad!
         "submittedAt": "2023-09-29T12:49:38.458Z",
         "updatedAt": "2023-09-29T12:49:55.772Z"
     }
-*remove*```
+```
 
 4. In order to retrieve a specific transaction for a specific `match2`, use `GET /v1/match2/{match2Id}/cancellation/{cancellationId}`:
 
-*remove*```js
+```js
 {
     "id": "8fb8aef6-0944-4367-bce0-fbbcde48ac54",
     "state": "finalised",
@@ -576,4 +576,4 @@ The strawberry's have gone bad!
     "submittedAt": "2023-09-29T12:49:38.458Z",
     "updatedAt": "2023-09-29T12:49:55.772Z"
 }
-*remove*```
+```
