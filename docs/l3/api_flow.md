@@ -526,3 +526,54 @@ Note: A demand can be commented on multiple times and it does not change the dem
 ```
 
 Note: At any time after a `match2` is proposed, and before it reaches `acceptedFinal` state, any of its members can reject the `match2` using `POST /v1/match2/{id}/rejection`. Once a `match2` is rejected, it is permanently closed.
+
+## Cancelling match2
+When a `match2` is in a state of `acceptedFinal` it can be cancelled by either Member A or Member B, if seen fit i.e. order or capacity is no longer available for a specific reason. It is mandatory that a comment is attached to detail a reason for cancellation.
+
+1. Comment file uploaded in `POST /v1/attachment` as Member A's comment:
+
+```
+The strawberries have gone bad!
+```
+
+2. For example, cancelling `match2` as Member A using `POST /v1/match2/{match2Id}]/cancellation`:
+
+```js
+{
+    "id": "8fb8aef6-0944-4367-bce0-fbbcde48ac54",
+    "state": "submitted",
+    "localId": "6ad909c6-c06c-463d-bbed-4cdec8781a86",
+    "apiType": "match2",
+    "transactionType": "cancellation",
+    "submittedAt": "2023-09-29T12:49:38.458Z",
+    "updatedAt": "2023-09-29T12:49:38.458Z"
+}
+```
+
+3. Viewing a `match2` cancellation transaction can be performed by Member A or Member B by using `GET /v1/match2/{match2Id}/cancellation`:
+
+```js
+    {
+        "id": "8fb8aef6-0944-4367-bce0-fbbcde48ac54",
+        "state": "finalised",
+        "localId": "6ad909c6-c06c-463d-bbed-4cdec8781a86",
+        "apiType": "match2",
+        "transactionType": "cancellation",
+        "submittedAt": "2023-09-29T12:49:38.458Z",
+        "updatedAt": "2023-09-29T12:49:55.772Z"
+    }
+```
+
+4. In order to retrieve a specific transaction for a specific `match2`, use `GET /v1/match2/{match2Id}/cancellation/{cancellationId}`:
+
+```js
+{
+    "id": "8fb8aef6-0944-4367-bce0-fbbcde48ac54",
+    "state": "finalised",
+    "localId": "6ad909c6-c06c-463d-bbed-4cdec8781a86",
+    "apiType": "match2",
+    "transactionType": "cancellation",
+    "submittedAt": "2023-09-29T12:49:38.458Z",
+    "updatedAt": "2023-09-29T12:49:55.772Z"
+}
+```
