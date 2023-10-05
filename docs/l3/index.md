@@ -12,7 +12,7 @@ Part of the shared infrastructure is built using `DSCP`.
 
 ## Process flows
 
-Process flows for transactions in the L3 token model can be found in [`dscp-matchmaker-api`](https://github.com/digicatapult/dscp-matchmaker-api#process-flows).
+Process flows for transactions in the L3 token model can be found in [`dscp-matchmaker-api`](https://github.com/digicatapult/dscp-matchmaker-api#process-flows). This has also been translated into [our DSL](../tokenModels/language.md) and this can be found [here](./l3.dscp)
 
 ## API flows
 
