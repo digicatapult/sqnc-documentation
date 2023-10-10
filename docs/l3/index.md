@@ -32,7 +32,7 @@ This section describes some terminology used in the L3 project.
 | match       | An agreement to have an order moved by a specified capacity                                                                                         | `/v1/match2`                 |
 | re-match    | An agreement to have an order moved by a specified capacity which replaces replaces an existing match for an order. This is a special kind of match | `/v1/match2`                 |
 | transaction | An onchain transaction that communicates a change of state for an order, a capacity and/or a match                                                  |
-| attachment  | A file that needs to be communicated over shared infrastructure consistently, but will not affect he validity of a transaction                      | `/v1/attachment`             |
+| attachment  | A file that needs to be communicated over shared infrastructure consistently, but will not affect the validity of a transaction                     | `/v1/attachment`             |
 
 ### Transaction types
 

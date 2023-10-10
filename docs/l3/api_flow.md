@@ -662,7 +662,7 @@ Response:
 }
 ```
 
-2. When Optimiser is ready for the `match2` to exist on the blockchain, they send a `POST /v1/{match2Id}/proposal`.
+2. When Optimiser is ready for the `match2` to exist on the blockchain, they send a `POST /v1/match2/{match2Id}/proposal`.
 
 Response:
 
