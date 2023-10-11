@@ -22,17 +22,17 @@ This section describes some terminology used in the L3 project.
 
 ### Main entities and routes
 
-| name        | description                                                                                                                                         | route prefixes               |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| demand      | A demand represents an abstract need for some sort of matchmaking. In L3 this represents either an order or a capacity                              | `/v1/demandA`, `/v1/demandB` |
-| demand_a    | Matches in L3 are between heterogeneous demands and a demand_a represents one side of this                                                          | `/v1/demandA`                |
-| order       | A demand to have a physical asset moved from one location to another. This is represented by a demand_a in L3                                       | `/v1/demandA`                |
-| demand_b    | Matches in L3 are between heterogeneous demands and a demand_b represents the other side of this                                                    | `/v1/demandB`                |
-| capacity    | An ability to move physical assets via some sort of transportation mechanism. This represents a demand to have space filled by orders               | `/v1/demandB`                |
-| match       | An agreement to have an order moved by a specified capacity                                                                                         | `/v1/match2`                 |
-| re-match    | An agreement to have an order moved by a specified capacity which replaces replaces an existing match for an order. This is a special kind of match | `/v1/match2`                 |
-| transaction | An onchain transaction that communicates a change of state for an order, a capacity and/or a match                                                  |
-| attachment  | A file that needs to be communicated over shared infrastructure consistently, but will not affect the validity of a transaction                     | `/v1/attachment`             |
+| name        | description                                                                                                                                           | route prefixes               |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| demand      | A demand represents an abstract need for some sort of matchmaking. In L3 this represents either an order or a capacity                                | `/v1/demandA`, `/v1/demandB` |
+| demand_a    | Matches in L3 are between heterogeneous demands and a demand_a represents one side of this                                                            | `/v1/demandA`                |
+| order       | A demand to have a physical asset moved from one location to another. This is represented by a demand_a in L3                                         | `/v1/demandA`                |
+| demand_b    | Matches in L3 are between heterogeneous demands and a demand_b represents the other side of this                                                      | `/v1/demandB`                |
+| capacity    | An ability to move physical assets via some sort of transportation mechanism. This represents a demand to have space filled by orders                 | `/v1/demandB`                |
+| match       | An agreement to have an order moved by a specified capacity                                                                                           | `/v1/match2`                 |
+| re-match    | An agreement to have an order moved by a specified capacity which replaces replaces an existing match for an order. This is a special kind of match   | `/v1/match2`                 |
+| transaction | An onchain transaction that communicates a change of state for an order, a capacity and/or a match                                                    |
+| attachment  | A file that needs to be communicated over shared infrastructure consistently, but the contents of which will not affect the validity of a transaction | `/v1/attachment`             |
 
 ### Transaction types
 
