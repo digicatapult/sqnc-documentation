@@ -10,11 +10,11 @@ To differentiate documents with code that has a high-level of abstraction from o
 
 In terms of how the information that needs to be persisted in on-chain looks like, it is important explain the big picture.
 
-The process is currently designed in such a way so that certain users can mint out of nothing, burn-and-create and burn tokens. There are two token types - (1) the first one represents NFT tokens that have no Embodied CO2 data attached to them yet and only Hydrogen amount in g while (2) the second one has Embodied CO2 while the hydrogen amount is removed to avoid being redundant.
+The process is currently designed in such a way so that certain users can mint out of nothing, burn-and-create and burn tokens. There are two token types - (1) the first one represents NFT tokens that have no Embodied CO2 data attached to them yet and only Hydrogen amount in whatever unit we decide to use here while (2) the second one has Embodied CO2 while the hydrogen amount is removed to avoid being redundant.
 
 Assuming a simple user flow made out of two steps (1) token **A** gets created from nothingness; (2) token **B** gets spawned from the previously one:
 
-* Token **A** will have two key-value pairs: (A1) hydrogen owner where the owner will be an address like the one owned by Heidi the H producer and (A2) the respective H amount.
+* Token **A** will have two key-value pairs: (A1) hydrogen owner where the owner will be an address like the one owned by Heidi the H producer, (A2) the proposed owner where the owner will be an address like the one owner by the Emma the E producer and (A3) the respective H amount.
 
 * Token **B** will have three key-value pairs: (B1) which is basically a clone of A1, (B2) energy owner where the owner will be an address like the one owned by Emma the energy maker or any other address different than the A1 address and (B3) the embodied CO2.
 
