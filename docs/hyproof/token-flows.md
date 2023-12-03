@@ -22,6 +22,14 @@ Assuming a simple user flow made out of two steps (1) token **A** gets created f
 
 ---
 
+## DSCP Lang Flows For HyProof: The Token Flows DSCP Code
+
+The token model has been written originally in our Domain Specific Language ( DSCP DSL Lang ) and added to the API repo, as in **`dscp-hyproof-api`**, specifically, in **[processFlows.dscp](https://github.com/digicatapult/dscp-hyproof-api/blob/main/processFlows.dscp)**.
+
+The final JSON file containing all the flow guardrail restrictions has been compiled from that file. The file has been added to the same repo, more exactly, in **[processFlows.json](https://github.com/digicatapult/dscp-hyproof-api/blob/main/processFlows.json)**.
+
+---
+
 ## DSCP Lang Flows For HyProof: Preparing and Testing
 
 To compile the final _token flow json_ using the _token dscp code_ as an input the **[dscp-lang](https://github.com/digicatapult/dscp-node/tree/main/tools/lang)** needs to be used, therefore a command like the following:
