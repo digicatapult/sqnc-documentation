@@ -6,6 +6,8 @@ The **`dscp-lang`**, tool we use for parsing token flows, can be found in the **
 
 To differentiate documents with code that has a high-level of abstraction from other things, let's consider using the custom file extension **`*.dscp`**.
 
+---
+
 ## DSCP Lang Flows For HyProof: Overview
 
 In terms of how the information that needs to be persisted in on-chain looks like, it is important explain the big picture.
@@ -18,18 +20,20 @@ Assuming a simple user flow made out of two steps (1) token **A** gets created f
 
 * Token **B** will have three key-value pairs: (B1) which is basically a clone of A1, (B2) energy owner where the owner will be an address like the one owned by Emma the energy maker or any other address different than the A1 address and (B3) the embodied CO2.
 
+---
+
 ## DSCP Lang Flows For HyProof: Preparing and Testing
 
 To compile the final _token flow json_ using the _token dscp code_ as an input the **[dscp-lang](https://github.com/digicatapult/dscp-node/tree/main/tools/lang)** needs to be used, therefore a command like the following:
 
 ```sh
-dscp-lang -- build -v ./hyproof-token-flows.dscp -o hyproof-token-flows.json
+dscp-lang -- build -v ./processFlows.dscp -o processFlows.json
 ```
 
 To create, as in, deploy the new token flows ( described in the json ) into the node's _processValidation_ set, something like the following can be used ( make sure the chain is running first ):
 
 ```sh
-process-management create -h localhost -p 9944 -u //Alice -f hyproof-token-flows.json # OR 127.0.0.1
+process-management create -h localhost -p 9944 -u //Alice -f processFlows.json # OR 127.0.0.1
 ```
 
 ---
