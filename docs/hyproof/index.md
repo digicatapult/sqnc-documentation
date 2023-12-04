@@ -15,7 +15,9 @@ For this proof of concept it has been decided that the consensus layer will be c
 
 ## HyProof: Process Flows
 
-The token model or better said, the the definition of the two token types plus flow restriction functions for this project can be found with proper explanations in the **[token-flows.md](./token-flows.md)** document.
+The token model or better said, the the definition of the two token types plus flow restriction functions for this project can be found with proper explanations in the first MD file found in same folder where this document is located:
+
+* **[token-flows.md](./token-flows.md)**
 
 The token model is also available in our Domain Specific Language ( .DSCP ) and can be found in **`dscp-hyproof-api`** repository, more exactly in **[processFlows.dscp](https://github.com/digicatapult/dscp-hyproof-api/blob/main/processFlows.dscp)**.
 
@@ -33,7 +35,9 @@ The following represents a diagram containing all the services needed to spin up
 
 ## HyProof: API Flow
 
-TBD
+For more information about the API flow, read the appropriate MD file:
+
+* **[api-flow.md](./api-flow.md)**
 
 ---
 
