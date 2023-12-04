@@ -45,11 +45,11 @@ For more information about the API flow, read the appropriate MD file:
 
 ---
 
-## HyProof: High Level Diagram
+## HyProof: Birds Eye Overview
 
-To better understand this project from a high-level point of view, read the appropriate MD file:
+To better understand this project from a high-level bird's eye point of view, read the appropriate MD file:
 
-* **[high-level-architecture.md](./high-level-architecture.md)**
+* **[high-level-overview.md](./high-level-overview.md)**
 
 ---
 
