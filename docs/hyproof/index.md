@@ -2,12 +2,16 @@
 
 ## HyProof: Overview
 
-**HyProof**, aka **Hydrogen Proof** is the codename for our new **HII Seed** blockchain project. _HII Seed_ aims to push the boundaries when it comes to building and researching the socio-technical acceptability and business implications of a fully digitised UK certification infrastructure for verifiable hydrogen provenance ( green hydrogen to be more exact ), and develop an MVP-grade demonstration of the same.
+**HyProof**, aka **Hydrogen Proof** is the effort to deliver the DLT-based _MVP_ as part of the wider **HII Seed** initiative. _HII Seed_ aims to push the boundaries when it comes to building the socio-technical acceptability and business implications of a fully digitised UK certification infrastructure for verifiable hydrogen provenance ( green hydrogen to be more exact ), and develop an MVP-grade demonstration of the same.
 
-As verifiable hydrogen provenance seems to be the key focus nowadays and as this seems to be a major business driver for UK exports and domestic usage, this blockchain is trying to do exactly that.
+While the scope of the overall _HII Seed_ initiative is broader, i.e., "to build a workable trust and verification framework for the provenance and quality of Hydrogen used domestically or destined for export", the objective of this specific endeavour is to  **deliver an MVP** to demonstrate the key technological and functional capabilities of the **Certification Process** in the production management of Hydrogen.
 
-This is the opportune moment for HII-SEED to shine a light on this alternate, more trustworthy, more performant, lower cost future to
-enable the UK hydrogen ecosystem.
+The MVP focusses on the key business flows (and the underlying technical components to deliver them). They are:
+
+1. A producer reporting into the system the details of the batch of hydrogen they produced
+2. The energy producer asserting the carbon embodiment contained in the production of that hydrogen batch
+3. A hydrogen certificate being issued with the details from the above actions
+4. Authorised viewers being able to view the certificate
 
 For this proof of concept it has been decided that the consensus layer will be constructed using our in-house build **[DSCP](https://github.com/digicatapult/dscp-documentation)** ( **D**istributed-**S**upply-**C**hain-**P**latform ). However, this layer will not include the vanilla default version of DSCP but a special flavor of this platform that uses a purposely-build custom process flow.
 
