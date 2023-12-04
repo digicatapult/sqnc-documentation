@@ -23,7 +23,7 @@ The token model is also available in our Domain Specific Language ( .DSCP ) and 
 
 ## HyProof: Service Architecture Diagram
 
-TBD
+![dscp-hyproof-s-diagram.svg](../../assets/dscp-hyproof-s-diagram.svg)
 
 ---
 
