@@ -57,7 +57,9 @@ TBD
 
 ## HyProof: Architecture Diagram
 
-TBD
+To understand the system architecture used in this project especially the technology stack, read the appropriate MD file:
+
+* **[architecture-diagram.md](./architecture-diagram.md)**
 
 ---
 
