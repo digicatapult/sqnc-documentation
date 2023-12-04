@@ -24,4 +24,6 @@ The values set for each persona are your choice, they should provide a recognisa
 
 1. On each node, set alias for all node addresses using **`PUT`** **`/members/{address}`**:
 
+Example: TBD.
+
 ---
