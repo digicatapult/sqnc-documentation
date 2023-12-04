@@ -23,7 +23,7 @@ The token model is also available in our Domain Specific Language ( .DSCP ) and 
 
 ## HyProof: Service Architecture Diagram
 
-The following represents a diagram containing all the services needed to spin up this project ( basically everything needed can be found in the **`dscp-hyproof-api`** repository ).
+The following represents a diagram containing all the services needed to spin up this project ( basically everything needed can be found in the **`dscp-hyproof-api`** repository ). To spin-up a dscp blockchain network directly without having the client in docker, please clone the **`dscp-node`** repository.
 
 ![dscp-hyproof-s-diagram.svg](../../assets/dscp-hyproof-s-diagram.svg)
 
