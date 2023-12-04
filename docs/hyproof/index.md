@@ -43,7 +43,9 @@ For more information about the API flow, read the appropriate MD file:
 
 ## HyProof: High Level Diagram
 
-TBD
+To better understand this project from a high-level point of view, read the appropriate MD file:
+
+* **[high-level-architecture.md](./high-level-architecture.md)**
 
 ---
 
