@@ -26,4 +26,22 @@ The values set for each persona are your choice, they should provide a recognisa
 
 Example: TBD.
 
+### HyProof Api Flow: Prerequisites: Retrieving nOde Aliases
+
+Once there are some aliases in the system you can retrieve them with the appropriate endpoint.
+
+Using **`GET`** **`/members`** on each node returns a list of all aliases as set above:
+
+```json
+[ { "address": "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty",
+    "alias": "A"
+  },
+  { "address": "5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y",
+    "alias": "B"
+  },
+  { "address": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
+    "alias": "C"
+	} ]
+```
+
 ---
