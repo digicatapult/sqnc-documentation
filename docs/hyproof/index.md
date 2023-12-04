@@ -33,7 +33,13 @@ TBD
 
 ---
 
-## HyProof: Data Flow & Architecture Diagram
+## HyProof: Data Flow
+
+TBD
+
+---
+
+## HyProof: Architecture Diagram
 
 TBD
 
