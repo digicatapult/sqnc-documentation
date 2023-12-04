@@ -45,7 +45,7 @@ For more information about the API flow, read the appropriate MD file:
 
 ---
 
-## HyProof: Birds Eye Overview
+## HyProof: Bird's Eye Overview
 
 To better understand this project from a high-level bird's eye point of view, read the appropriate MD file:
 
