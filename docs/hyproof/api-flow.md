@@ -20,7 +20,7 @@ docker compose up -d && npm i && npm run db:migrate && npm run flows && npm run 
 
 ---
 
-### HyProof Api Flow: Prerequisites: Setting Up Node Aliases
+### HyProof Api Flow: Prerequisites: Setting Up Aliases
 
 The values set for each persona are your choice, they should provide a recognisable value in response bodies.
 
@@ -39,7 +39,7 @@ curl -X 'PUT' http://localhost:3002/v1/members/5FHneW46xGXgs5mUiveU4sbTyGBzmstUs
 
 ---
 
-### HyProof Api Flow: Prerequisites: Retrieving nOde Aliases
+### HyProof Api Flow: Prerequisites: Retrieving Aliases
 
 Once there are some aliases in the system you can retrieve them with the appropriate endpoint.
 
