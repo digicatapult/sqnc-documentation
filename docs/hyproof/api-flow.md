@@ -18,30 +18,50 @@ For the minimum option, all that's needed is to execute the following:
 docker compose up -d && npm i && npm run db:migrate && npm run flows && npm run dev
 ```
 
+---
+
 ### HyProof Api Flow: Prerequisites: Setting Up Node Aliases
 
 The values set for each persona are your choice, they should provide a recognisable value in response bodies.
 
-1. On each node, set alias for all node addresses using **`PUT`** **`/members/{address}`**:
+1. On each node, set alias for all node addresses w/ **`PUT`** **`/members/{address}`**:
 
-Example: TBD.
+```json
+{"alias":"emma"}
+```
+
+```sh
+# E.g.: Emma, Heidi, Reginald
+curl -X 'PUT' http://localhost:3002/v1/members/5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY -H "Content-Type: application/json" -d '{"alias":"emma"}'
+curl -X 'PUT' http://localhost:3002/v1/members/5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y -H "Content-Type: application/json" -d '{"alias":"heidi"}'
+curl -X 'PUT' http://localhost:3002/v1/members/5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty -H "Content-Type: application/json" -d '{"alias":"reginald"}'
+```
+
+---
 
 ### HyProof Api Flow: Prerequisites: Retrieving nOde Aliases
 
 Once there are some aliases in the system you can retrieve them with the appropriate endpoint.
 
-Using **`GET`** **`/members`** on each node returns a list of all aliases as set above:
+1. On each node return a list of all aliases as set above w/ **`GET`** **`/members`**:
 
 ```json
-[ { "address": "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty",
-    "alias": "A"
-  },
+[
+  { "address": "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty",
+    "alias": "reginald" },
   { "address": "5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y",
-    "alias": "B"
-  },
+    "alias": "heidi" },
   { "address": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
-    "alias": "C"
-	} ]
+    "alias": "emma" }
+]
 ```
+
+```sh
+curl http://localhost:3002/v1/members
+```
+
+2. Optionally, on each node, return the main **[SS58 Address](https://wiki.polkadot.network/docs/learn-account-advanced)** that is currently in used by your node w/ **`GET`** **`/self`**
+
+3. Optionally, on each node, query the member by alias or address w/ **`GET`** **`/members/{aliasOrAddress}`**
 
 ---
