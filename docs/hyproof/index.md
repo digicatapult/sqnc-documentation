@@ -53,7 +53,9 @@ To better understand this project from a high-level bird's eye point of view, re
 
 ## HyProof: Data Flow
 
-TBD
+To better see, in a simplified way the data flow and the different levels of privacy, read the appropriate MD file:
+
+* **[data-flow-diagrams.md](./data-flow-diagrams.md)**
 
 ---
 
