@@ -65,3 +65,82 @@ curl http://localhost:3002/v1/members
 3. Optionally, on each node, query the member by alias or address w/ **`GET`** **`/members/{aliasOrAddress}`**
 
 ---
+
+## HyProof Api Flow: Tokens Flow
+
+The API flow for managing tokens.
+
+---
+
+### HyProof Api Flow: Tokens Flow: Context
+
+In the case of performing tracking of green hydrogen, one might be able to do the on-chain tracking by allowing a token to be created of the type Initiated associated to it then morph this to a token of the type Issued.
+
+---
+
+### HyProof Api Flow: Tokens Flow: Hydrogen Producer
+
+1. Token inserted into the local db ( and with that commitment created ) w/ **`POST`** **`/v1/certificate`**:
+
+```json
+{ "energy_consumed_mwh": 1,
+  "production_end_time": "2023-12-05T21:36:42.808Z",
+  "production_start_time": "2023-12-05T21:36:42.808Z",
+  "energy_owner": "emma",
+  "hydrogen_quantity_mwh": 1 }
+```
+
+```sh
+curl -X POST http://localhost:3000/v1/certificate -H "Content-Type: application/json" \
+  -d '{"energy_consumed_mwh":1,"production_end_time":"2023-12-05T21:36:42.808Z","production_start_time": "2023-12-05T21:36:42.808Z","energy_owner":"emma","hydrogen_quantity_mwh":1}'
+```
+
+2. The response will include some new elements such as **commitment** and **commitment_salt** and the id ( which is the most important one ). Get the id ( e.g.: **`3cdc813a-562f-4008-9ece-74a058a2bf57`** )
+
+<!--
+
+```json
+{ "hydrogen_owner": "emma",
+  "energy_owner": "emma",
+  "hydrogen_quantity_mwh": 1,
+  "original_token_id": null,
+  "latest_token_id": null,
+  "commitment": "aa48b83252a34ad1541399d95b8bda21",
+  "commitment_salt": "f6b0b2246976a33c5c9b3333fc68eec6",
+  "production_start_time": "2023-12-05T21:36:42.808Z",
+  "production_end_time": "2023-12-05T21:36:42.808Z",
+  "energy_consumed_mwh": 1,
+  "id": "3cdc813a-562f-4008-9ece-74a058a2bf57",
+  "state": "pending",
+  "created_at": "2023-12-05T23:52:04.705Z",
+  "updated_at": "2023-12-05T23:52:04.705Z",
+  "embodied_co2": null }
+```
+
+-->
+
+3. Token submitted or initiated on-chain using the id from the previous step ( **`3cdc813a-562f-4008-9ece-74a058a2bf57`** ) w/ POST /v1/certificate/{id}/initiation
+
+```
+N/A
+```
+
+```sh
+curl -X POST http://localhost:3000/v1/certificate/3cdc813a-562f-4008-9ece-74a058a2bf57/initiation -d ''
+```
+
+<!--
+
+```json
+{ "api_type": "certificate",
+  "local_id": "3cdc813a-562f-4008-9ece-74a058a2bf57",
+  "hash": "0x73c298b5ada2875801e5fb9b8d8704a75ade97a33aed50c91db08a5900c16fa8",
+  "state": "submitted",
+  "id": "770e0e82-b4d7-4411-853e-6220fd6596e3",
+  "created_at": "2023-12-05T23:58:13.745Z",
+  "updated_at": "2023-12-05T23:58:13.745Z" }
+```
+
+-->
+
+---
