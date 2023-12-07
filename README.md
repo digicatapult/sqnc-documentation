@@ -25,6 +25,7 @@ This repo includes READMEs that explain concepts within DSCP:
 READMEs that explain specific DSCP projects:
 
 - [Logistics Living Lab](./docs/l3/index.md)
+- [HyProof](./docs/hyproof/index.md)
 
 ## Repositories
 
