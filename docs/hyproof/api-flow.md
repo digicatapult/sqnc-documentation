@@ -182,13 +182,12 @@ curl -s -X 'POST' \
 )
 id=$(echo $response | jq -r .id)
 # 10b3dbc5-46d8-4b2b-a51c-eebcbfd76f91
-commitment=$(echo $response | jq -r .commitment)
-# 8666e06e25de4475d545b1684c066460
 commitment_salt=$(echo $response | jq -r .commitment_salt)
 # 14d3f9f753f4296a214623877a0ca53b
 ```
 
-```json
+```js
+// Payload:
 {
   "energy_consumed_mwh": 2,
   "production_end_time": "2023-12-07T08:56:41.116Z",
@@ -198,28 +197,27 @@ commitment_salt=$(echo $response | jq -r .commitment_salt)
 }
 ```
 
-2. The new token needs to be added to the chain w/ POST /v1/certificate/{id}/initiation:
+2. The new token needs to be added to the chain w/ **`POST`** **`/v1/certificate/{id}/initiation`**:
 
 ```sh
-curl -X 'POST' http://localhost:8000/v1/certificate/${id}/initiation \
-  -H 'accept: application/json' \
-  -d ''
+curl -X POST http://localhost:8000/v1/certificate/${id}/initiation -H 'accept: application/json' -d ''
 ```
 
-```
-N/A
+```js
+// Payload:
+""
 ```
 
-3. After a period of time the token will be minted and marked as finalised and this can be checked w/ GET /v1/certificate/{id}/initiation:
+3. After a period of time the token will be minted and marked as finalised and this can be checked w/ **`GET`** **`/v1/certificate/{id}/initiation`**:
 
 ```sh
-curl -X 'GET' http://localhost:8000/v1/certificate/${id}/initiation \
-  -H 'accept: application/json'
-
+curl -X GET http://localhost:8000/v1/certificate/${id}/initiation
 # "state": "finalised"
 ```
 
-4. The same token need to found using the 2nd persona, ergo the 2nd Swagger, and the id it token needs to be grabbed with a blank createdAt w/ GET /v1/certificate
+### HyProof Api Flow: Tokens Flow: Energy Producer
+
+1. The same token need to found using the 2nd persona, ergo the 2nd Swagger, and the id it token needs to be grabbed with a blank createdAt w/ **`GET`** **`/v1/certificate`**:
 
 ```sh
 curl -s -X 'GET' 'http://localhost:8010/v1/certificate' -H 'accept: application/json' | jq -r .[1].id
@@ -227,7 +225,7 @@ curl -s -X 'GET' 'http://localhost:8010/v1/certificate' -H 'accept: application/
 id=0841d34e-0c61-419c-96fb-e77d2eca4d50
 ```
 
-5. After that, prior to the last step, the secret information that has been hashed need to be added in w/ PUT /v1/certificate/{id}
+2. After that, prior to the last step, the secret information that has been hashed need to be added in w/ **`PUT`** **`/v1/certificate/{id}`**:
 
 ```sh
 curl -X 'PUT' http://localhost:8010/v1/certificate/0841d34e-0c61-419c-96fb-e77d2eca4d50 \
@@ -241,7 +239,7 @@ curl -X 'PUT' http://localhost:8010/v1/certificate/0841d34e-0c61-419c-96fb-e77d2
 }'
 ```
 
-6. Finally, the last token spawned from the previous one, needs to be added to the chain w/ PUT /v1/certificate/{id}/issuance:
+3. Finally, the last token spawned from the previous one, needs to be added to the chain w/ **`PUT`** **`/v1/certificate/{id}/issuance`**:
 
 ```sh
 curl -X 'POST' http://localhost:8010/v1/certificate/${id}/issuance \
@@ -252,7 +250,12 @@ curl -X 'POST' http://localhost:8010/v1/certificate/${id}/issuance \
 }'
 ```
 
-5. Optionally, because after a small period of time the tx will eventually be included in the chain, you can eventually check that w/ GET /v1/certificate/{id}/issuance
+```js
+// Payload:
+{ "embodied_co2": 13 }
+```
+
+4. Optionally, because after a small period of time the tx will eventually be included in the chain, you can eventually check that w/ **`GET`** **`/v1/certificate/{id}/issuance`**:
 
 ```sh
 curl -X 'GET' http://localhost:8010/v1/certificate/${id}/issuance \
