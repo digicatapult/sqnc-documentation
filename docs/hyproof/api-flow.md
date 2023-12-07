@@ -46,23 +46,21 @@ The Swagger GUI for both the Main DSCP API sys and the Identity API sys for all 
 
 The values set for each persona are your choice but, they should provide a recognisable value in response bodies.
 
-<!-- 1. Set the alias for self and for persona 02 in the using the first Swagger w/ /self and /members/{address} : -->
-
-1. Get the address for self using the 1st, 2nd and 3rd Swagger w/ /self:
+1. Get the address for self using the 1st, 2nd and 3rd Swagger w/ **`GET`** **`/self`** ( save the **`.address`** field ):
 
 ```sh
-curl -s -X http://localhost:9000/v1/self -H 'accept: application/json' | jq -r .address
+curl -s http://localhost:9000/v1/self -H 'accept: application/json' | jq -r .address
 # 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 heidi=5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
-curl -s -X http://localhost:9010/v1/self -H 'accept: application/json' | jq -r .address
+curl -s http://localhost:9010/v1/self -H 'accept: application/json' | jq -r .address
 # 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
 emma=5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
-curl -s -X http://localhost:9020/v1/self -H 'accept: application/json' | jq -r .address
+curl -s http://localhost:9020/v1/self -H 'accept: application/json' | jq -r .address
 # 5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
 reginald=5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
 ```
 
-2. Set the alias for all the personas using the 1st Swagger w/ POST /members/{address}:
+2. Set the alias for all the personas using the 1st Swagger w/ **`POST`** **`/members/{address}`**:
 
 ```sh
 curl -X 'PUT' http://localhost:9000/v1/members/${heidi} \
@@ -78,7 +76,14 @@ curl -X 'PUT' http://localhost:9000/v1/members/${reginald} \
   -d '{"alias": "reginald"}'
 ```
 
-3. Set the alias for all the personas using the 2nd Swagger w/ POST /members/{address}:
+```js
+// Payloads:
+'{"alias":"heidi"}'
+'{"alias":"emma"}'
+'{"alias": "reginald"}'
+```
+
+3. Set the alias for all the personas using the 2nd Swagger w/ **`POST`** **`/members/{address}`**:
 
 ```sh
 curl -X 'PUT' http://localhost:9010/v1/members/${heidi} \
@@ -94,7 +99,14 @@ curl -X 'PUT' http://localhost:9010/v1/members/${reginald} \
   -d '{"alias": "reginald"}'
 ```
 
-4. Set the alias for all the personas using the 3rd Swagger w/ POST /members/{address}:
+```js
+// Payloads:
+'{"alias":"heidi"}'
+'{"alias":"emma"}'
+'{"alias": "reginald"}'
+```
+
+4. Set the alias for all the personas using the 3rd Swagger w/ **`POST`** **`/members/{address}`**:
 
 ```sh
 curl -X 'PUT' http://localhost:9020/v1/members/${heidi} \
@@ -110,14 +122,12 @@ curl -X 'PUT' http://localhost:9020/v1/members/${reginald} \
   -d '{"alias": "reginald"}'
 ```
 
-<!--
-```sh
-# E.g.: Emma, Heidi, Reginald
-curl -X 'PUT' http://localhost:3002/v1/members/5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY -H "Content-Type: application/json" -d '{"alias":"emma"}'
-curl -X 'PUT' http://localhost:3002/v1/members/5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y -H "Content-Type: application/json" -d '{"alias":"heidi"}'
-curl -X 'PUT' http://localhost:3002/v1/members/5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty -H "Content-Type: application/json" -d '{"alias":"reginald"}'
+```js
+// Payloads:
+'{"alias":"heidi"}'
+'{"alias":"emma"}'
+'{"alias": "reginald"}'
 ```
--->
 
 Note that you can check everything with GET /members.
 
@@ -160,7 +170,7 @@ In the case of performing tracking of green hydrogen, one might be able to do th
 
 ### HyProof Api Flow: Tokens Flow: Hydrogen Producer
 
-1. The new token need to be inserted into the local db prior to being added to the chain w/ **`POST`** **`/v1/certificate`**:
+1. The new token need to be inserted into the local db prior to being added to the chain w/ **`POST`** **`/v1/certificate`** ( save the **`id`** and **`commitment_salt`** fields ):
 
 ```sh
 response=$(
@@ -207,16 +217,16 @@ curl -X POST http://localhost:8000/v1/certificate/${id}/initiation -H 'accept: a
 3. After a period of time the token will be minted and marked as finalised and this can be checked w/ **`GET`** **`/v1/certificate/{id}/initiation`**:
 
 ```sh
-curl -X GET http://localhost:8000/v1/certificate/${id}/initiation
+curl http://localhost:8000/v1/certificate/${id}/initiation
 # "state": "finalised"
 ```
 
 ### HyProof Api Flow: Tokens Flow: Energy Producer
 
-1. The same token need to found using the 2nd persona, ergo the 2nd Swagger, and the id it token needs to be grabbed with a blank createdAt w/ **`GET`** **`/v1/certificate`**:
+1. The same token needs to be found using the 2nd persona, ergo the 2nd Swagger, and the its id needs to be grabbed ( with a blank createdAt ) w/ **`GET`** **`/v1/certificate`** ( save the **`id`** field ):
 
 ```sh
-curl -s -X 'GET' 'http://localhost:8010/v1/certificate' -H 'accept: application/json' | jq -r .[1].id
+curl -s -X http://localhost:8010/v1/certificate -H 'accept: application/json' | jq -r .[1].id
 # 0841d34e-0c61-419c-96fb-e77d2eca4d50
 id=0841d34e-0c61-419c-96fb-e77d2eca4d50
 ```
@@ -254,8 +264,7 @@ curl -X 'POST' http://localhost:8010/v1/certificate/${id}/issuance \
 4. Optionally, because after a small period of time the tx will eventually be included in the chain, you can eventually check that w/ **`GET`** **`/v1/certificate/{id}/issuance`**:
 
 ```sh
-curl -X 'GET' http://localhost:8010/v1/certificate/${id}/issuance \
-  -H 'accept: application/json'
+curl -X http://localhost:8010/v1/certificate/${id}/issuance -H 'accept: application/json'
 ```
 
 ---
