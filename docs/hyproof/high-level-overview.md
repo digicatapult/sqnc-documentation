@@ -1,9 +1,7 @@
 # HyProof Bird's Eye Overview
 
-The following represents ...
+This page is still under development ( the purpose of this page is to represent this project from a bird's eye perspective ).
 
-![image](../../assets/image.svg)
-
-**[Edit diagram](http://google.com/)**
+<h1>🚧</h1>
 
 ---

@@ -16,7 +16,7 @@ To run this, a command similar to the next one can be used:
 
 ```sh
 docker-compose -f docker-compose-3-personal.yml down -v && docker-compose -f docker-compose-3-personal.yml up -d && \
-npm i && npm run db:migrate && \
+npm i && \
 npm run flows
 ```
 
@@ -24,21 +24,21 @@ The Swagger GUI for both the Main DSCP API sys and the Identity API sys for all 
 
 * **Persona 01** - **`heidi`**:
 
-  - http://localhost:8000/swagger/#/
+  - **[localhost:8000/swagger](http://localhost:8000/swagger/#/)**
 
-  - http://localhost:9000/v1/swagger/#/
+  - **[localhost:9000/v1/swagger](http://localhost:9000/v1/swagger/#/)**
 
 * **Persona 02** - **`emma`**:
 
-  - http://localhost:8010/swagger/#/
+  - **[localhost:8010/swagger](http://localhost:8010/swagger/#/)**
 
-  - http://localhost:9010/v1/swagger/#/
+  - **[localhost:9010/v1/swagger](http://localhost:9010/v1/swagger/#/)**
 
 * **Persona 03** - **`reginald`**:
 
-  - http://localhost:8020/swagger/#/
+  - **[localhost:8020/swagger](http://localhost:8020/swagger/#/)**
 
-  - http://localhost:9020/v1/swagger/#/
+  - **[localhost:9020/v1/swagger](http://localhost:9020/v1/swagger/#/)**
 
 ---
 
