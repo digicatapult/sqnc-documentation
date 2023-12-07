@@ -198,7 +198,7 @@ commitment_salt=$(echo $response | jq -r .commitment_salt)
 }
 ```
 
-2. Token new token need to be added to the chain w/ POST /v1/certificate/{id}/initiation:
+2. The new token needs to be added to the chain w/ POST /v1/certificate/{id}/initiation:
 
 ```sh
 curl -X 'POST' http://localhost:8000/v1/certificate/${id}/initiation \
@@ -210,13 +210,53 @@ curl -X 'POST' http://localhost:8000/v1/certificate/${id}/initiation \
 N/A
 ```
 
-3. After a period of time the token will be minted and marked as finalised and this can be checked w/ :
+3. After a period of time the token will be minted and marked as finalised and this can be checked w/ GET /v1/certificate/{id}/initiation:
 
 ```sh
 curl -X 'GET' http://localhost:8000/v1/certificate/${id}/initiation \
   -H 'accept: application/json'
 
 # "state": "finalised"
+```
+
+4. The same token need to found using the 2nd persona, ergo the 2nd Swagger, and the id it token needs to be grabbed with a blank createdAt w/ GET /v1/certificate
+
+```sh
+curl -s -X 'GET' 'http://localhost:8010/v1/certificate' -H 'accept: application/json' | jq -r .[1].id
+# 0841d34e-0c61-419c-96fb-e77d2eca4d50
+id=0841d34e-0c61-419c-96fb-e77d2eca4d50
+```
+
+5. After that, prior to the last step, the secret information that has been hashed need to be added in w/ PUT /v1/certificate/{id}
+
+```sh
+curl -X 'PUT' http://localhost:8010/v1/certificate/0841d34e-0c61-419c-96fb-e77d2eca4d50 \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "commitment_salt": "'${commitment_salt}'",
+  "energy_consumed_mwh": 2,
+  "production_end_time": "2023-12-07T08:56:41.116Z",
+  "production_start_time": "2023-12-07T08:56:41.116Z"
+}'
+```
+
+6. Finally, the last token spawned from the previous one, needs to be added to the chain w/ PUT /v1/certificate/{id}/issuance:
+
+```sh
+curl -X 'POST' http://localhost:8010/v1/certificate/${id}/issuance \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "embodied_co2": 13
+}'
+```
+
+5. Optionally, because after a small period of time the tx will eventually be included in the chain, you can eventually check that w/ GET /v1/certificate/{id}/issuance
+
+```sh
+curl -X 'GET' http://localhost:8010/v1/certificate/${id}/issuance \
+  -H 'accept: application/json'
 ```
 
 <!-- 2. The response will include some new elements such as **commitment** and **commitment_salt** and the id ( which is the most important one ). Get the id ( e.g.: **`3cdc813a-562f-4008-9ece-74a058a2bf57`** ) -->
