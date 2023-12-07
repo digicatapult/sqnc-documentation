@@ -10,32 +10,116 @@ In order to go trough the entire flow, there are a couple of prerequisites requi
 
 ### HyProof Api Flow: Prerequisites: Services
 
-In order to be able to reproduce the steps described in this document you need to have a simple setup running ( refer to **[docker-compose.yml](https://github.com/digicatapult/dscp-hyproof-api/blob/main/docker-compose.yml)** or **`dscp-node`** as in **[dscp node repo](https://github.com/digicatapult/dscp-node)** + 2 **Postgres DBs** + **`dscp-identity-service`** as in **[dscp-identity-service](https://github.com/digicatapult/dscp-identity-service)** ), at minimum or at maximum a complex setup that include all the needed services for three personas ( refer to the **[docker-compose-3-personal.yml](https://github.com/digicatapult/dscp-hyproof-api/blob/main/docker-compose-3-personal.yml)** file ).
+In order to be able to reproduce the steps described in this document you need to have the three personas setup ( a complex setup that include all the needed services for three personas ). For that, please refer to the **[docker-compose-3-personal.yml](https://github.com/digicatapult/dscp-hyproof-api/blob/main/docker-compose-3-personal.yml)** file found in the **[dscp-hyproof-api](https://github.com/digicatapult/dscp-hyproof-api)** repository.
 
-For the minimum option, all that's needed is to execute the following:
+To run this, a command similar to the next one can be used:
 
 ```sh
-docker compose up -d && npm i && npm run db:migrate && npm run flows && npm run dev
+docker-compose -f docker-compose-3-personal.yml down -v && docker-compose -f docker-compose-3-personal.yml up -d && \
+npm i && npm run db:migrate && \
+npm run flows
 ```
+
+The Swagger GUI for both the Main DSCP API sys and the Identity API sys for all three personas can be accessed using:
+
+* **Persona 01** - **`heidi`**:
+
+  - http://localhost:8000/swagger/#/
+
+  - http://localhost:9000/v1/swagger/#/
+
+* **Persona 02** - **`emma`**:
+
+  - http://localhost:8010/swagger/#/
+
+  - http://localhost:9010/v1/swagger/#/
+
+* **Persona 03** - **`reginald`**:
+
+  - http://localhost:8020/swagger/#/
+
+  - http://localhost:9020/v1/swagger/#/
 
 ---
 
 ### HyProof Api Flow: Prerequisites: Setting Up Aliases
 
-The values set for each persona are your choice, they should provide a recognisable value in response bodies.
+The values set for each persona are your choice but, they should provide a recognisable value in response bodies.
 
-1. On each node, set alias for all node addresses w/ **`PUT`** **`/members/{address}`**:
+<!-- 1. Set the alias for self and for persona 02 in the using the first Swagger w/ /self and /members/{address} : -->
 
-```json
-{"alias":"emma"}
+1. Get the address for self using the 1st, 2nd and 3rd Swagger w/ /self:
+
+```sh
+curl -s -X 'GET' 'http://localhost:9000/v1/self' -H 'accept: application/json' | jq -r .address
+# 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+heidi=5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+curl -s -X 'GET' 'http://localhost:9010/v1/self' -H 'accept: application/json' | jq -r .address
+# 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
+emma=5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
+curl -s -X 'GET' 'http://localhost:9020/v1/self' -H 'accept: application/json' | jq -r .address
+# 5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
+reginald=5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
 ```
 
+2. Set the alias for all the personas using the 1st Swagger w/ POST /members/{address}:
+
+```sh
+curl -X 'PUT' http://localhost:9000/v1/members/${heidi} \
+  -H 'Content-Type: application/json' \
+  -d '{"alias":"heidi"}'
+
+curl -X 'PUT' http://localhost:9000/v1/members/${emma} \
+  -H 'Content-Type: application/json' \
+  -d '{"alias":"emma"}'
+
+curl -X 'PUT' http://localhost:9000/v1/members/${reginald} \
+  -H 'Content-Type: application/json' \
+  -d '{"alias": "reginald"}'
+```
+
+3. Set the alias for all the personas using the 2nd Swagger w/ POST /members/{address}:
+
+```sh
+curl -X 'PUT' http://localhost:9010/v1/members/${heidi} \
+  -H 'Content-Type: application/json' \
+  -d '{"alias":"heidi"}'
+
+curl -X 'PUT' http://localhost:9010/v1/members/${emma} \
+  -H 'Content-Type: application/json' \
+  -d '{"alias":"emma"}'
+
+curl -X 'PUT' http://localhost:9010/v1/members/${reginald} \
+  -H 'Content-Type: application/json' \
+  -d '{"alias": "reginald"}'
+```
+
+4. Set the alias for all the personas using the 3rd Swagger w/ POST /members/{address}:
+
+```sh
+curl -X 'PUT' http://localhost:9020/v1/members/${heidi} \
+  -H 'Content-Type: application/json' \
+  -d '{"alias":"heidi"}'
+
+curl -X 'PUT' http://localhost:9020/v1/members/${emma} \
+  -H 'Content-Type: application/json' \
+  -d '{"alias":"emma"}'
+
+curl -X 'PUT' http://localhost:9020/v1/members/${reginald} \
+  -H 'Content-Type: application/json' \
+  -d '{"alias": "reginald"}'
+```
+
+<!--
 ```sh
 # E.g.: Emma, Heidi, Reginald
 curl -X 'PUT' http://localhost:3002/v1/members/5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY -H "Content-Type: application/json" -d '{"alias":"emma"}'
 curl -X 'PUT' http://localhost:3002/v1/members/5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y -H "Content-Type: application/json" -d '{"alias":"heidi"}'
 curl -X 'PUT' http://localhost:3002/v1/members/5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty -H "Content-Type: application/json" -d '{"alias":"reginald"}'
 ```
+-->
+
+Note that you can check everything with GET /members.
 
 ---
 
