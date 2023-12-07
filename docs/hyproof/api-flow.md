@@ -140,7 +140,8 @@ Once there are some aliases in the system you can retrieve them with the appropr
 1. On each node return a list of all aliases as set above w/ **`GET`** **`/members`**:
 
 ```sh
-curl http://localhost:3002/v1/members
+curl http://localhost:9000/v1/members
+# OR curl http://localhost:9010/v1/members OR curl http://localhost:9020/v1/members
 ```
 
 ```js
