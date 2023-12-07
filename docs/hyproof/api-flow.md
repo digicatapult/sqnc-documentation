@@ -51,13 +51,13 @@ The values set for each persona are your choice but, they should provide a recog
 1. Get the address for self using the 1st, 2nd and 3rd Swagger w/ /self:
 
 ```sh
-curl -s -X 'GET' 'http://localhost:9000/v1/self' -H 'accept: application/json' | jq -r .address
+curl -s -X http://localhost:9000/v1/self -H 'accept: application/json' | jq -r .address
 # 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
 heidi=5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
-curl -s -X 'GET' 'http://localhost:9010/v1/self' -H 'accept: application/json' | jq -r .address
+curl -s -X http://localhost:9010/v1/self -H 'accept: application/json' | jq -r .address
 # 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
 emma=5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
-curl -s -X 'GET' 'http://localhost:9020/v1/self' -H 'accept: application/json' | jq -r .address
+curl -s -X http://localhost:9020/v1/self -H 'accept: application/json' | jq -r .address
 # 5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
 reginald=5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
 ```
@@ -129,24 +129,20 @@ Once there are some aliases in the system you can retrieve them with the appropr
 
 1. On each node return a list of all aliases as set above w/ **`GET`** **`/members`**:
 
-```json
-[
-  { "address": "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty",
-    "alias": "reginald" },
-  { "address": "5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y",
-    "alias": "heidi" },
-  { "address": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
-    "alias": "emma" }
-]
-```
-
 ```sh
 curl http://localhost:3002/v1/members
 ```
 
-2. Optionally, on each node, return the main **[SS58 Address](https://wiki.polkadot.network/docs/learn-account-advanced)** that is currently in used by your node w/ **`GET`** **`/self`**
+```js
+// Response:
+[
+  { "address": "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty", "alias": "reginald" },
+  { "address": "5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y", "alias": "heidi" },
+  { "address": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", "alias": "emma" }
+]
+```
 
-3. Optionally, on each node, query the member by alias or address w/ **`GET`** **`/members/{aliasOrAddress}`**
+2. Optionally, on each node, return the main **[SS58 Address](https://wiki.polkadot.network/docs/learn-account-advanced)** that is currently in used by your node w/ **`GET`** **`/self`** and, last but not least, optionally, on each node, query the member by alias or address w/ **`GET`** **`/members/{aliasOrAddress}`**.
 
 ---
 
@@ -262,44 +258,6 @@ curl -X 'GET' http://localhost:8010/v1/certificate/${id}/issuance \
   -H 'accept: application/json'
 ```
 
-<!-- 2. The response will include some new elements such as **commitment** and **commitment_salt** and the id ( which is the most important one ). Get the id ( e.g.: **`3cdc813a-562f-4008-9ece-74a058a2bf57`** ) -->
-
-<!--
-
-```json
-{ "hydrogen_owner": "emma",
-  "energy_owner": "emma",
-  "hydrogen_quantity_mwh": 1,
-  "original_token_id": null,
-  "latest_token_id": null,
-  "commitment": "aa48b83252a34ad1541399d95b8bda21",
-  "commitment_salt": "f6b0b2246976a33c5c9b3333fc68eec6",
-  "production_start_time": "2023-12-05T21:36:42.808Z",
-  "production_end_time": "2023-12-05T21:36:42.808Z",
-  "energy_consumed_mwh": 1,
-  "id": "3cdc813a-562f-4008-9ece-74a058a2bf57",
-  "state": "pending",
-  "created_at": "2023-12-05T23:52:04.705Z",
-  "updated_at": "2023-12-05T23:52:04.705Z",
-  "embodied_co2": null }
-```
-
--->
-
-<!-- 3. Token submitted or initiated on-chain using the id from the previous step ( **`3cdc813a-562f-4008-9ece-74a058a2bf57`** ) w/ POST /v1/certificate/{id}/initiation -->
-
-<!--
-
-```json
-{ "api_type": "certificate",
-  "local_id": "3cdc813a-562f-4008-9ece-74a058a2bf57",
-  "hash": "0x73c298b5ada2875801e5fb9b8d8704a75ade97a33aed50c91db08a5900c16fa8",
-  "state": "submitted",
-  "id": "770e0e82-b4d7-4411-853e-6220fd6596e3",
-  "created_at": "2023-12-05T23:58:13.745Z",
-  "updated_at": "2023-12-05T23:58:13.745Z" }
-```
-
--->
+---
 
 ---
