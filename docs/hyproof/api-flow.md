@@ -164,22 +164,62 @@ In the case of performing tracking of green hydrogen, one might be able to do th
 
 ### HyProof Api Flow: Tokens Flow: Hydrogen Producer
 
-1. Token inserted into the local db ( and with that commitment created ) w/ **`POST`** **`/v1/certificate`**:
-
-```json
-{ "energy_consumed_mwh": 1,
-  "production_end_time": "2023-12-05T21:36:42.808Z",
-  "production_start_time": "2023-12-05T21:36:42.808Z",
-  "energy_owner": "emma",
-  "hydrogen_quantity_mwh": 1 }
-```
+1. The new token need to be inserted into the local db prior to being added to the chain w/ **`POST`** **`/v1/certificate`**:
 
 ```sh
-curl -X POST http://localhost:3000/v1/certificate -H "Content-Type: application/json" \
-  -d '{"energy_consumed_mwh":1,"production_end_time":"2023-12-05T21:36:42.808Z","production_start_time": "2023-12-05T21:36:42.808Z","energy_owner":"emma","hydrogen_quantity_mwh":1}'
+response=$(
+curl -s -X 'POST' \
+  'http://localhost:8000/v1/certificate' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "energy_consumed_mwh": 2,
+  "production_end_time": "2023-12-07T08:56:41.116Z",
+  "production_start_time": "2023-12-07T08:56:41.116Z",
+  "energy_owner": "emma",
+  "hydrogen_quantity_mwh": 3
+}'
+)
+id=$(echo $response | jq -r .id)
+# 10b3dbc5-46d8-4b2b-a51c-eebcbfd76f91
+commitment=$(echo $response | jq -r .commitment)
+# 8666e06e25de4475d545b1684c066460
+commitment_salt=$(echo $response | jq -r .commitment_salt)
+# 14d3f9f753f4296a214623877a0ca53b
 ```
 
-2. The response will include some new elements such as **commitment** and **commitment_salt** and the id ( which is the most important one ). Get the id ( e.g.: **`3cdc813a-562f-4008-9ece-74a058a2bf57`** )
+```json
+{
+  "energy_consumed_mwh": 2,
+  "production_end_time": "2023-12-07T08:56:41.116Z",
+  "production_start_time": "2023-12-07T08:56:41.116Z",
+  "energy_owner": "emma",
+  "hydrogen_quantity_mwh": 3
+}
+```
+
+2. Token new token need to be added to the chain w/ POST /v1/certificate/{id}/initiation:
+
+```sh
+curl -X 'POST' http://localhost:8000/v1/certificate/${id}/initiation \
+  -H 'accept: application/json' \
+  -d ''
+```
+
+```
+N/A
+```
+
+3. After a period of time the token will be minted and marked as finalised and this can be checked w/ :
+
+```sh
+curl -X 'GET' http://localhost:8000/v1/certificate/${id}/initiation \
+  -H 'accept: application/json'
+
+# "state": "finalised"
+```
+
+<!-- 2. The response will include some new elements such as **commitment** and **commitment_salt** and the id ( which is the most important one ). Get the id ( e.g.: **`3cdc813a-562f-4008-9ece-74a058a2bf57`** ) -->
 
 <!--
 
@@ -203,15 +243,7 @@ curl -X POST http://localhost:3000/v1/certificate -H "Content-Type: application/
 
 -->
 
-3. Token submitted or initiated on-chain using the id from the previous step ( **`3cdc813a-562f-4008-9ece-74a058a2bf57`** ) w/ POST /v1/certificate/{id}/initiation
-
-```
-N/A
-```
-
-```sh
-curl -X POST http://localhost:3000/v1/certificate/3cdc813a-562f-4008-9ece-74a058a2bf57/initiation -d ''
-```
+<!-- 3. Token submitted or initiated on-chain using the id from the previous step ( **`3cdc813a-562f-4008-9ece-74a058a2bf57`** ) w/ POST /v1/certificate/{id}/initiation -->
 
 <!--
 
