@@ -186,6 +186,7 @@ curl -s -X 'POST' \
   "hydrogen_quantity_mwh": 3
 }'
 )
+
 id=$(echo $response | jq -r .id)
 # 10b3dbc5-46d8-4b2b-a51c-eebcbfd76f91
 commitment_salt=$(echo $response | jq -r .commitment_salt)
@@ -220,6 +221,8 @@ curl -X POST http://localhost:8000/v1/certificate/${id}/initiation -H 'accept: a
 curl http://localhost:8000/v1/certificate/${id}/initiation
 # "state": "finalised"
 ```
+
+---
 
 ### HyProof Api Flow: Tokens Flow: Energy Producer
 
@@ -268,5 +271,9 @@ curl -X http://localhost:8010/v1/certificate/${id}/issuance -H 'accept: applicat
 ```
 
 ---
+
+### HyProof Api Flow: Tokens Flow: Regulator
+
+In a similar way, the regulator can burn / revoke tokens.
 
 ---
