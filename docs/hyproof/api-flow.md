@@ -154,7 +154,7 @@ To create a valid hydrogen certificate, we need the cooperation of 2 parties: `H
 1. The new token needs to be inserted into the local db prior to being added to the chain w/ **`POST`** **`/v1/certificate`** 
 
 ```sh
-response=$(
+heidi_response=$(
 curl -s -X 'POST' \
   'http://localhost:8000/v1/certificate' \
   -H 'accept: application/json' \
@@ -170,30 +170,30 @@ curl -s -X 'POST' \
 )
 ```
 
-2. Save the **`database id`** and **`commitment_salt`** fields locally:
+2. Save the local **`id`** and the **`commitment_salt`** fields for later:
 
 ```sh
-database_id=$(echo $response | jq -r .id) \
-commitment_salt=$(echo $response | jq -r .commitment_salt)
+heidi_local_id=$(echo $heidi_response | jq -r .id) \
+commitment_salt=$(echo $heidi_response | jq -r .commitment_salt)
 ```
 
 3. The new token now needs to be added to the chain w/ **`POST`** **`/v1/certificate/{id}/initiation`**:
 
 ```sh
-curl -X POST http://localhost:8000/v1/certificate/$database_id/initiation -H 'accept: application/json' -d ''
+curl -X POST http://localhost:8000/v1/certificate/$heidi_local_id/initiation -H 'accept: application/json' -d ''
 ```
 
 ```js
 // Response payload:
-// Note local_id == database_id from previous steps
+// Note local_id == heidi_local_id from previous steps
 // local_id, hash & id are all non-deterministic
 {
   "api_type":"certificate",
   "transaction_type":"initiate_cert",
-  "local_id":"44ca54da-28e8-4cfe-8e0b-7e668045b630",
-  "hash":"0x63a3e244681a3850a1b44e6df70b41c17fd4090f286c8ce08fbd855f8d4fb385",
+  "local_id":"UUID",
+  "hash":"HASH",
   "state":"submitted",
-  "id":"779cb38f-d5e1-4deb-93b9-4c476d639cf6",
+  "id":"UUID",
   "created_at":"ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)",
   "updated_at":"ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)"
 }
@@ -202,7 +202,7 @@ curl -X POST http://localhost:8000/v1/certificate/$database_id/initiation -H 'ac
 4. After a short period of time the token will be marked as `inBlock` and then `finalised`. This can be checked w/ **`GET`** **`/v1/certificate/{id}/initiation`**:
 
 ```sh
-curl http://localhost:8000/v1/certificate/$database_id/initiation
+curl http://localhost:8000/v1/certificate/$heidi_database_id/initiation
 ```
 
 ```js
@@ -211,10 +211,10 @@ curl http://localhost:8000/v1/certificate/$database_id/initiation
 {
   "api_type":"certificate",
   "transaction_type":"initiate_cert",
-  "local_id":"44ca54da-28e8-4cfe-8e0b-7e668045b630",
-  "hash":"0x63a3e244681a3850a1b44e6df70b41c17fd4090f286c8ce08fbd855f8d4fb385",
+  "local_id":"UUID",
+  "hash":"HASH",
   "state":"finalised",
-  "id":"779cb38f-d5e1-4deb-93b9-4c476d639cf6",
+  "id":"UUID",
   "created_at":"ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)",
   "updated_at":"ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)"
 }
@@ -227,7 +227,7 @@ curl http://localhost:8000/v1/certificate/$database_id/initiation
 1. The same token needs to be found using the 2nd persona (`Emma the Energy Owner`), ergo the 2nd Swagger, and its **id** needs to be grabbed ( with a blank createdAt ) w/ **`GET`** **`/v1/certificate`**:
 
 ```sh
-response=$(
+emma_response=$(
   curl -s -X 'GET' http://localhost:8010/v1/certificate \
   -H 'accept: application/json'
   )
@@ -236,17 +236,17 @@ response=$(
 2. Save the **`id`** field:
 
 ```sh
-database_id=$(echo $response | jq -r '.[] | .id')
+emma_local_id=$(echo $emma_response | jq -r '.[] | .id')
 ```
 
 3. After that, the secret information transmitted out of band between the Hydrogen Producer `(Heidi)` and the Energy Owner `(Emma)` needs to be added using **`PUT`** **`/v1/certificate/{id}`**:
 
 ```sh
-curl -X 'PUT' http://localhost:8010/v1/certificate/$database_id \
+curl -X 'PUT' http://localhost:8010/v1/certificate/$emma_local_id \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "commitment_salt": $commitment_salt,
+  "commitment_salt": "'"$commitment_salt"'",
   "energy_consumed_mwh": 2,
   "production_end_time": "2023-12-07T08:56:41.116Z",
   "production_start_time": "2023-12-07T07:56:41.116Z"
@@ -256,7 +256,7 @@ curl -X 'PUT' http://localhost:8010/v1/certificate/$database_id \
 4. The final step is to load the embodied CO2 data into the token and issue it on chain as a complete certificate w/ **`PUT`** **`/v1/certificate/{id}/issuance`**:
 
 ```sh
-curl -X 'POST' http://localhost:8010/v1/certificate/$database_id/issuance \
+curl -X 'POST' http://localhost:8010/v1/certificate/$emma_local_id/issuance \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -285,13 +285,14 @@ curl -X 'GET' http://localhost:8010/v1/certificate \
   "production_start_time":"2023-12-07T07:56:41.116Z",
   "production_end_time":"2023-12-07T08:56:41.116Z",
   "energy_consumed_mwh":2,
-  "id":"82d31f2f-416f-40bd-ac77-6b9cb8713537",
+  "id":"UUID",
   "state":"issued",
-  "created_at":"2023-12-11T14:06:12.822Z",
-  "updated_at":"2023-12-11T14:14:08.059Z",
+  "created_at":"ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)",
+  "updated_at":"ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)",
   "embodied_co2":135
 }
 ```
+
 ---
 
 ### HyProof Api Flow: Token Flow: Regulator
