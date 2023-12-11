@@ -271,6 +271,27 @@ curl -X 'GET' http://localhost:8010/v1/certificate \
   -H 'accept: application/json'
 ```
 
+```sh
+# Final certificate payload:
+{
+  "hydrogen_owner":"Heidi",
+  "energy_owner":"Emma",
+  "regulator":"Reginald",
+  "hydrogen_quantity_mwh":3,
+  "original_token_id":1,
+  "latest_token_id":2,
+  "commitment":"d1b90d43c87e761b2373d8a3faa6cd2f",
+  "commitment_salt":"0233f6fa708fdd2af20124854e473533",
+  "production_start_time":"2023-12-07T07:56:41.116Z",
+  "production_end_time":"2023-12-07T08:56:41.116Z",
+  "energy_consumed_mwh":2,
+  "id":"82d31f2f-416f-40bd-ac77-6b9cb8713537",
+  "state":"issued",
+  "created_at":"2023-12-11T14:06:12.822Z",
+  "updated_at":"2023-12-11T14:14:08.059Z",
+  "embodied_co2":135
+}
+```
 ---
 
 ### HyProof Api Flow: Token Flow: Regulator
