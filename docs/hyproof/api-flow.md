@@ -242,7 +242,7 @@ database_id=$(echo $response | jq -r '.[] | .id')
 3. After that, the secret information transmitted out of band between the Hydrogen Producer `(Heidi)` and the Energy Owner `(Emma)` needs to be added using **`PUT`** **`/v1/certificate/{id}`**:
 
 ```sh
-curl -X 'PUT' http://localhost:8010/v1/certificate/$token_id \
+curl -X 'PUT' http://localhost:8010/v1/certificate/$database_id \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -256,7 +256,7 @@ curl -X 'PUT' http://localhost:8010/v1/certificate/$token_id \
 4. The final step is to load the embodied CO2 data into the token and issue it on chain as a complete certificate w/ **`PUT`** **`/v1/certificate/{id}/issuance`**:
 
 ```sh
-curl -X 'POST' http://localhost:8010/v1/certificate/$token_id/issuance \
+curl -X 'POST' http://localhost:8010/v1/certificate/$database_id/issuance \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -267,7 +267,8 @@ curl -X 'POST' http://localhost:8010/v1/certificate/$token_id/issuance \
 5. After a short period to finalise the transaction on chain, you can retrieve the complete certificate w/ **`GET`** **`/v1/certificate/{id}/issuance`**:
 
 ```sh
-curl -X http://localhost:8010/v1/certificate/$token_id/issuance -H 'accept: application/json'
+curl -X 'GET' http://localhost:8010/v1/certificate \
+  -H 'accept: application/json'
 ```
 
 ---
