@@ -10,31 +10,29 @@ In order to go trough the entire flow, there are a couple of prerequisites requi
 
 ### HyProof Api Flow: Prerequisites: Services
 
-In order to be able to reproduce the steps described in this document you need to have the three personas setup ( a complex setup that include all the needed services for three personas ). For that, please refer to the **[docker-compose-3-personal.yml](https://github.com/digicatapult/dscp-hyproof-api/blob/main/docker-compose-3-personal.yml)** file found in the **[dscp-hyproof-api](https://github.com/digicatapult/dscp-hyproof-api)** repository.
+In order to be able to reproduce the steps described in this document you need to have the three personas setup ( a complex setup that include all the needed services for three personas ). For that, please refer to the **[docker-compose-3-persona.yml](https://github.com/digicatapult/dscp-hyproof-api/blob/main/docker-compose-3-personal.yml)** file found in the **[dscp-hyproof-api](https://github.com/digicatapult/dscp-hyproof-api)** repository.
 
-To run this, a command similar to the next one can be used:
+Use the following command to build and run the 3-persona testnet:
 
 ```sh
-docker-compose -f docker-compose-3-personal.yml down -v && docker-compose -f docker-compose-3-personal.yml up -d && \
-npm i && \
-npm run flows
+docker-compose -f docker-compose-3-persona.yml up --build -d
 ```
 
 The Swagger GUI for both the Main DSCP API sys and the Identity API sys for all three personas can be accessed using:
 
-* **Persona 01** - **`heidi`**:
+* **Persona 01** - **`Heidi (the Hydrogen Producer)`**:
 
   - **[localhost:8000/swagger](http://localhost:8000/swagger/#/)**
 
   - **[localhost:9000/v1/swagger](http://localhost:9000/v1/swagger/#/)**
 
-* **Persona 02** - **`emma`**:
+* **Persona 02** - **`Emma (the Energy Owner)`**:
 
   - **[localhost:8010/swagger](http://localhost:8010/swagger/#/)**
 
   - **[localhost:9010/v1/swagger](http://localhost:9010/v1/swagger/#/)**
 
-* **Persona 03** - **`reginald`**:
+* **Persona 03** - **`Reginald (the Regulator)`**:
 
   - **[localhost:8020/swagger](http://localhost:8020/swagger/#/)**
 
@@ -49,107 +47,86 @@ The values set for each persona are your choice but, they should provide a recog
 1. Get the address for self using the 1st, 2nd and 3rd Swagger w/ **`GET`** **`/self`** ( save the **`.address`** field ):
 
 ```sh
-curl -s http://localhost:9000/v1/self -H 'accept: application/json' | jq -r .address
-# 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
-heidi=5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
-curl -s http://localhost:9010/v1/self -H 'accept: application/json' | jq -r .address
-# 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
-emma=5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
-curl -s http://localhost:9020/v1/self -H 'accept: application/json' | jq -r .address
-# 5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
-reginald=5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
+heidi=$(curl -s http://localhost:9000/v1/self -H 'accept: application/json' | jq -r .address)
+emma=$(curl -s http://localhost:9010/v1/self -H 'accept: application/json' | jq -r .address)
+reginald=$(curl -s http://localhost:9020/v1/self -H 'accept: application/json' | jq -r .address)
 ```
 
-2. Set the alias for all the personas using the 1st Swagger w/ **`POST`** **`/members/{address}`**:
+These commands should populate the following environment variables:
+```sh
+heidi = 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+emma = 5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty
+reginald = 5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y
+```
+
+2. Set the aliases for all the personas using the 1st Swagger w/ **`POST`** **`/members/{address}`**:
 
 ```sh
-curl -X 'PUT' http://localhost:9000/v1/members/${heidi} \
+curl -X 'PUT' http://localhost:9000/v1/members/$heidi \
   -H 'Content-Type: application/json' \
-  -d '{"alias":"heidi"}'
+  -d '{"alias":"Heidi"}'
 
-curl -X 'PUT' http://localhost:9000/v1/members/${emma} \
+curl -X 'PUT' http://localhost:9000/v1/members/$emma \
   -H 'Content-Type: application/json' \
-  -d '{"alias":"emma"}'
+  -d '{"alias": "Emma"}'
 
-curl -X 'PUT' http://localhost:9000/v1/members/${reginald} \
+curl -X 'PUT' http://localhost:9000/v1/members/$reginald \
   -H 'Content-Type: application/json' \
-  -d '{"alias": "reginald"}'
+  -d '{"alias": "Reginald"}'
 ```
 
-```js
-// Payloads:
-'{"alias":"heidi"}'
-'{"alias":"emma"}'
-'{"alias": "reginald"}'
-```
-
-3. Set the alias for all the personas using the 2nd Swagger w/ **`POST`** **`/members/{address}`**:
+3. Set the aliases for all the personas using the 2nd Swagger w/ **`POST`** **`/members/{address}`**:
 
 ```sh
-curl -X 'PUT' http://localhost:9010/v1/members/${heidi} \
+curl -X 'PUT' http://localhost:9010/v1/members/$heidi \
   -H 'Content-Type: application/json' \
-  -d '{"alias":"heidi"}'
+  -d '{"alias":"Heidi"}'
 
-curl -X 'PUT' http://localhost:9010/v1/members/${emma} \
+curl -X 'PUT' http://localhost:9010/v1/members/$emma \
   -H 'Content-Type: application/json' \
-  -d '{"alias":"emma"}'
+  -d '{"alias": "Emma"}'
 
-curl -X 'PUT' http://localhost:9010/v1/members/${reginald} \
+curl -X 'PUT' http://localhost:9010/v1/members/$reginald \
   -H 'Content-Type: application/json' \
-  -d '{"alias": "reginald"}'
+  -d '{"alias": "Reginald"}'
 ```
 
-```js
-// Payloads:
-'{"alias":"heidi"}'
-'{"alias":"emma"}'
-'{"alias": "reginald"}'
-```
-
-4. Set the alias for all the personas using the 3rd Swagger w/ **`POST`** **`/members/{address}`**:
+4. Set the aliases for all the personas using the 3rd Swagger w/ **`POST`** **`/members/{address}`**:
 
 ```sh
-curl -X 'PUT' http://localhost:9020/v1/members/${heidi} \
+curl -X 'PUT' http://localhost:9020/v1/members/$heidi \
   -H 'Content-Type: application/json' \
-  -d '{"alias":"heidi"}'
+  -d '{"alias":"Heidi"}'
 
-curl -X 'PUT' http://localhost:9020/v1/members/${emma} \
+curl -X 'PUT' http://localhost:9020/v1/members/$emma \
   -H 'Content-Type: application/json' \
-  -d '{"alias":"emma"}'
+  -d '{"alias": "Emma"}'
 
-curl -X 'PUT' http://localhost:9020/v1/members/${reginald} \
+curl -X 'PUT' http://localhost:9020/v1/members/$reginald \
   -H 'Content-Type: application/json' \
-  -d '{"alias": "reginald"}'
+  -d '{"alias": "Reginald"}'
 ```
-
-```js
-// Payloads:
-'{"alias":"heidi"}'
-'{"alias":"emma"}'
-'{"alias": "reginald"}'
-```
-
-Note that you can check everything with GET /members.
 
 ---
 
 ### HyProof Api Flow: Prerequisites: Retrieving Aliases
 
-Once there are some aliases in the system you can retrieve them with the appropriate endpoint.
+Once there are some aliases in the system you can retrieve them by passing a `GET` to the `/members` endpoint.
 
-1. On each node return a list of all aliases as set above w/ **`GET`** **`/members`**:
+1. On each node return a list of all aliases as set above:
 
 ```sh
 curl http://localhost:9000/v1/members
-# OR curl http://localhost:9010/v1/members OR curl http://localhost:9020/v1/members
+# OR curl http://localhost:9010/v1/members 
+# OR curl http://localhost:9020/v1/members
 ```
 
 ```js
 // Response:
 [
-  { "address": "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty", "alias": "emma" },
-  { "address": "5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y", "alias": "reginald" },
-  { "address": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", "alias": "heidi" }
+  { "address": "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty", "alias": "Emma" },
+  { "address": "5FLSigC9HGRKVhB9FiEo4Y3koPsNmBmLJbpXg2mp1hXcS59Y", "alias": "Reginald" },
+  { "address": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", "alias": "Heidi" }
 ]
 ```
 
@@ -157,124 +134,171 @@ curl http://localhost:9000/v1/members
 
 ---
 
-## HyProof Api Flow: Tokens Flow
+## HyProof Api Flow: Token Flow
 
 The API flow for managing tokens.
 
 ---
 
-### HyProof Api Flow: Tokens Flow: Context
+### HyProof Api Flow: Token Flow: Context
 
-In the case of performing tracking of green hydrogen, one might be able to do the on-chain tracking by allowing a token to be created of the type Initiated associated to it then morph this to a token of the type Issued.
+To create a valid hydrogen certificate, we need the cooperation of 2 parties: `Heidi the Hydrogen Producer` and `Emma the Energy Owner`.
+
+1. `Heidi` first creates a token in her local database (`initiated`) and submits it to the chain. This token contains a commitment to the secret time and energy data she has used. She passes the information used to create the commitment to `Emma` out-of-band.
+2. `Emma` performs a calculation and loads the eCO2 to the token on-chain along with another commitment to the energy mix used at the time. The token/certificate is now `issued`.
 
 ---
 
-### HyProof Api Flow: Tokens Flow: Hydrogen Producer
+### HyProof Api Flow: Token Flow: Hydrogen Producer
 
-1. The new token need to be inserted into the local db prior to being added to the chain w/ **`POST`** **`/v1/certificate`** ( save the **`id`** and **`commitment_salt`** fields ):
+1. The new token needs to be inserted into the local db prior to being added to the chain w/ **`POST`** **`/v1/certificate`** 
 
 ```sh
-response=$(
+heidi_response=$(
 curl -s -X 'POST' \
   'http://localhost:8000/v1/certificate' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
-  -d '{
+  -d '{ 
   "energy_consumed_mwh": 2,
   "production_end_time": "2023-12-07T08:56:41.116Z",
-  "production_start_time": "2023-12-07T08:56:41.116Z",
-  "energy_owner": "emma",
+  "production_start_time": "2023-12-07T07:56:41.116Z",
+  "energy_owner": "Emma",
+  "regulator": "Reginald",
   "hydrogen_quantity_mwh": 3
 }'
 )
+```
 
-id=$(echo $response | jq -r .id)
-# 10b3dbc5-46d8-4b2b-a51c-eebcbfd76f91
-commitment_salt=$(echo $response | jq -r .commitment_salt)
-# 14d3f9f753f4296a214623877a0ca53b
+2. Save the local **`id`** and the **`commitment_salt`** fields for later:
+
+```sh
+heidi_local_id=$(echo $heidi_response | jq -r .id) \
+commitment_salt=$(echo $heidi_response | jq -r .commitment_salt)
+```
+
+3. The new token now needs to be added to the chain w/ **`POST`** **`/v1/certificate/{id}/initiation`**:
+
+```sh
+curl -X POST http://localhost:8000/v1/certificate/$heidi_local_id/initiation -H 'accept: application/json' -d ''
 ```
 
 ```js
-// Payload:
+// Response payload:
+// Note local_id == heidi_local_id from previous steps
+// local_id, hash & id are all non-deterministic
 {
-  "energy_consumed_mwh": 2,
-  "production_end_time": "2023-12-07T08:56:41.116Z",
-  "production_start_time": "2023-12-07T08:56:41.116Z",
-  "energy_owner": "emma",
-  "hydrogen_quantity_mwh": 3
+  "api_type":"certificate",
+  "transaction_type":"initiate_cert",
+  "local_id":"UUID",
+  "hash":"HASH",
+  "state":"submitted",
+  "id":"UUID",
+  "created_at":"ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)",
+  "updated_at":"ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)"
 }
 ```
 
-2. The new token needs to be added to the chain w/ **`POST`** **`/v1/certificate/{id}/initiation`**:
+4. After a short period of time the token will be marked as `inBlock` and then `finalised`. This can be checked w/ **`GET`** **`/v1/certificate/{id}/initiation`**:
 
 ```sh
-curl -X POST http://localhost:8000/v1/certificate/${id}/initiation -H 'accept: application/json' -d ''
+curl http://localhost:8000/v1/certificate/$heidi_local_id/initiation
 ```
 
 ```js
-// Payload:
-""
-```
-
-3. After a period of time the token will be minted and marked as finalised and this can be checked w/ **`GET`** **`/v1/certificate/{id}/initiation`**:
-
-```sh
-curl http://localhost:8000/v1/certificate/${id}/initiation
-# "state": "finalised"
+// Response payload:
+// Note local_id, hash, id will be identical to previous step
+{
+  "api_type":"certificate",
+  "transaction_type":"initiate_cert",
+  "local_id":"UUID",
+  "hash":"HASH",
+  "state":"finalised",
+  "id":"UUID",
+  "created_at":"ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)",
+  "updated_at":"ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)"
+}
 ```
 
 ---
 
-### HyProof Api Flow: Tokens Flow: Energy Producer
+### HyProof Api Flow: Token Flow: Energy Producer 
 
-1. The same token needs to be found using the 2nd persona, ergo the 2nd Swagger, and the its id needs to be grabbed ( with a blank createdAt ) w/ **`GET`** **`/v1/certificate`** ( save the **`id`** field ):
+1. The same token needs to be found using the 2nd persona (`Emma the Energy Owner`), ergo the 2nd Swagger, and its **id** needs to be grabbed ( with a blank createdAt ) w/ **`GET`** **`/v1/certificate`**:
 
 ```sh
-curl -s -X http://localhost:8010/v1/certificate -H 'accept: application/json' | jq -r .[1].id
-# 0841d34e-0c61-419c-96fb-e77d2eca4d50
-id=0841d34e-0c61-419c-96fb-e77d2eca4d50
+emma_response=$(
+  curl -s -X 'GET' http://localhost:8010/v1/certificate \
+  -H 'accept: application/json'
+  )
 ```
 
-2. After that, prior to the last step, the secret information that has been hashed need to be added in w/ **`PUT`** **`/v1/certificate/{id}`**:
+2. Save the **`id`** field:
 
 ```sh
-curl -X 'PUT' http://localhost:8010/v1/certificate/0841d34e-0c61-419c-96fb-e77d2eca4d50 \
+emma_local_id=$(echo $emma_response | jq -r '.[] | .id')
+```
+
+3. After that, the secret information transmitted out of band between the Hydrogen Producer `(Heidi)` and the Energy Owner `(Emma)` needs to be added using **`PUT`** **`/v1/certificate/{id}`**:
+
+```sh
+curl -X 'PUT' http://localhost:8010/v1/certificate/$emma_local_id \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "commitment_salt": "'${commitment_salt}'",
+  "commitment_salt": "'"$commitment_salt"'",
   "energy_consumed_mwh": 2,
   "production_end_time": "2023-12-07T08:56:41.116Z",
-  "production_start_time": "2023-12-07T08:56:41.116Z"
+  "production_start_time": "2023-12-07T07:56:41.116Z"
 }'
 ```
 
-3. Finally, the last token spawned from the previous one, needs to be added to the chain w/ **`PUT`** **`/v1/certificate/{id}/issuance`**:
+4. The final step is to load the embodied CO2 data into the token and issue it on chain as a complete certificate w/ **`PUT`** **`/v1/certificate/{id}/issuance`**:
 
 ```sh
-curl -X 'POST' http://localhost:8010/v1/certificate/${id}/issuance \
+curl -X 'POST' http://localhost:8010/v1/certificate/$emma_local_id/issuance \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "embodied_co2": 13
+  "embodied_co2": 135
 }'
 ```
 
-```js
-// Payload:
-{ "embodied_co2": 13 }
-```
-
-4. Optionally, because after a small period of time the tx will eventually be included in the chain, you can eventually check that w/ **`GET`** **`/v1/certificate/{id}/issuance`**:
+5. After a short period to finalise the transaction on chain, you can retrieve the complete certificate w/ **`GET`** **`/v1/certificate/{id}/issuance`**:
 
 ```sh
-curl -X http://localhost:8010/v1/certificate/${id}/issuance -H 'accept: application/json'
+curl -X 'GET' http://localhost:8010/v1/certificate \
+  -H 'accept: application/json'
+```
+
+```sh
+# Final certificate payload:
+{
+  "hydrogen_owner":"Heidi",
+  "energy_owner":"Emma",
+  "regulator":"Reginald",
+  "hydrogen_quantity_mwh":3,
+  "original_token_id":1,
+  "latest_token_id":2,
+  "commitment":"d1b90d43c87e761b2373d8a3faa6cd2f",
+  "commitment_salt":"0233f6fa708fdd2af20124854e473533",
+  "production_start_time":"2023-12-07T07:56:41.116Z",
+  "production_end_time":"2023-12-07T08:56:41.116Z",
+  "energy_consumed_mwh":2,
+  "id":"UUID",
+  "state":"issued",
+  "created_at":"ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)",
+  "updated_at":"ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)",
+  "embodied_co2":135
+}
 ```
 
 ---
 
-### HyProof Api Flow: Tokens Flow: Regulator
+### HyProof Api Flow: Token Flow: Regulator
 
-In a similar way, the regulator can burn / revoke tokens.
+`Reginald the Regulator` has the power to revoke invalid certificates, but to prevent foul play there must always be an explanation given. 
+
+The explanation will be given on a document stored in `IPFS` that is indelibly linked to the revoked certificate.
 
 ---
