@@ -202,7 +202,7 @@ curl -X POST http://localhost:8000/v1/certificate/$heidi_local_id/initiation -H 
 4. After a short period of time the token will be marked as `inBlock` and then `finalised`. This can be checked w/ **`GET`** **`/v1/certificate/{id}/initiation`**:
 
 ```sh
-curl http://localhost:8000/v1/certificate/$heidi_database_id/initiation
+curl http://localhost:8000/v1/certificate/$heidi_local_id/initiation
 ```
 
 ```js
