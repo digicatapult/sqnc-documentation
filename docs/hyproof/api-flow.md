@@ -1,14 +1,14 @@
-## HyProof Api Flow
+## HyProof API Flow
 
 This document describes the API flow that can be used to demonstrate the usage of the HyProof project.
 
 ---
 
-## HyProof Api Flow: Prerequisites
+## Prerequisites
 
 In order to go trough the entire flow, there are a couple of prerequisites required, described below.
 
-### HyProof Api Flow: Prerequisites: Services
+### Prerequisites: Services
 
 In order to be able to reproduce the steps described in this document you need to have the three personas setup ( a complex setup that include all the needed services for three personas ). For that, please refer to the **[docker-compose-3-persona.yml](https://github.com/digicatapult/dscp-hyproof-api/blob/main/docker-compose-3-personal.yml)** file found in the **[dscp-hyproof-api](https://github.com/digicatapult/dscp-hyproof-api)** repository.
 
@@ -40,7 +40,7 @@ The Swagger GUI for both the Main DSCP API sys and the Identity API sys for all 
 
 ---
 
-### HyProof Api Flow: Prerequisites: Setting Up Aliases
+### Prerequisites: Setting Up Aliases
 
 The values set for each persona are your choice but, they should provide a recognisable value in response bodies.
 
@@ -109,7 +109,7 @@ curl -X 'PUT' http://localhost:9020/v1/members/$reginald \
 
 ---
 
-### HyProof Api Flow: Prerequisites: Retrieving Aliases
+### Prerequisites: Retrieving Aliases
 
 Once there are some aliases in the system you can retrieve them by passing a `GET` to the `/members` endpoint.
 
@@ -134,22 +134,23 @@ curl http://localhost:9000/v1/members
 
 ---
 
-## HyProof Api Flow: Token Flow
+## Token Flow
 
-The API flow for managing tokens.
+The remaining part of this document details the API workflow for demonstrating how HyProof manages tokens representing certified batches of hydrogen.
 
 ---
 
-### HyProof Api Flow: Token Flow: Context
+### Token Flow: Outline
 
 To create a valid hydrogen certificate, we need the cooperation of 2 parties: `Heidi the Hydrogen Producer` and `Emma the Energy Owner`.
 
 1. `Heidi` first creates a token in her local database (`initiated`) and submits it to the chain. This token contains a commitment to the secret time and energy data she has used. She passes the information used to create the commitment to `Emma` out-of-band.
 2. `Emma` performs a calculation and loads the eCO2 to the token on-chain along with another commitment to the energy mix used at the time. The token/certificate is now `issued`.
+3. `Reginald` finds the certificate to be invalid, and attaches evidence/reasoning to the certificate while transitioning it from `issued` to `revoked` status.
 
 ---
 
-### HyProof Api Flow: Token Flow: Hydrogen Producer
+### Persona 1: Heidi the Hydrogen Producer
 
 1. The new token needs to be inserted into the local db prior to being added to the chain w/ **`POST`** **`/v1/certificate`** 
 
@@ -222,7 +223,7 @@ curl http://localhost:8000/v1/certificate/$heidi_local_id/initiation
 
 ---
 
-### HyProof Api Flow: Token Flow: Energy Producer 
+### Persona 2: Emma the Energy Owner
 
 1. The same token needs to be found using the 2nd persona (`Emma the Energy Owner`), ergo the 2nd Swagger, and its **id** needs to be grabbed ( with a blank createdAt ) w/ **`GET`** **`/v1/certificate`**:
 
@@ -253,7 +254,7 @@ curl -X 'PUT' http://localhost:8010/v1/certificate/$emma_local_id \
 }'
 ```
 
-4. The final step is to load the embodied CO2 data into the token and issue it on chain as a complete certificate w/ **`PUT`** **`/v1/certificate/{id}/issuance`**:
+4. The final step is to load the embodied CO2 data into the token and issue it on chain as a complete certificate w/ **`POST`** **`/v1/certificate/{id}/issuance`**:
 
 ```sh
 curl -X 'POST' http://localhost:8010/v1/certificate/$emma_local_id/issuance \
@@ -295,10 +296,92 @@ curl -X 'GET' http://localhost:8010/v1/certificate \
 
 ---
 
-### HyProof Api Flow: Token Flow: Regulator
+### Persona 3: Reginald the Regulator
 
 `Reginald the Regulator` has the power to revoke invalid certificates, but to prevent foul play there must always be an explanation given. 
 
 The explanation will be given on a document stored in `IPFS` that is indelibly linked to the revoked certificate.
 
----
+6. First retrieve the certificate to be revoked with w/ **`GET`** **`/v1/certificate/`**:
+
+```sh
+reggie_response=$(
+  curl -s -X 'GET' http://localhost:8020/v1/certificate \
+  -H 'accept: application/json'
+  )
+```
+
+7. Save the **`id`** field locally:
+
+```sh
+reggie_local_id=$(echo $reggie_response | jq -r '.[] | .id')
+```
+
+8. Now load a `pdf` document containing the reason for revocation to `IPFS` and save the `file_id` w/ **`POST`** **`/v1/attachment`**:
+
+
+```sh
+file_id=$(
+  curl -s -X 'POST' http://localhost:8020/v1/attachment \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'file=@Revocation_Reason.pdf;type=application/pdf' | jq -r .id
+  )
+```
+
+9. The final step is to submit the revocation transaction, referencing the `local_id` and the `file_id` w/ **`POST`** **`/v1/certificate/{id}/revocation`**:
+
+
+```sh
+curl -s -X 'POST' http://localhost:8020/v1/certificate/$reggie_local_id/revocation \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "reason": "'"$file_id"'"
+}'
+```
+
+```sh
+# Response payload
+{
+  "api_type":"certificate",
+  "transaction_type":"revoke_cert",
+  "local_id":"UUID",
+  "hash":"0x5c10b26354f67841afc9ec7c2f29d90f00d91094a78b2d1347c196ebca32fa87",
+  "state":"submitted",
+  "id":"UUID",
+  "created_at": "ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)",
+  "updated_at": "ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)"
+}
+```
+
+10. After a short time to allow the transaciton to finalise on-chain, the certificate can be retrieved and viewed w/ **`GET`** **`/v1/certificate/{id}`**:
+
+```sh
+curl -s http://localhost:8020/v1/certificate/$reggie_local_id -H 'accept: application/json' | jq -r
+```
+
+```sh
+# Final revoked certificate:
+{
+  "hydrogen_owner": "Heidi",
+  "energy_owner": "Emma",
+  "regulator": "Reginald",
+  "hydrogen_quantity_mwh": 3,
+  "original_token_id": 1,
+  "latest_token_id": 3,
+  "commitment": "cb9dee10df30d05390f25f67fbbdf920",
+  "commitment_salt": null,
+  "production_start_time": null,
+  "production_end_time": null,
+  "energy_consumed_mwh": null,
+  "id": "UUID",
+  "state": "revoked",
+  "created_at": "ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)",
+  "updated_at": "ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)",
+  "embodied_co2": 135,
+  "revocation_reason": "UUID"
+}
+```
+
+It is important to note that Reginald cannot see any of the private business-critical data loaded by `Heidi` or `Emma`.
