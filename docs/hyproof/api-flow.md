@@ -347,7 +347,7 @@ curl -s -X 'POST' http://localhost:8020/v1/certificate/$reggie_local_id/revocati
   "api_type":"certificate",
   "transaction_type":"revoke_cert",
   "local_id":"UUID",
-  "hash":"0x5c10b26354f67841afc9ec7c2f29d90f00d91094a78b2d1347c196ebca32fa87",
+  "hash":"HASH",
   "state":"submitted",
   "id":"UUID",
   "created_at": "ISO 8601 date (yyyy-MM-ddTHH:mm:ss.SSSZ)",
@@ -355,7 +355,7 @@ curl -s -X 'POST' http://localhost:8020/v1/certificate/$reggie_local_id/revocati
 }
 ```
 
-10. After a short time to allow the transaciton to finalise on-chain, the certificate can be retrieved and viewed w/ **`GET`** **`/v1/certificate/{id}`**:
+10. After a short time to allow the transaction to finalise on-chain, the certificate can be retrieved and viewed w/ **`GET`** **`/v1/certificate/{id}`**:
 
 ```sh
 curl -s http://localhost:8020/v1/certificate/$reggie_local_id -H 'accept: application/json' | jq -r
