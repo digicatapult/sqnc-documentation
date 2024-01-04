@@ -49,10 +49,12 @@ These repositories contain code being actively maintained as part of the DSCP pr
 
 These repositories contain code written for specific projects that use DSCP.
 
-| Repository                                                     | Description                                                                           |
-| -------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| [inteli-api](https://github.com/digicatapult/inteli-api)       | API for interacting with `dscp-api` and `dscp-identity-service` as an Inteli end-user |
-| [l3-flux-infra](https://github.com/digicatapult/l3-flux-infra) | Flux repo to bring up DSCP with Kubernetes for the Logistics Living Lab project       |
+| Repository                                                                 	| Description                                                                           	|
+|----------------------------------------------------------------------------	|---------------------------------------------------------------------------------------	|
+| [inteli-api](https://github.com/digicatapult/inteli-api)                   	| API for interacting with `dscp-api` and `dscp-identity-service` as an Inteli end-user 	|
+| [l3-flux-infra](https://github.com/digicatapult/l3-flux-infra)             	| Flux repo to bring up DSCP with Kubernetes for the Logistics Living Lab project       	|
+| [dscp-hyproof-api](https://github.com/digicatapult/dscp-hyproof-api)       	| DSCP HyProof API layer                                                                	|
+| [dscp-hyproof-client](https://github.com/digicatapult/dscp-hyproof-client) 	| DSCP HyProof graphic user interface front-end client                                  	|
 
 ### Deprecated DSCP repositories
 
