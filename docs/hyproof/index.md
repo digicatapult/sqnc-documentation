@@ -13,7 +13,7 @@ The MVP focusses on the key business flows (and the underlying technical compone
 3. A hydrogen certificate being issued with the details from the above actions
 4. Authorised viewers being able to view the certificate
 
-For this proof of concept it has been decided that the consensus layer will be constructed using our in-house build **[DSCP](https://github.com/digicatapult/dscp-documentation)** ( **D**istributed-**S**upply-**C**hain-**P**latform ). However, this layer will not include the vanilla default version of DSCP but a special flavor of this platform that uses a purposely-build custom process flow.
+For this proof of concept it has been decided that the consensus layer will be constructed using our in-house build **[SQNC](https://github.com/digicatapult/sqnc-documentation)** ( **D**istributed-**S**upply-**C**hain-**P**latform ). However, this layer will not include the vanilla default version of Sequence (SQNC) but a special flavor of this platform that uses a purposely-build custom process flow.
 
 ---
 
@@ -23,7 +23,7 @@ The token model or better said, the the definition of the two token types plus f
 
 * **[token-flows.md](./token-flows.md)**
 
-The token model is also available in our Domain Specific Language ( .DSCP ) and can be found in **`dscp-hyproof-api`** repository, more exactly in **[processFlows.dscp](https://github.com/digicatapult/dscp-hyproof-api/blob/main/processFlows.dscp)**.
+The token model is also available in our Domain Specific Language ( .sqnc ) and can be found in **`sqnc-hyproof-api`** repository, more exactly in **[processFlows.sqnc](https://github.com/digicatapult/sqnc-hyproof-api/blob/main/processFlows.sqnc)**.
 
 ---
 

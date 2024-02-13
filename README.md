@@ -1,8 +1,8 @@
-# **DSCP**
+# **Sequence (SQNC)**
 
-Documentation for DSCP
+Documentation for Sequence (SQNC)
 
-`DSCP` is the **D**istributed-**S**upply-**C**hain-**P**latform; an open source demonstration of supply chain tracking using `blockchain` technology. `DSCP` enables the sharing of data across organisational boundaries whilst assuring data sensitivity, security, and resilience. The platform has an adaptable design architecture to effectively represent the business logic of real-world operations. It includes features like:
+`SQNC` is an an open source demonstration of supply chain tracking using `blockchain` technology. `SQNC` enables the sharing of data across organisational boundaries whilst assuring data sensitivity, security, and resilience. The platform has an adaptable design architecture to effectively represent the business logic of real-world operations. It includes features like:
 
 - Immutability of vital metadata for ensuring trust between interacting actors.
 - Distributed file system for secure sharing of large files and data-blobs.
@@ -12,7 +12,7 @@ Documentation for DSCP
 
 ## READMEs
 
-This repo includes READMEs that explain concepts within DSCP:
+This repo includes READMEs that explain concepts within SQNC:
 
 - [Architecture](./docs/architecture.md)
 - [Governance](./docs/governance.md)
@@ -22,43 +22,43 @@ This repo includes READMEs that explain concepts within DSCP:
 
 ## Projects
 
-READMEs that explain specific DSCP projects:
+READMEs that explain specific SQNC projects:
 
 - [Logistics Living Lab](./docs/l3/index.md)
 - [HyProof](./docs/hyproof/index.md)
 
 ## Repositories
 
-### Active DSCP repositories
+### Active SQNC repositories
 
-These repositories contain code being actively maintained as part of the DSCP project.
+These repositories contain code being actively maintained as part of the SQNC project.
 
 | Repository                                                                         | Description                                                                   |
 | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| [dscp-documentation](https://github.com/digicatapult/dscp-documentation)           | Documentation for DSCP                                                        |
-| [dscp-flux-infra](https://github.com/digicatapult/dscp-flux-infra)                 | Flux repo to bring up DSCP with Kubernetes                                    |
-| [dscp-node](https://github.com/digicatapult/dscp-node)                             | The blockchain node for DSCP, built with Substrate                            |
-| [dscp-ipfs](https://github.com/digicatapult/dscp-ipfs)                             | IPFS node for DSCP                                                            |
-| [dscp-api](https://github.com/digicatapult/dscp-api)                               | API to create/retrieve tokens on `dscp-node` and files on `dscp-ipfs`         |
+| [sqnc-documentation](https://github.com/digicatapult/sqnc-documentation)           | Documentation for SQNC                                                        |
+| [sqnc-flux-infra](https://github.com/digicatapult/sqnc-flux-infra)                 | Flux repo to bring up SQNC with Kubernetes                                    |
+| [sqnc-node](https://github.com/digicatapult/sqnc-node)                             | The blockchain node for SQNC, built with Substrate                            |
+| [sqnc-ipfs](https://github.com/digicatapult/sqnc-ipfs)                             | IPFS node for SQNC                                                            |
+| [sqnc-api](https://github.com/digicatapult/sqnc-api)                               | API to create/retrieve tokens on `sqnc-node` and files on `sqnc-ipfs`         |
 | [openapi-merger](https://github.com/digicatapult/openapi-merger)                   | Amalgamated API specs for OpenAPI                                             |
-| [dscp-identity-service](https://github.com/digicatapult/dscp-identity-service)     | API for managing chain member identities in DSCP                              |
-| [dscp-process-management](https://github.com/digicatapult/dscp-process-management) | Library for managing restricted process flows on `dscp-node`                  |
-| [dscp-matchmaker-api](https://github.com/digicatapult/dscp-matchmaker-api)         | End-user API for matching 'demands' from different supply chain organisations |
+| [sqnc-identity-service](https://github.com/digicatapult/sqnc-identity-service)     | API for managing chain member identities in SQNC                              |
+| [sqnc-process-management](https://github.com/digicatapult/sqnc-process-management) | Library for managing restricted process flows on `sqnc-node`                  |
+| [sqnc-matchmaker-api](https://github.com/digicatapult/sqnc-matchmaker-api)         | End-user API for matching 'demands' from different supply chain organisations |
 
-### Project-specific DSCP repositories
+### Project-specific SQNC repositories
 
-These repositories contain code written for specific projects that use DSCP.
+These repositories contain code written for specific projects that use Sequence (SQNC).
 
 | Repository                                                                 	| Description                                                                           	|
 |----------------------------------------------------------------------------	|---------------------------------------------------------------------------------------	|
-| [inteli-api](https://github.com/digicatapult/inteli-api)                   	| API for interacting with `dscp-api` and `dscp-identity-service` as an Inteli end-user 	|
-| [l3-flux-infra](https://github.com/digicatapult/l3-flux-infra)             	| Flux repo to bring up DSCP with Kubernetes for the Logistics Living Lab project       	|
-| [dscp-hyproof-api](https://github.com/digicatapult/dscp-hyproof-api)       	| DSCP HyProof API layer                                                                	|
-| [dscp-hyproof-client](https://github.com/digicatapult/dscp-hyproof-client) 	| DSCP HyProof graphic user interface front-end client                                  	|
+| [inteli-api](https://github.com/digicatapult/inteli-api)                   	| API for interacting with `sqnc-api` and `sqnc-identity-service` as an Inteli end-user 	|
+| [l3-flux-infra](https://github.com/digicatapult/l3-flux-infra)             	| Flux repo to bring up SQNC with Kubernetes for the Logistics Living Lab project       	|
+| [sqnc-hyproof-api](https://github.com/digicatapult/sqnc-hyproof-api)       	| SQNC HyProof API layer                                                                	|
+| [sqnc-hyproof-client](https://github.com/digicatapult/sqnc-hyproof-client) 	| SQNC HyProof graphic user interface front-end client                                  	|
 
-### Deprecated DSCP repositories
+### Deprecated SQNC repositories
 
-These repositories use DSCP but are now deprecated.
+These repositories use SQNC but are now deprecated.
 
 | Repository                                                                 | Description                                 |
 | -------------------------------------------------------------------------- | ------------------------------------------- |
@@ -67,7 +67,7 @@ These repositories use DSCP but are now deprecated.
 
 ## Lingo
 
-The world of `Blockchain` and `Substrate` is full of lingo. Here's our glossary of what we mean by some of these terms in the context of `DSCP`:
+The world of `Blockchain` and `Substrate` is full of lingo. Here's our glossary of what we mean by some of these terms in the context of `SQNC`:
 
 | Term                 | Means                                                                                                                                                                                                  |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -98,4 +98,4 @@ For more `Substrate` terms see [their glossary](https://docs.substrate.io/refere
 
 ## Contributing
 
-If you want to contribute to `DSCP` that's brilliant! First of all have a look at our contributor guidelines [here](./CONTRIBUTING.md).
+If you want to contribute to `SQNC` that's brilliant! First of all have a look at our contributor guidelines [here](./CONTRIBUTING.md).

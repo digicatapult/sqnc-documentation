@@ -10,7 +10,7 @@ In order to go trough the entire flow, there are a couple of prerequisites requi
 
 ### Prerequisites: Services
 
-In order to be able to reproduce the steps described in this document you need to have the three personas setup ( a complex setup that include all the needed services for three personas ). For that, please refer to the **[docker-compose-3-persona.yml](https://github.com/digicatapult/dscp-hyproof-api/blob/main/docker-compose-3-personal.yml)** file found in the **[dscp-hyproof-api](https://github.com/digicatapult/dscp-hyproof-api)** repository.
+In order to be able to reproduce the steps described in this document you need to have the three personas setup ( a complex setup that include all the needed services for three personas ). For that, please refer to the **[docker-compose-3-persona.yml](https://github.com/digicatapult/sqnc-hyproof-api/blob/main/docker-compose-3-personal.yml)** file found in the **[sqnc-hyproof-api](https://github.com/digicatapult/sqnc-hyproof-api)** repository.
 
 Use the following command to build and run the 3-persona testnet:
 
@@ -18,7 +18,7 @@ Use the following command to build and run the 3-persona testnet:
 docker-compose -f docker-compose-3-persona.yml up --build -d
 ```
 
-The Swagger GUI for both the Main DSCP API sys and the Identity API sys for all three personas can be accessed using:
+The Swagger GUI for both the Main SQNC API sys and the Identity API sys for all three personas can be accessed using:
 
 * **Persona 01** - **`Heidi (the Hydrogen Producer)`**:
 

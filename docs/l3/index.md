@@ -4,17 +4,17 @@ The [Logistics Living Lab](https://digitalsupplychainhub.uk/showcase/logistics-l
 
 L3 will demonstrate the value of creating a shared public infrastructure for managing delivery vehicle slot filling, routing, and tracking. This will enable logistics companies to collaborate where necessary, and still compete in new and more efficient ways, while enhancing UK manufacturing capability.
 
-Part of the shared infrastructure is built using `DSCP`.
+Part of the shared infrastructure is built using `Sequence (SQNC)`.
 
 ## Token Models and Process flows
 
-The token model design for L3 is available in both the diagrammatic style [here](./tokens.md) and in our token model DSL [here](./l3.dscp).
+The token model design for L3 is available in both the diagrammatic style [here](./tokens.md) and in our token model DSL [here](./l3.sqnc).
 
-This design has then also been translated to process flow guard rails whose implementation can be found in [`dscp-matchmaker-api`](https://github.com/digicatapult/dscp-matchmaker-api#process-flows).
+This design has then also been translated to process flow guard rails whose implementation can be found in [`sqnc-matchmaker-api`](https://github.com/digicatapult/sqnc-matchmaker-api#process-flows).
 
 ## API flows
 
-The API flows for 'dscp-matchmaker-api' can be found in [API flows](api_flow.md).
+The API flows for 'sqnc-matchmaker-api' can be found in [API flows](api_flow.md).
 
 ## Glossary and transaction summary
 
