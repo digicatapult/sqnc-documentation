@@ -1,6 +1,6 @@
 # API Flows
 
-This document describes the api flows that can be used to demonstrate the usage of DSCP for the Logistics Living Lab (L3) project. This document walks through the following flows:
+This document describes the api flows that can be used to demonstrate the usage of Sequence (SQNC) for the Logistics Living Lab (L3) project. This document walks through the following flows:
 
 1. [Prerequisites](#prerequisites) - contains prerequisites that should be completed prior to attempting any other flows
 2. [Match Flow](#match-flow) - contains the flows for creating demands, matching them and forming an agreement on the match
@@ -15,13 +15,13 @@ This document describes the api flows that can be used to demonstrate the usage 
 
 Full set of services required for running:
 
-- dscp-matchmaker-api (+ PostgreSQL)
-- dscp-identity-service (+ PostgreSQL)
-- dscp-node
+- sqnc-matchmaker-api (+ PostgreSQL)
+- sqnc-identity-service (+ PostgreSQL)
+- sqnc-node
 
-Refer [docker-compose-3-persona.yml](https://github.com/digicatapult/dscp-matchmaker-api/blob/main/docker-compose-3-persona.yml) in [dscp-matchmaker-api](https://github.com/digicatapult/dscp-matchmaker-api/tree/main)
+Refer [docker-compose-3-persona.yml](https://github.com/digicatapult/sqnc-matchmaker-api/blob/main/docker-compose-3-persona.yml) in [sqnc-matchmaker-api](https://github.com/digicatapult/sqnc-matchmaker-api/tree/main)
 
-## Setting node aliases (dscp-identity-service)
+## Setting node aliases (sqnc-identity-service)
 
 The values set for each persona are your choice, they should provide a recognisable value in response bodies.
 
@@ -226,7 +226,7 @@ Response:
 
 ### Viewing demands as another persona
 
-The indexers on Member B and Optimiser's dscp-matchmaker-api will process the new `demand_a` when the block containing it is finalised, and the new `demand_a` will be visible to them using `GET /v1/demandA`.
+The indexers on Member B and Optimiser's sqnc-matchmaker-api will process the new `demand_a` when the block containing it is finalised, and the new `demand_a` will be visible to them using `GET /v1/demandA`.
 
 #### Member B (capacity)
 

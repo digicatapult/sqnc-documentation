@@ -5,15 +5,15 @@ about: Create a report to help us improve
 
 <!--
 
-Have you read our Code of Conduct? By filing an Issue, you are expected to comply with it, including treating everyone with respect: https://github.com/digicatapult/dscp-documentation/.github/blob/main/CODE_OF_CONDUCT.md
+Have you read our Code of Conduct? By filing an Issue, you are expected to comply with it, including treating everyone with respect: https://github.com/digicatapult/sqnc-documentation/.github/blob/main/CODE_OF_CONDUCT.md
 
 -->
 
 ### Prerequisites
 
 - [ ] Put an X between the brackets on this line if you have done all of the following:
-  - Checked the FAQs for common solutions: <https://github.com/digicatapult/dscp-documentation/blob/main/CONTRIBUTING.md/#FAQs>
-  - Checked that your issue isn't already filed: <https://github.com/issues?utf8=✓&q=is%3Aissue+user%3Adscp-documentation>
+  - Checked the FAQs for common solutions: <https://github.com/digicatapult/sqnc-documentation/blob/main/CONTRIBUTING.md/#FAQs>
+  - Checked that your issue isn't already filed: <https://github.com/issues?utf8=✓&q=is%3Aissue+user%3Asqnc-documentation>
 
 ### Description
 

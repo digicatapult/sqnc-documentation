@@ -1,14 +1,14 @@
-# DSCP Lang Flows For HyProof
+# SQNC Lang Flows For HyProof
 
-DSCP is a _domain-specific-language_ ( DSL ) for designing **[token process flows](https://github.com/digicatapult/dscp-documentation/blob/main/docs/tokenModels/language.md)**. This new way of doing flows has a compiler for automatically generating process **[guard rails](https://github.com/digicatapult/dscp-documentation/blob/main/docs/tokenModels/guardRails.md)** using the previously mentioned purpose built compiler.
+SQNC is a _domain-specific-language_ ( DSL ) for designing **[token process flows](https://github.com/digicatapult/sqnc-documentation/blob/main/docs/tokenModels/language.md)**. This new way of doing flows has a compiler for automatically generating process **[guard rails](https://github.com/digicatapult/sqnc-documentation/blob/main/docs/tokenModels/guardRails.md)** using the previously mentioned purpose built compiler.
 
-The **`dscp-lang`**, tool we use for parsing token flows, can be found in the **[dscp-node](https://github.com/digicatapult/dscp-node)** repository.
+The **`sqnc-lang`**, tool we use for parsing token flows, can be found in the **[sqnc-node](https://github.com/digicatapult/sqnc-node)** repository.
 
-To differentiate documents with code that has a high-level of abstraction from other things, let's consider using the custom file extension **`*.dscp`**.
+To differentiate documents with code that has a high-level of abstraction from other things, let's consider using the custom file extension **`*.sqnc`**.
 
 ---
 
-## DSCP Lang Flows For HyProof: Overview
+## SQNC Lang Flows For HyProof: Overview
 
 In terms of how the information that needs to be persisted in on-chain looks like, it is important explain the big picture.
 
@@ -22,20 +22,20 @@ Assuming a simple user flow made out of two steps (1) token **A** gets created f
 
 ---
 
-## DSCP Lang Flows For HyProof: The Token Flows DSCP Code
+## SQNC Lang Flows For HyProof: The Token Flows SQNC Code
 
-The token model has been written originally in our Domain Specific Language ( DSCP DSL Lang ) and added to the API repo, as in **`dscp-hyproof-api`**, specifically, in **[processFlows.dscp](https://github.com/digicatapult/dscp-hyproof-api/blob/main/processFlows.dscp)**.
+The token model has been written originally in our Domain Specific Language ( SQNC DSL Lang ) and added to the API repo, as in **`sqnc-hyproof-api`**, specifically, in **[processFlows.sqnc](https://github.com/digicatapult/sqnc-hyproof-api/blob/main/processFlows.sqnc)**.
 
-The final JSON file containing all the flow guardrail restrictions has been compiled from that file. The file has been added to the same repo, more exactly, in **[processFlows.json](https://github.com/digicatapult/dscp-hyproof-api/blob/main/processFlows.json)**.
+The final JSON file containing all the flow guardrail restrictions has been compiled from that file. The file has been added to the same repo, more exactly, in **[processFlows.json](https://github.com/digicatapult/sqnc-hyproof-api/blob/main/processFlows.json)**.
 
 ---
 
-## DSCP Lang Flows For HyProof: Preparing and Testing
+## SQNC Lang Flows For HyProof: Preparing and Testing
 
-To compile the final _token flow json_ using the _token dscp code_ as an input the **[dscp-lang](https://github.com/digicatapult/dscp-node/tree/main/tools/lang)** needs to be used, therefore a command like the following:
+To compile the final _token flow json_ using the _token sqnc code_ as an input the **[sqnc-lang](https://github.com/digicatapult/sqnc-node/tree/main/tools/lang)** needs to be used, therefore a command like the following:
 
 ```sh
-dscp-lang -- build -v ./processFlows.dscp -o processFlows.json
+sqnc-lang -- build -v ./processFlows.sqnc -o processFlows.json
 ```
 
 To create, as in, deploy the new token flows ( described in the json ) into the node's _processValidation_ set, something like the following can be used ( make sure the chain is running first ):

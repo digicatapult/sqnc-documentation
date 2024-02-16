@@ -1,6 +1,6 @@
 # Governance
 
-This page describes some of the governance procedures within `dscp-node`.
+This page describes some of the governance procedures within `sqnc-node`.
 
 ## Create a Vote
 
@@ -10,7 +10,7 @@ To start a new vote select `Proposals`.
 
 ![Governance Tab](../assets/governance/1.png)
 
-On the `Proposals` screen select `Submit proposal` on the right hand side. This will bring up a new proposal which must be made from an initial account, for example, here Alice is creating a proposal. You may notice the use of the doAs pallet, for more information visit [dscp-node](https://github.com/digicatapult/dscp-node/blob/main/README.md#doas-pallet).
+On the `Proposals` screen select `Submit proposal` on the right hand side. This will bring up a new proposal which must be made from an initial account, for example, here Alice is creating a proposal. You may notice the use of the doAs pallet, for more information visit [sqnc-node](https://github.com/digicatapult/sqnc-node/blob/main/README.md#doas-pallet).
 
 ![Committee Motion](../assets/governance/2.png)
 

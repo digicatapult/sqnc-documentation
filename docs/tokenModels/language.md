@@ -1,24 +1,24 @@
-# DSCP Token Model DSL
+# SQNC Token Model DSL
 
 As an alternative approach to the [token model diagrams](./components.md) (see also the [pizza example](./example.md)) we have begun implementing a domain-specific-language (DSL) for designing token process flows. Note that this initially is being used as an illustration of a token model, but in the future we will be developing a compiler for automatically generating process [guard rails](./guardRails.md) using a purpose built compiler.
 
-## dscp-lang
+## sqnc-lang
 
-`dscp-lang`, the tool we use for parsing token flows, can be found in the [dscp-node](https://github.com/digicatapult/dscp-node) repository. At the moment we don't provide binary releases of `dscp-lang` so to use the tool you will need a valid and up to date `rust` development environment. See [here](https://www.rust-lang.org/) for details.
+`sqnc-lang`, the tool we use for parsing token flows, can be found in the [sqnc-node](https://github.com/digicatapult/sqnc-node) repository. At the moment we don't provide binary releases of `sqnc-lang` so to use the tool you will need a valid and up to date `rust` development environment. See [here](https://www.rust-lang.org/) for details.
 
-To use the tool you will need to compile `dscp-lang` by running from the root of that repository:
-
-```
-cargo build --profile=production -p dscp-lang
-```
-
-That will build `dscp-lang` under the `./target/production` directory. You can then parse a token definition file using the `parse` command, for example:
+To use the tool you will need to compile `sqnc-lang` by running from the root of that repository:
 
 ```
-./target/production/dscp-lang parse ./tools/lang/examples/l3.dscp
+cargo build --profile=production -p sqnc-lang
 ```
 
-## Writing a DSCP token model
+That will build `sqnc-lang` under the `./target/production` directory. You can then parse a token definition file using the `parse` command, for example:
+
+```
+./target/production/sqnc-lang parse ./tools/lang/examples/l3.sqnc
+```
+
+## Writing a SQNC token model
 
 A token model consists of two different things; token type definitions and token transition functions. These are written together in a single file (in these early days we don't yet have module support) and form the rules by which tokens can be created, modified and consumed.
 
