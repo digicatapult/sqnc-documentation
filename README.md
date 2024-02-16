@@ -39,7 +39,6 @@ These repositories contain code being actively maintained as part of the SQNC pr
 | [sqnc-flux-infra](https://github.com/digicatapult/sqnc-flux-infra)                 | Flux repo to bring up SQNC with Kubernetes                                    |
 | [sqnc-node](https://github.com/digicatapult/sqnc-node)                             | The blockchain node for SQNC, built with Substrate                            |
 | [sqnc-ipfs](https://github.com/digicatapult/sqnc-ipfs)                             | IPFS node for SQNC                                                            |
-| [sqnc-api](https://github.com/digicatapult/sqnc-api)                               | API to create/retrieve tokens on `sqnc-node` and files on `sqnc-ipfs`         |
 | [openapi-merger](https://github.com/digicatapult/openapi-merger)                   | Amalgamated API specs for OpenAPI                                             |
 | [sqnc-identity-service](https://github.com/digicatapult/sqnc-identity-service)     | API for managing chain member identities in SQNC                              |
 | [sqnc-process-management](https://github.com/digicatapult/sqnc-process-management) | Library for managing restricted process flows on `sqnc-node`                  |
@@ -49,21 +48,22 @@ These repositories contain code being actively maintained as part of the SQNC pr
 
 These repositories contain code written for specific projects that use Sequence (SQNC).
 
-| Repository                                                                 	| Description                                                                           	|
-|----------------------------------------------------------------------------	|---------------------------------------------------------------------------------------	|
-| [inteli-api](https://github.com/digicatapult/inteli-api)                   	| API for interacting with `sqnc-api` and `sqnc-identity-service` as an Inteli end-user 	|
-| [l3-flux-infra](https://github.com/digicatapult/l3-flux-infra)             	| Flux repo to bring up SQNC with Kubernetes for the Logistics Living Lab project       	|
-| [sqnc-hyproof-api](https://github.com/digicatapult/sqnc-hyproof-api)       	| SQNC HyProof API layer                                                                	|
-| [sqnc-hyproof-client](https://github.com/digicatapult/sqnc-hyproof-client) 	| SQNC HyProof graphic user interface front-end client                                  	|
+| Repository                                                                 | Description                                                                     |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| [l3-flux-infra](https://github.com/digicatapult/l3-flux-infra)             | Flux repo to bring up SQNC with Kubernetes for the Logistics Living Lab project |
+| [sqnc-hyproof-api](https://github.com/digicatapult/sqnc-hyproof-api)       | SQNC HyProof API layer                                                          |
+| [sqnc-hyproof-client](https://github.com/digicatapult/sqnc-hyproof-client) | SQNC HyProof graphic user interface front-end client                            |
 
 ### Deprecated SQNC repositories
 
 These repositories use SQNC but are now deprecated.
 
-| Repository                                                                 | Description                                 |
-| -------------------------------------------------------------------------- | ------------------------------------------- |
-| [inteli-demo](https://github.com/digicatapult/inteli-demo)                 | React demonstrator for the Inteli project   |
-| [vitalam-demo-client](https://github.com/digicatapult/vitalam-demo-client) | React demonstrators for the VITALam project |
+| Repository                                                                 | Description                                                                           |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| [inteli-demo](https://github.com/digicatapult/inteli-demo)                 | React demonstrator for the Inteli project                                             |
+| [vitalam-demo-client](https://github.com/digicatapult/vitalam-demo-client) | React demonstrators for the VITALam project                                           |
+| [dscp-api](https://github.com/digicatapult/dscp-api)                       | API to create/retrieve tokens on `sqnc-node` and files on `sqnc-ipfs`                 |
+| [inteli-api](https://github.com/digicatapult/inteli-api)                   | API for interacting with `sqnc-api` and `sqnc-identity-service` as an Inteli end-user |
 
 ## Lingo
 
