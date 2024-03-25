@@ -46,9 +46,11 @@ Types can be one of the following:
 2. `File` - a reference to a file stored off-chain
 3. `Literal` - an ASCII string value (max length 32 characters) that will be persisted on-chain
 4. A specific literal value such as `"created"`. Literal values follow the same escaping principles as strings in JSON.
-5. `None` - That the field must not be specified
-6. A reference to a token type which will be persisted based on the original token id of that token
-7. A union of any of the types above, for example the field `state: "created" | "allocated" | None` will allow the field `state` to contain either the literal `"created"` the literal `"allocated"` or to not be present at all
+5. `Integer` - a numeric signed (128 bit) integer that will be persisted on-chain
+6. A specific integer value such as `-42`
+7. `None` - That the field must not be specified
+8. A reference to a token type which will be persisted based on the original token id of that token
+9. A union of any of the types above, for example the field `state: "created" | "allocated" | None` will allow the field `state` to contain either the literal `"created"` the literal `"allocated"` or to not be present at all
 
 An example of a complete set of token definitions taken from the L3 project is then:
 
