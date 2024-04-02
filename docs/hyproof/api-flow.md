@@ -117,7 +117,7 @@ Once there are some aliases in the system you can retrieve them by passing a `GE
 
 ```sh
 curl http://localhost:9000/v1/members
-# OR curl http://localhost:9010/v1/members 
+# OR curl http://localhost:9010/v1/members
 # OR curl http://localhost:9020/v1/members
 ```
 
@@ -298,7 +298,7 @@ curl -X 'GET' http://localhost:8010/v1/certificate \
 
 ### Persona 3: Reginald the Regulator
 
-`Reginald the Regulator` has the power to revoke invalid certificates, but to prevent foul play there must always be an explanation given. 
+`Reginald the Regulator` has the power to revoke invalid certificates, but to prevent foul play there must always be an explanation given.
 
 The explanation will be given on a document stored in `IPFS` that is indelibly linked to the revoked certificate.
 
