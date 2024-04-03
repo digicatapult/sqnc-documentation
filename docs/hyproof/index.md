@@ -43,14 +43,6 @@ For more information about the API flow, read the appropriate MD file:
 
 ---
 
-## HyProof: Bird's Eye Overview
-
-To better understand this project from a high-level bird's eye point of view, read the appropriate MD file:
-
-* **[high-level-overview.md](./high-level-overview.md)**
-
----
-
 ## HyProof: Data Flow
 
 To better see, in a simplified way the data flow and the different levels of privacy, read the appropriate MD file:

@@ -4,7 +4,7 @@ SQNC is a _domain-specific-language_ ( DSL ) for designing **[token process flow
 
 The **`sqnc-lang`**, tool we use for parsing token flows, can be found in the **[sqnc-node](https://github.com/digicatapult/sqnc-node)** repository.
 
-To differentiate documents with code that has a high-level of abstraction from other things, let's consider using the custom file extension **`*.sqnc`**.
+To differentiate documents with code from others, we use the custom file extension **`*.sqnc`**.
 
 ---
 
