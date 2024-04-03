@@ -8,4 +8,4 @@ Sequence (SQNC) architecture has two variations depending on the use case:
 See the diagram for more details
 ![Architecture Diagram](../assets/architecture-v1.svg)
 
-[Edit diagram](https://docs.google.com/drawings/d/1eanItroFbYsq9VPdpPe-2vMjSPNHgFpFmLiL6K_K5mM/edit)
+[Edit diagram](https://docs.google.com/drawings/d/1XfUpwnfyK7UPiaFxpCp44wZ3VYP8Tzd4dN18nB-J9rU/edit)
