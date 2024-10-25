@@ -2,7 +2,7 @@
 
 As of writing this piece all metadata information is publicly available. We store information in metadata in the following ways:
 
-- Metadata file contents are stored in plaintext in IPFS.
+- Data file contents are stored in plaintext in IPFS.
 - Metadata values are stored on-chain in plaintext.
 - Metadata keys are stored on-chain in plaintext.
 
@@ -11,13 +11,13 @@ In addition to this even if we moved all of this information into an encrypted f
 - Process restrictions place restrictions on relationships between metadata values on different tokens.
 - The existence of the token transactions leaks information about what tokens are related.
 
-Fundamentally restricting this sort of information would likely require a rethink of the token model we’ve taken. Likely it would result in losing the guardrails of process flows entirely. This investigation therefore assumes that this is beyond scope and will simply focus on strategies for hiding the metadata itself.
+Fundamentally restricting this sort of information would likely require a rethink of the token model we’ve taken. Likely it would result in losing the guardrails of process flows entirely. This investigation therefore assumes that this is beyond scope and will simply focus on strategies for hiding the metadata and data themselves.
 
-# Metadata File Contents
+# Data File Contents
 
-Files in IPFS are shared freely and no access control mechanisms are implemented therein. This is a limitation of IPFS and there are no technical reasons why a different value addressed distributed filestore couldn’t provide these features. For now however we consider approaches to encrypting the files that are placed in IPFS.
+Files in IPFS are shared freely and no access control mechanisms are implemented therein. This is a limitation of IPFS and there are no technical reasons why a different content-addressed distributed filestore couldn’t provide these features. For now however we consider approaches to encrypting the files that are placed in IPFS.
 
-Files placed in IPFS may be large. It therefore only makes sense to encrypt them with a symmetric block cipher. The challenge therefore is how to share the symmetric encryption key with other parties. This should clearly happen on-chain via an appropriate key exchange mechanism, but this presents an additional concern; what happens if a party gives two different symmetric keys to different chain members? The risk here is that the canonical contents of the file as described by the on-chain reference are undermined.
+Files placed in IPFS may be large. It therefore only makes sense to encrypt them with a symmetric block cipher. The challenge therefore is how to share the symmetric encryption key with other parties. This should clearly happen on-chain via an appropriate key exchange mechanism to prove that sharing occurred, but this presents an additional concern; what happens if a party gives two different symmetric keys to different chain members? The risk here is that the canonical contents of the file as described by the on-chain reference are undermined.
 
 Essentially what we need is something called [publicly verifiable secret sharing](https://en.wikipedia.org/wiki/Publicly_Verifiable_Secret_Sharing). Under a publicly verifiable secret sharing scheme a party is able to privately share a secret (in this case a symmetric encryption key) with another party whilst proving to all other chain members that the secret has indeed been shared correctly. A commonly used method for this is the [Chaum-Pedersen Protocol](https://chaum.com/wp-content/uploads/2021/12/Wallet_Databases.pdf). Essentially the protocol proves that two encryptions correspond to the same underlying plaintext.
 
@@ -45,10 +45,10 @@ Individual restrictions only perform equality checks on metadata values and look
 
 # Implementation Considerations
 
-1. Most considerations from the metadata file contents section still apply
+1. Most considerations from the data file contents section still apply
 
-2. Encrypting values directly (some of which might form a limited sized enum) will require a padding scheme such as [Optimal asymmetric encryption padding](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding). This will require further limiting metadata sizes to incorporate padding
+2. Encrypting metadata values directly (some of which might form a limited sized enum) will require a padding scheme such as [Optimal asymmetric encryption padding](https://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding). This will require further limiting metadata sizes to incorporate padding
 
 3. Bloat on the transaction size is substantial
 
-It’s worth noting this is of substantially lower value than encrypting file contents. Information only needs to be held directly on tokens if we interact with that information in process flows. One could argue that it is desirable in this case to just not have the guardrails provided by process flows and place the information in file contents.
+It’s worth noting this is of substantially lower value than encrypting data file contents. Information only needs to be held directly on tokens if we interact with that information in process flows. One could argue that it is desirable in this case to just not have the guardrails provided by process flows and place the information in file contents.
